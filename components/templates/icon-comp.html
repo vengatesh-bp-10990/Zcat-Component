@@ -23,14 +23,14 @@
 
         <!-- Icon Grid -->
         <div class="zcat-icon-grid">
-          <lyte-for items="{{iconList}}" item="iconItem" index="iconIdx">
+          <template lyte-for="{{iconList}} as iconItem iconIdx">
             <div class="zcat-icon-card {{iconItem.hidden ? 'zcat-icon-hidden' : ''}}" onclick="{{action('copyIconTag', iconItem)}}" title="Click to copy: {{iconItem.name}}">
               <div class="zcat-icon-card-preview">
                 <zcat-icon name="{{iconItem.name}}" width="{{iconSize}}" height="{{iconSize}}" stroke="{{iconColor}}" stroke-width="{{iconStrokeWidth}}"></zcat-icon>
               </div>
               <span class="zcat-icon-card-label">{{iconItem.name}}</span>
             </div>
-          </lyte-for>
+          </template>
         </div>
 
         <!-- Copied Toast -->
