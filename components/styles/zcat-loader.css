@@ -3,6 +3,11 @@
    3 types: content (skeleton), spin, progress
    ============================== */
 
+zcat-loader {
+  display: block;
+  width: 100%;
+}
+
 zcat-loader * {
   box-sizing: border-box;
 }

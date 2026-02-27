@@ -138,45 +138,47 @@
     max-width: 100px;
 }
 
-/* Usage code */
-.zcat-icon-usage-code {
-    background: var(--zcat-surface-secondary);
-    border-radius: 8px;
-    padding: 12px 14px;
-    margin-bottom: 16px;
-    overflow-x: auto;
-}
-.zcat-icon-usage-code pre {
-    font-size: 11px;
-    line-height: 1.6;
-    color: var(--zcat-text-secondary);
-    margin: 0;
-    white-space: pre;
-    font-family: 'Zoho Puvi', monospace;
-}
-
-/* Props table */
-.zcat-icon-props-table {
+/* Slider row */
+.zcat-icon-slider-row {
     display: flex;
-    flex-direction: column;
-    gap: 0;
-    border: 1px solid var(--zcat-border-default);
-    border-radius: 8px;
-    overflow: hidden;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
 }
-.zcat-icon-prop-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 6px 12px;
-    font-size: 11px;
-    color: var(--zcat-text-secondary);
-    border-bottom: 1px solid var(--zcat-border-default);
+.zcat-icon-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--zcat-border-default);
+    outline: none;
+    cursor: pointer;
 }
-.zcat-icon-prop-row:last-child {
-    border-bottom: none;
+.zcat-icon-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--zcat-primary-1, #2A65F0);
+    border: 2px solid var(--zcat-surface-primary);
+    box-shadow: 0 0 0 1px var(--zcat-primary-1, #2A65F0);
+    cursor: pointer;
 }
-.zcat-icon-prop-header {
+.zcat-icon-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--zcat-primary-1, #2A65F0);
+    border: 2px solid var(--zcat-surface-primary);
+    box-shadow: 0 0 0 1px var(--zcat-primary-1, #2A65F0);
+    cursor: pointer;
+}
+.zcat-icon-slider-value {
+    font-size: 12px;
     font-weight: 600;
     color: var(--zcat-text-primary);
-    background: var(--zcat-surface-secondary);
+    min-width: 24px;
+    text-align: center;
 }

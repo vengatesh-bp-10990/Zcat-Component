@@ -25,10 +25,34 @@ class IconComp extends Component {
         }
         this.setData('iconList', iconList);
         this.setData('filteredCount', allIcons.length);
+        this.constructCodeSnippet();
     }
 
     didConnect() {
         this._bindEvents();
+    }
+
+    constructCodeSnippet() {
+        // sLyte tab
+        var slyte_code = '<zcat-icon\n  name="icon-name"\n  width="16"\n  height="16"\n  stroke="var(--token)"\n  stroke-width="1.3"\n></zcat-icon>';
+
+        // JS tab — props table
+        var js_code = '// Props\n// name       : string  (default: \'\')\n// width      : string  (default: \'14\')\n// height     : string  (default: \'14\')\n// stroke     : string  (default: \'\')\n// strokeWidth: string  (default: \'1.3\')\n// fill       : string  (default: \'\')';
+
+        // sLyte New tab
+        var newSlyte_code = '<zcat-icon\n  name="icon-name"\n  zcat-prop-width="16"\n  zcat-prop-height="16"\n  zcat-prop-stroke="var(--token)"\n  zcat-prop-stroke-width="1.3"\n></zcat-icon>';
+
+        // HTML tab
+        var html_code = '<!-- Using the zcat-icon component -->\n<zcat-icon name="search" width="16" height="16"\n  stroke="currentColor" stroke-width="1.3">\n</zcat-icon>\n\n<!-- Available Icons (' + allIcons.length + ') -->\n' + allIcons.join(', ');
+
+        // CSS tab
+        var css_code = '/* Icon component has no required CSS.\n   Use stroke/fill props or CSS tokens to control color. */\n\nzcat-icon svg {\n  display: block;\n}';
+
+        this.setData('slyteCodeSnippet.code', slyte_code);
+        this.setData('jsCodeSnippet.code', js_code);
+        this.setData('newSlyteCodeSnippet.code', newSlyte_code);
+        this.setData('htmlCodeSnippet.code', html_code);
+        this.setData('cssCodeSnippet.code', css_code);
     }
 
     _bindEvents() {
@@ -51,10 +75,10 @@ class IconComp extends Component {
             });
         }
 
-        // Stroke Width
-        var strokeSelect = node.querySelector('[data-action="changeStrokeWidth"]');
-        if (strokeSelect) {
-            strokeSelect.addEventListener('change', function (e) {
+        // Stroke Width — range slider
+        var strokeSlider = node.querySelector('[data-action="changeStrokeWidth"]');
+        if (strokeSlider) {
+            strokeSlider.addEventListener('input', function (e) {
                 comp.setData('iconStrokeWidth', e.target.value);
             });
         }
@@ -99,7 +123,13 @@ class IconComp extends Component {
             iconStrokeWidth: prop('string', { default: '1.3' }),
             iconColor: prop('string', { default: '#555555' }),
             showCopied: prop('boolean', { default: false }),
-            copiedText: prop('string', { default: '' })
+            copiedText: prop('string', { default: '' }),
+            activeTab: prop('string', { default: 'slyte' }),
+            slyteCodeSnippet: prop('object', { default: { code: '' } }),
+            jsCodeSnippet: prop('object', { default: { code: '' } }),
+            newSlyteCodeSnippet: prop('object', { default: { code: '' } }),
+            htmlCodeSnippet: prop('object', { default: { code: '' } }),
+            cssCodeSnippet: prop('object', { default: { code: '' } })
         };
     }
 
@@ -109,6 +139,21 @@ class IconComp extends Component {
 
     static actions() {
         return {
+            showSlyteTab() { this.setData('activeTab', 'slyte'); },
+            showJsTab() { this.setData('activeTab', 'js'); },
+            showNewSlyteTab() { this.setData('activeTab', 'newslyte'); },
+            showHtmlTab() { this.setData('activeTab', 'html'); },
+            showCssTab() { this.setData('activeTab', 'css'); },
+            copyCode() {
+                var tab = this.getData('activeTab');
+                var code;
+                if (tab === 'slyte') { code = this.getData('slyteCodeSnippet.code'); }
+                else if (tab === 'js') { code = this.getData('jsCodeSnippet.code'); }
+                else if (tab === 'newslyte') { code = this.getData('newSlyteCodeSnippet.code'); }
+                else if (tab === 'html') { code = this.getData('htmlCodeSnippet.code'); }
+                else if (tab === 'css') { code = this.getData('cssCodeSnippet.code'); }
+                if (navigator.clipboard) { navigator.clipboard.writeText(code); }
+            },
             copyIconTag(iconItem) {
                 var name = iconItem.name;
                 var tag = '<zcat-icon name="' + name + '" width="16" height="16" stroke="currentColor" stroke-width="1.3"></zcat-icon>';

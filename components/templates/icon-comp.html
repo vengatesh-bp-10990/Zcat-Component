@@ -33,6 +33,27 @@
           </template>
         </div>
 
+        <!-- Code Tabs -->
+        <div class="zcat-code-tabs" style="margin-top:24px;">
+          <span class="zcat-code-tab {{activeTab === 'slyte' ? 'active' : ''}}" onclick="{{action('showSlyteTab')}}">sLyte</span>
+          <span class="zcat-code-tab {{activeTab === 'js' ? 'active' : ''}}" onclick="{{action('showJsTab')}}">JS</span>
+          <span class="zcat-code-tab {{activeTab === 'newslyte' ? 'active' : ''}}" onclick="{{action('showNewSlyteTab')}}">sLyte New</span>
+          <span class="zcat-code-tab {{activeTab === 'html' ? 'active' : ''}}" onclick="{{action('showHtmlTab')}}">HTML</span>
+          <span class="zcat-code-tab {{activeTab === 'css' ? 'active' : ''}}" onclick="{{action('showCssTab')}}">CSS</span>
+        </div>
+        <div class="zcat-code-panel">
+          <div class="zcat-code-lines">
+            <pre lyte-if="{{activeTab === 'slyte'}}">{{slyteCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'js'}}">{{jsCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'newslyte'}}">{{newSlyteCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'html'}}">{{htmlCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'css'}}">{{cssCodeSnippet.code}}</pre>
+          </div>
+          <span class="zcat-code-copy" onclick="{{action('copyCode')}}" title="Copy code">
+            <zcat-icon name="copy" width="16" height="16" stroke="currentColor" stroke-width="1.3"></zcat-icon>
+          </span>
+        </div>
+
         <!-- Copied Toast -->
         <div class="zcat-icon-copied-toast {{showCopied ? 'zcat-icon-copied-show' : ''}}">
           <zcat-icon name="tick-circle" width="14" height="14" stroke="var(--zcat-alerts-success-text-primary)"></zcat-icon>
@@ -62,13 +83,10 @@
           <!-- Stroke Width -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Stroke Width</span>
-            <select data-action="changeStrokeWidth" class="zcat-custom-select">
-              <option value="1">1</option>
-              <option value="1.3" selected>1.3</option>
-              <option value="1.5">1.5</option>
-              <option value="2">2</option>
-              <option value="2.5">2.5</option>
-            </select>
+            <div class="zcat-icon-slider-row">
+              <input type="range" class="zcat-icon-slider" data-action="changeStrokeWidth" min="0.5" max="3" step="0.1" value="1.3"/>
+              <span class="zcat-icon-slider-value">{{iconStrokeWidth}}</span>
+            </div>
           </div>
           <!-- Static Icon Color -->
           <div class="zcat-custom-row">
@@ -80,44 +98,7 @@
           </div>
         </div>
 
-        <!-- Usage Guide -->
-        <div class="zcat-custom-header" style="margin-top:24px;">
-          <h3 class="zcat-custom-title">Usage</h3>
-        </div>
-        <div class="zcat-custom-body">
-          <div class="zcat-icon-usage-code">
-            <pre>&lt;zcat-icon
-  name="icon-name"
-  width="16"
-  height="16"
-  stroke="var(--token)"
-  stroke-width="1.3"
-&gt;&lt;/zcat-icon&gt;</pre>
-          </div>
-          <div class="zcat-icon-props-table">
-            <div class="zcat-icon-prop-row zcat-icon-prop-header">
-              <span>Prop</span><span>Type</span><span>Default</span>
-            </div>
-            <div class="zcat-icon-prop-row">
-              <span>name</span><span>string</span><span>''</span>
-            </div>
-            <div class="zcat-icon-prop-row">
-              <span>width</span><span>string</span><span>'14'</span>
-            </div>
-            <div class="zcat-icon-prop-row">
-              <span>height</span><span>string</span><span>'14'</span>
-            </div>
-            <div class="zcat-icon-prop-row">
-              <span>stroke</span><span>string</span><span>''</span>
-            </div>
-            <div class="zcat-icon-prop-row">
-              <span>strokeWidth</span><span>string</span><span>'1.3'</span>
-            </div>
-            <div class="zcat-icon-prop-row">
-              <span>fill</span><span>string</span><span>''</span>
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
