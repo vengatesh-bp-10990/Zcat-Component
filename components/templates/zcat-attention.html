@@ -1,8 +1,11 @@
 <template tag-name="zcat-attention">
-  <div class="zcat-attention-container">
+  <div class="zcat-attention-container zcat-atten-{{zcatProp.type || 'default'}}">
     <div class="zcat-attention-inner">
       <div class="zcat-attention-icon-wrap">
-        <svg class="zcat-attention-icon" width="14" height="14" viewBox="0 0 12 12" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8V6M6 4H6.005M11 6C11 8.76142 8.76142 11 6 11C3.23858 11 1 8.76142 1 6C1 3.23858 3.23858 1 6 1C8.76142 1 11 3.23858 11 6Z" stroke="var(--zcat-attention-default-icon)" stroke-width="1.3"/></svg>
+        <zcat-icon lyte-if="{{zcatProp.type === 'success'}}" name="alert-success" width="14" height="14" stroke="currentColor" stroke-width="1.3"></zcat-icon>
+        <zcat-icon lyte-else-if="{{zcatProp.type === 'danger'}}" name="alert-danger" width="14" height="14" stroke="currentColor" stroke-width="1.3"></zcat-icon>
+        <zcat-icon lyte-else-if="{{zcatProp.type === 'warning'}}" name="alert-warning" width="14" height="14" stroke="currentColor" stroke-width="1.3"></zcat-icon>
+        <zcat-icon lyte-else name="info" width="14" height="14" stroke="currentColor" stroke-width="1.3"></zcat-icon>
       </div>
       <div class="zcat-attention-text">
         <span class="zcat-attention-head {{zcatProp.desc ? 'zcat-attention-head-bold' : ''}}">{{zcatProp.name}}</span>

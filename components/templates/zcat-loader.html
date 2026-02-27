@@ -35,6 +35,6 @@
       <div class="zcat-skeleton-col"></div>
     </div>
   </div>
-  <div lyte-if="{{zcatProp.type === 'spin'}}" class="zcat-spin-loader"></div>
-  <div lyte-if="{{zcatProp.type !== 'content' && zcatProp.type !== 'spin'}}" class="zcat-progress-loader"></div>
+  <div lyte-else-if="{{zcatProp.type === 'spin'}}" class="zcat-spin-loader"></div>
+  <div lyte-else class="zcat-progress-loader"></div>
 </template>

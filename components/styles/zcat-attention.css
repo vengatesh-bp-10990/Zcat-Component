@@ -1,6 +1,7 @@
 /* ==============================
    ZCAT Attention Component
    Inline info/notice banner
+   Types: default, info, success, danger, warning
    ============================== */
 
 zcat-attention * {
@@ -12,9 +13,29 @@ zcat-attention * {
   width: 100%;
   padding: 10px 14px;
   border-radius: 8px;
+  font-family: var(--zcat-font-family-primary);
+}
+
+/* --- Type Variants --- */
+.zcat-atten-default {
   background: var(--zcat-attention-default-bg);
   border: 1px solid var(--zcat-attention-default-border);
-  font-family: var(--zcat-font-family-primary);
+}
+.zcat-atten-info {
+  background: var(--zcat-alerts-info-bg);
+  border: 1px solid var(--zcat-alerts-info-border);
+}
+.zcat-atten-success {
+  background: var(--zcat-alerts-success-bg);
+  border: 1px solid var(--zcat-alerts-success-border);
+}
+.zcat-atten-danger {
+  background: var(--zcat-alerts-danger-bg);
+  border: 1px solid var(--zcat-alerts-danger-border);
+}
+.zcat-atten-warning {
+  background: var(--zcat-alerts-warning-bg);
+  border: 1px solid var(--zcat-alerts-warning-border);
 }
 
 .zcat-attention-inner {
@@ -33,8 +54,25 @@ zcat-attention * {
   width: 14px;
   height: 20px;
 }
-.zcat-attention-icon {
-  display: block;
+.zcat-attention-icon-wrap zcat-icon {
+  display: flex;
+}
+
+/* Icon color per type */
+.zcat-atten-default .zcat-attention-icon-wrap {
+  color: var(--zcat-attention-default-icon);
+}
+.zcat-atten-info .zcat-attention-icon-wrap {
+  color: var(--zcat-alerts-info-icon);
+}
+.zcat-atten-success .zcat-attention-icon-wrap {
+  color: var(--zcat-alerts-success-icon);
+}
+.zcat-atten-danger .zcat-attention-icon-wrap {
+  color: var(--zcat-alerts-danger-icon);
+}
+.zcat-atten-warning .zcat-attention-icon-wrap {
+  color: var(--zcat-alerts-warning-icon);
 }
 
 /* --- Text content --- */
@@ -45,16 +83,61 @@ zcat-attention * {
   min-width: 0;
   flex: 1;
 }
-.zcat-attention-head {
+
+/* Heading color per type */
+.zcat-atten-default .zcat-attention-head {
   font: 400 14px/20px var(--zcat-font-family-primary);
   color: var(--zcat-attention-default-text-primary);
   word-break: break-word;
 }
+.zcat-atten-info .zcat-attention-head {
+  font: 400 14px/20px var(--zcat-font-family-primary);
+  color: var(--zcat-alerts-info-text-primary);
+  word-break: break-word;
+}
+.zcat-atten-success .zcat-attention-head {
+  font: 400 14px/20px var(--zcat-font-family-primary);
+  color: var(--zcat-alerts-success-text-primary);
+  word-break: break-word;
+}
+.zcat-atten-danger .zcat-attention-head {
+  font: 400 14px/20px var(--zcat-font-family-primary);
+  color: var(--zcat-alerts-danger-text-primary);
+  word-break: break-word;
+}
+.zcat-atten-warning .zcat-attention-head {
+  font: 400 14px/20px var(--zcat-font-family-primary);
+  color: var(--zcat-alerts-warning-text-primary);
+  word-break: break-word;
+}
+
 .zcat-attention-head-bold {
   font-weight: 600;
 }
-.zcat-attention-desc {
+
+/* Description color per type */
+.zcat-atten-default .zcat-attention-desc {
   font: 400 13px/18px var(--zcat-font-family-primary);
   color: var(--zcat-attention-default-text-secondary);
+  word-break: break-word;
+}
+.zcat-atten-info .zcat-attention-desc {
+  font: 400 13px/18px var(--zcat-font-family-primary);
+  color: var(--zcat-alerts-info-text-secondary);
+  word-break: break-word;
+}
+.zcat-atten-success .zcat-attention-desc {
+  font: 400 13px/18px var(--zcat-font-family-primary);
+  color: var(--zcat-alerts-success-text-secondary);
+  word-break: break-word;
+}
+.zcat-atten-danger .zcat-attention-desc {
+  font: 400 13px/18px var(--zcat-font-family-primary);
+  color: var(--zcat-alerts-danger-text-secondary);
+  word-break: break-word;
+}
+.zcat-atten-warning .zcat-attention-desc {
+  font: 400 13px/18px var(--zcat-font-family-primary);
+  color: var(--zcat-alerts-warning-text-secondary);
   word-break: break-word;
 }

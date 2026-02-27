@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="zcat-page-header">
       <h1 class="zcat-page-title">Attention</h1>
-      <p class="zcat-page-desc">Attention banners are inline notices that provide contextual information, tips, or guidance within a page section.</p>
+      <p class="zcat-page-desc">Attention banners are inline notices that provide contextual information, tips, or guidance within a page section. Available in Default, Info, Success, Danger and Warning types.</p>
       <div class="zcat-page-tabs">
         <span class="zcat-page-tab {{pageTab === 'customize' ? 'active' : ''}}" onclick="{{action('showCustomizeTab')}}">Customize</span>
         <span class="zcat-page-tab {{pageTab === 'variants' ? 'active' : ''}}" onclick="{{action('showVariantsTab')}}">All Variants</span>
@@ -38,7 +38,7 @@
             <pre lyte-if="{{activeTab === 'css'}}">{{cssCodeSnippet.code}}</pre>
           </div>
           <span class="zcat-code-copy" onclick="{{action('copyCode')}}" title="Copy code">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <zcat-icon name="copy" width="16" height="16" stroke="currentColor" stroke-width="1.3"></zcat-icon>
           </span>
         </div>
       </div>
@@ -50,6 +50,22 @@
           <zcat-button self="{{self}}" zcat-prop="{{resetButtonObj}}"></zcat-button>
         </div>
         <div class="zcat-custom-body">
+          <!-- Type -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Type</span>
+            <select data-action="changeAttentionType" class="zcat-custom-select">
+              <option value="default">Default</option>
+              <option value="info">Info</option>
+              <option value="success">Success</option>
+              <option value="danger">Danger</option>
+              <option value="warning">Warning</option>
+            </select>
+          </div>
+          <!-- Heading Text -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Heading</span>
+            <input type="text" data-action="changeAttentionHeading" class="zcat-custom-input" value="{{attentionObj.name}}" placeholder="Heading text" />
+          </div>
           <!-- Description toggle -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Description</span>
@@ -61,7 +77,41 @@
 
     <!-- Body: All Variants Tab -->
     <div class="zcat-page-left" lyte-if="{{pageTab === 'variants'}}" style="flex:1">
-      <h3 class="zcat-section-label" style="margin-top:4px">Attention Variants</h3>
+      <h3 class="zcat-section-label" style="margin-top:4px">Type Variants</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Default</span></div>
+          <div class="zcat-variant-card-preview" style="padding:12px;">
+            <zcat-attention self="{{self}}" zcat-prop="{{variantDefaultObj}}"></zcat-attention>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Info</span></div>
+          <div class="zcat-variant-card-preview" style="padding:12px;">
+            <zcat-attention self="{{self}}" zcat-prop="{{variantInfoObj}}"></zcat-attention>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Success</span></div>
+          <div class="zcat-variant-card-preview" style="padding:12px;">
+            <zcat-attention self="{{self}}" zcat-prop="{{variantSuccessObj}}"></zcat-attention>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Danger</span></div>
+          <div class="zcat-variant-card-preview" style="padding:12px;">
+            <zcat-attention self="{{self}}" zcat-prop="{{variantDangerObj}}"></zcat-attention>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Warning</span></div>
+          <div class="zcat-variant-card-preview" style="padding:12px;">
+            <zcat-attention self="{{self}}" zcat-prop="{{variantWarningObj}}"></zcat-attention>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="zcat-section-label" style="margin-top:24px">Content Variants</h3>
       <div class="zcat-variants-grid">
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Heading Only</span></div>

@@ -43,20 +43,12 @@ zcat-alert p {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
 }
 .zcat-alert-has-header .zcat-alert-icon-wrap {
-  width: 20px;
-  height: 20px;
   margin-top: 1px;
 }
-.zcat-alert-icon {
-  display: block;
-}
-.zcat-alert-has-header .zcat-alert-icon {
-  width: 20px;
-  height: 20px;
+.zcat-alert-icon-wrap zcat-icon {
+  display: flex;
 }
 
 /* --- Text content --- */

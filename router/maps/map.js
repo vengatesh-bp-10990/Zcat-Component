@@ -13,6 +13,7 @@ class ZcatAppMap extends RouterMap {
             this.route("radio",{path:'/radio'});
             this.route("checkbox",{path:'/checkbox'});
             this.route("toggle",{path:'/toggle'});
+            this.route("icon",{path:'/icon'});
             this.route("alert",{path:'/alert'});
             this.route("loader",{path:'/loader'});
             this.route("attention",{path:'/attention'});

@@ -10,14 +10,41 @@ class AttentionComp extends Component {
     this.constructCodeSnippet();
   }
 
+  didConnect() {
+    this._bindCustomiseEvents();
+  }
+
+  _bindCustomiseEvents() {
+    let comp = this;
+    let node = this.$node;
+
+    let typeSelect = node.querySelector('[data-action="changeAttentionType"]');
+    if (typeSelect) {
+      typeSelect.addEventListener('change', function (e) {
+        comp.$app.objectUtils(comp.getData('attentionObj'), 'add', 'type', e.target.value);
+        comp.constructCodeSnippet();
+      });
+    }
+
+    let headingInput = node.querySelector('[data-action="changeAttentionHeading"]');
+    if (headingInput) {
+      headingInput.addEventListener('input', function (e) {
+        comp.$app.objectUtils(comp.getData('attentionObj'), 'add', 'name', e.target.value);
+        comp.constructCodeSnippet();
+      });
+    }
+  }
+
   constructCodeSnippet() {
     let attentionObj = this.getData('attentionObj') || {};
+    let type = attentionObj.type || 'default';
 
     // --- sLyte tab ---
     let slyte_code = '<zcat-attention\n  self="{{self}}"\n  zcat-prop="{{attentionObj}}"\n></zcat-attention>';
 
     // --- JS tab ---
     let propObj = { name: attentionObj.name || 'Notice heading' };
+    if (type !== 'default') { propObj.type = type; }
     if (attentionObj.desc) { propObj.desc = attentionObj.desc; }
     let js_code = 'data() {\n  return {\n    self: prop(\'object\', { default: this }),\n    attentionObj: prop(\'object\', {\n      default: ' + JSON.stringify(propObj, null, 6) + '\n    })\n  };\n}';
 
@@ -25,17 +52,24 @@ class AttentionComp extends Component {
     let newSlyteAttrs = [];
     newSlyteAttrs.push('  self="{{self}}"');
     newSlyteAttrs.push('  zcat-prop-name="' + (attentionObj.name || 'Notice heading') + '"');
+    if (type !== 'default') { newSlyteAttrs.push('  zcat-prop-type="' + type + '"'); }
     if (attentionObj.desc) { newSlyteAttrs.push('  zcat-prop-desc="' + attentionObj.desc + '"'); }
     let newSlyte_code = '// Template\n<zcat-attention\n' + newSlyteAttrs.join('\n') + '\n></zcat-attention>';
 
     // --- HTML tab ---
+    let containerClass = 'zcat-attention-container zcat-atten-' + type;
     let headClass = attentionObj.desc ? 'zcat-attention-head zcat-attention-head-bold' : 'zcat-attention-head';
     let descHtml = attentionObj.desc ? '\n    <span class="zcat-attention-desc">' + attentionObj.desc + '</span>' : '';
 
-    let html_code = '<div class="zcat-attention-container">\n'
+    let iconName = 'info';
+    if (type === 'success') { iconName = 'alert-success'; }
+    else if (type === 'danger') { iconName = 'alert-danger'; }
+    else if (type === 'warning') { iconName = 'alert-warning'; }
+
+    let html_code = '<div class="' + containerClass + '">\n'
       + '  <div class="zcat-attention-inner">\n'
       + '    <div class="zcat-attention-icon-wrap">\n'
-      + '      <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M6 8V6M6 4H6.005M11 6C11 8.76 8.76 11 6 11S1 8.76 1 6 3.24 1 6 1s5 2.24 5 5z" stroke="var(--zcat-attention-default-icon)" stroke-width="1.3"/></svg>\n'
+      + '      <zcat-icon name="' + iconName + '" width="14" stroke="currentColor" stroke-width="1.3"></zcat-icon>\n'
       + '    </div>\n'
       + '    <div class="zcat-attention-text">\n'
       + '      <span class="' + headClass + '">' + (attentionObj.name || 'Notice heading') + '</span>'
@@ -45,9 +79,10 @@ class AttentionComp extends Component {
       + '</div>';
 
     // --- CSS tab ---
-    let css_code = '.zcat-attention-container {\n  display: flex;\n  padding: 10px 14px;\n  border-radius: 8px;\n  background: var(--zcat-attention-default-bg);\n  border: 1px solid var(--zcat-attention-default-border);\n}\n\n';
-    css_code += '.zcat-attention-head {\n  font: 400 14px/20px var(--zcat-font-family-primary);\n  color: var(--zcat-attention-default-text-primary);\n}\n\n';
-    css_code += '.zcat-attention-desc {\n  font: 400 13px/18px var(--zcat-font-family-primary);\n  color: var(--zcat-attention-default-text-secondary);\n}';
+    let tokenPrefix = type === 'default' ? '--zcat-attention-default' : '--zcat-alerts-' + type;
+    let css_code = '.' + containerClass.split(' ').pop() + ' {\n  border: 1px solid var(' + tokenPrefix + '-border);\n  background: var(' + tokenPrefix + '-bg);\n}\n\n';
+    css_code += '.zcat-attention-head {\n  font: 400 14px/20px var(--zcat-font-family-primary);\n  color: var(' + tokenPrefix + '-text-primary);\n}\n\n';
+    css_code += '.zcat-attention-desc {\n  font: 400 13px/18px var(--zcat-font-family-primary);\n  color: var(' + tokenPrefix + '-text-secondary);\n}';
 
     this.setData('slyteCodeSnippet.code', slyte_code);
     this.setData('jsCodeSnippet.code', js_code);
@@ -63,7 +98,8 @@ class AttentionComp extends Component {
       self: prop('object', { default: this }),
       attentionObj: prop('object', {
         default: {
-          name: 'This field is required before submission.'
+          name: 'This field is required before submission.',
+          type: 'default'
         }
       }),
       resetButtonObj: prop('object', {
@@ -78,7 +114,23 @@ class AttentionComp extends Component {
       toggleDescObj: prop('object', {
         default: { checked: false, size: 'small', callback: { name: 'onToggleDesc' } }
       }),
-      // --- All Variants objects ---
+      // --- Type Variant objects ---
+      variantDefaultObj: prop('object', {
+        default: { type: 'default', name: 'Default notice — general information.', desc: 'This is a neutral attention banner for general guidance.' }
+      }),
+      variantInfoObj: prop('object', {
+        default: { type: 'info', name: 'Info notice — helpful tip.', desc: 'You can use keyboard shortcuts to speed up your workflow.' }
+      }),
+      variantSuccessObj: prop('object', {
+        default: { type: 'success', name: 'Success notice — action completed.', desc: 'Your changes have been saved successfully.' }
+      }),
+      variantDangerObj: prop('object', {
+        default: { type: 'danger', name: 'Danger notice — critical alert.', desc: 'This action is irreversible. Please proceed with caution.' }
+      }),
+      variantWarningObj: prop('object', {
+        default: { type: 'warning', name: 'Warning notice — heads up.', desc: 'Your session will expire in 5 minutes. Save your work.' }
+      }),
+      // --- Content Variant objects ---
       variantHeadOnlyObj: prop('object', {
         default: { name: 'This field is required before submission.' }
       }),
@@ -86,7 +138,7 @@ class AttentionComp extends Component {
         default: { name: 'Important Notice', desc: 'Please review the changes carefully before saving. Unsaved progress will be lost.' }
       }),
       variantLongObj: prop('object', {
-        default: { name: 'System Maintenance', desc: 'The platform will undergo scheduled maintenance on Saturday from 2:00 AM to 6:00 AM UTC. During this time, some features may be unavailable.' }
+        default: { type: 'info', name: 'System Maintenance', desc: 'The platform will undergo scheduled maintenance on Saturday from 2:00 AM to 6:00 AM UTC. During this time, some features may be unavailable.' }
       }),
       jsCodeSnippet: prop('object', { default: { code: '' } }),
       slyteCodeSnippet: prop('object', { default: { code: '' } }),
@@ -100,9 +152,14 @@ class AttentionComp extends Component {
     return {
       resetCustomization() {
         this.setData('attentionObj', {
-          name: 'This field is required before submission.'
+          name: 'This field is required before submission.',
+          type: 'default'
         });
         this.$app.objectUtils(this.getData('toggleDescObj'), 'add', 'checked', false);
+        let typeSelect = this.$node.querySelector('[data-action="changeAttentionType"]');
+        if (typeSelect) { typeSelect.selectedIndex = 0; }
+        let headingInput = this.$node.querySelector('[data-action="changeAttentionHeading"]');
+        if (headingInput) { headingInput.value = 'This field is required before submission.'; }
         this.constructCodeSnippet();
       },
       onToggleDesc(checked) {
