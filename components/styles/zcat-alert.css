@@ -1,0 +1,201 @@
+/* ==============================
+   ZCAT Alert Banner Component
+   Toast / Inline alert notification
+   ============================== */
+
+zcat-alert * {
+  box-sizing: border-box;
+}
+zcat-alert p {
+  margin: 0;
+}
+
+/* --- Alert banner wrapper --- */
+.zcat-alert-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-family: var(--zcat-font-family-primary);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+/* --- Left section: icon + text --- */
+.zcat-alert-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+.zcat-alert-has-header .zcat-alert-left {
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* --- Icon wrapper --- */
+.zcat-alert-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+.zcat-alert-has-header .zcat-alert-icon-wrap {
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+}
+.zcat-alert-icon {
+  display: block;
+}
+.zcat-alert-has-header .zcat-alert-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* --- Text content --- */
+.zcat-alert-text {
+  flex: 1;
+  min-width: 0;
+}
+.zcat-alert-header {
+  font: 600 14px/20px var(--zcat-font-family-primary);
+  margin-bottom: 2px;
+}
+.zcat-alert-desc {
+  font: 400 13px/18px var(--zcat-font-family-primary);
+  word-break: break-word;
+}
+.zcat-alert-desc-only {
+  font: 400 14px/20px var(--zcat-font-family-primary);
+}
+
+/* --- Right section: close button --- */
+.zcat-alert-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.zcat-alert-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity 0.15s, background 0.15s;
+}
+.zcat-alert-close:hover {
+  opacity: 1;
+  background: rgba(0,0,0,0.06);
+}
+
+/* ============================
+   TYPE VARIANTS — Backgrounds & Borders
+   ============================ */
+
+/* Info (default) */
+.zcat-alert-banner.info {
+  background: var(--zcat-alerts-info-bg);
+  border-color: var(--zcat-alerts-info-border);
+}
+.zcat-alert-banner.info .zcat-alert-header {
+  color: var(--zcat-alerts-info-text-primary);
+}
+.zcat-alert-banner.info .zcat-alert-desc {
+  color: var(--zcat-alerts-info-text-secondary);
+}
+.zcat-alert-banner.info .zcat-alert-desc-only {
+  color: var(--zcat-alerts-info-text-primary);
+}
+.zcat-alert-banner.info .zcat-alert-close {
+  color: var(--zcat-alerts-info-icon);
+}
+
+/* Success */
+.zcat-alert-banner.success {
+  background: var(--zcat-alerts-success-bg);
+  border-color: var(--zcat-alerts-success-border);
+}
+.zcat-alert-banner.success .zcat-alert-header {
+  color: var(--zcat-alerts-success-text-primary);
+}
+.zcat-alert-banner.success .zcat-alert-desc {
+  color: var(--zcat-alerts-success-text-secondary);
+}
+.zcat-alert-banner.success .zcat-alert-desc-only {
+  color: var(--zcat-alerts-success-text-primary);
+}
+.zcat-alert-banner.success .zcat-alert-close {
+  color: var(--zcat-alerts-success-icon);
+}
+
+/* Warning */
+.zcat-alert-banner.warning {
+  background: var(--zcat-alerts-warning-bg);
+  border-color: var(--zcat-alerts-warning-border);
+}
+.zcat-alert-banner.warning .zcat-alert-header {
+  color: var(--zcat-alerts-warning-text-primary);
+}
+.zcat-alert-banner.warning .zcat-alert-desc {
+  color: var(--zcat-alerts-warning-text-secondary);
+}
+.zcat-alert-banner.warning .zcat-alert-desc-only {
+  color: var(--zcat-alerts-warning-text-primary);
+}
+.zcat-alert-banner.warning .zcat-alert-close {
+  color: var(--zcat-alerts-warning-icon);
+}
+
+/* Error / Danger */
+.zcat-alert-banner.error {
+  background: var(--zcat-alerts-danger-bg);
+  border-color: var(--zcat-alerts-danger-border);
+}
+.zcat-alert-banner.error .zcat-alert-header {
+  color: var(--zcat-alerts-danger-text-primary);
+}
+.zcat-alert-banner.error .zcat-alert-desc {
+  color: var(--zcat-alerts-danger-text-secondary);
+}
+.zcat-alert-banner.error .zcat-alert-desc-only {
+  color: var(--zcat-alerts-danger-text-primary);
+}
+.zcat-alert-banner.error .zcat-alert-close {
+  color: var(--zcat-alerts-danger-icon);
+}
+
+/* ============================
+   TOAST VARIANT (white bg, icon-only color)
+   ============================ */
+.zcat-alert-banner.toast {
+  background: var(--zcat-toast-bg-default);
+  border-color: var(--zcat-toast-border-default);
+  box-shadow: var(--zcat-shadow-dark-all);
+}
+.zcat-alert-banner.toast .zcat-alert-header {
+  color: var(--zcat-toast-text-primary);
+}
+.zcat-alert-banner.toast .zcat-alert-desc {
+  color: var(--zcat-toast-text-secondary);
+}
+.zcat-alert-banner.toast .zcat-alert-desc-only {
+  color: var(--zcat-toast-text-primary);
+}
+.zcat-alert-banner.toast .zcat-alert-close {
+  color: var(--zcat-toast-text-secondary);
+}

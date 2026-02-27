@@ -1,0 +1,40 @@
+<template tag-name="zcat-loader">
+  <div lyte-if="{{zcatProp.type === 'content'}}" class="zcat-skeleton-loader">
+    <div class="zcat-skeleton-row">
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col zcat-skeleton-float-right"></div>
+    </div>
+    <div class="zcat-skeleton-row">
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+    </div>
+    <div class="zcat-skeleton-row">
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+    </div>
+    <div class="zcat-skeleton-row">
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+    </div>
+    <div class="zcat-skeleton-row">
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+    </div>
+    <div class="zcat-skeleton-row">
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+      <div class="zcat-skeleton-col"></div>
+    </div>
+  </div>
+  <div lyte-if="{{zcatProp.type === 'spin'}}" class="zcat-spin-loader"></div>
+  <div lyte-if="{{zcatProp.type !== 'content' && zcatProp.type !== 'spin'}}" class="zcat-progress-loader"></div>
+</template>

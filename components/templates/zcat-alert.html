@@ -1,0 +1,22 @@
+<template tag-name="zcat-alert">
+  <div class="zcat-alert-banner {{zcatProp.type || 'info'}} {{zcatProp.header ? 'zcat-alert-has-header' : ''}} {{zcatProp.closable === false ? '' : 'zcat-alert-closable'}}"
+       lyte-if="{{showAlert}}">
+    <div class="zcat-alert-left">
+      <div class="zcat-alert-icon-wrap">
+        <svg lyte-if="{{zcatProp.type === 'success'}}" class="zcat-alert-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 7.36V8a6 6 0 1 1-3.56-5.48" stroke="var(--zcat-toast-icon-line-success)"/><polyline points="14 2.5 8 8.5 6 6.5" stroke="var(--zcat-toast-icon-line-success)"/></svg>
+        <svg lyte-if="{{zcatProp.type === 'error'}}" class="zcat-alert-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6" stroke="var(--zcat-toast-icon-line-danger)"/><line x1="10" y1="6" x2="6" y2="10" stroke="var(--zcat-toast-icon-line-danger)"/><line x1="6" y1="6" x2="10" y2="10" stroke="var(--zcat-toast-icon-line-danger)"/></svg>
+        <svg lyte-if="{{zcatProp.type === 'warning'}}" class="zcat-alert-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M6.86 2.57L1.21 12a1.33 1.33 0 0 0 1.15 2h11.28a1.33 1.33 0 0 0 1.15-2L9.14 2.57a1.33 1.33 0 0 0-2.28 0z" stroke="var(--zcat-toast-icon-line-warning)"/><line x1="8" y1="6" x2="8" y2="9" stroke="var(--zcat-toast-icon-line-warning)"/><line x1="8" y1="11" x2="8.01" y2="11" stroke="var(--zcat-toast-icon-line-warning)"/></svg>
+        <svg lyte-if="{{zcatProp.type !== 'success' && zcatProp.type !== 'error' && zcatProp.type !== 'warning'}}" class="zcat-alert-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6" stroke="var(--zcat-toast-icon-line-info)"/><line x1="8" y1="11" x2="8" y2="7" stroke="var(--zcat-toast-icon-line-info)"/><line x1="8" y1="5" x2="8.01" y2="5" stroke="var(--zcat-toast-icon-line-info)"/></svg>
+      </div>
+      <div class="zcat-alert-text">
+        <p lyte-if="{{zcatProp.header}}" class="zcat-alert-header">{{zcatProp.header}}</p>
+        <p class="zcat-alert-desc {{zcatProp.header ? '' : 'zcat-alert-desc-only'}}">{{zcatProp.desc}}</p>
+      </div>
+    </div>
+    <div class="zcat-alert-right">
+      <button lyte-if="{{zcatProp.closable !== false}}" class="zcat-alert-close" onclick="{{action('closeAlert')}}">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,115 @@
+/* ==============================
+   ZCAT Loader Component
+   3 types: content (skeleton), spin, progress
+   ============================== */
+
+zcat-loader * {
+  box-sizing: border-box;
+}
+
+/* ============================
+   SKELETON / CONTENT LOADER
+   ============================ */
+.zcat-skeleton-loader {
+  width: 100%;
+  height: 100%;
+}
+.zcat-skeleton-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.zcat-skeleton-col {
+  animation: zcatShimmer 1.25s infinite linear forwards;
+  background: linear-gradient(
+    to right,
+    var(--zcat-loader-content-primary) 8%,
+    var(--zcat-loader-content-secondary) 18%,
+    var(--zcat-loader-content-primary) 33%
+  );
+  background-size: 800px 104px;
+  position: relative;
+  height: 9px;
+  width: 23%;
+  margin: 0 1%;
+  border-radius: 50px;
+}
+.zcat-skeleton-col:first-child {
+  margin-left: 0;
+}
+.zcat-skeleton-col:last-child {
+  margin-right: 0;
+}
+.zcat-skeleton-float-right {
+  margin-left: auto;
+}
+
+@keyframes zcatShimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+/* ============================
+   SPIN LOADER
+   ============================ */
+.zcat-spin-loader {
+  width: 16px;
+  aspect-ratio: 1;
+  display: grid;
+  border-radius: 50%;
+  background:
+    linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--zcat-loader-round-primary) 50%, transparent) 30%,
+      #0000 0 70%,
+      var(--zcat-loader-round-primary) 0
+    ) 50%/8% 100%,
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--zcat-loader-round-primary) 25%, transparent) 30%,
+      #0000 0 70%,
+      color-mix(in srgb, var(--zcat-loader-round-primary) 75%, transparent) 0
+    ) 50%/100% 8%;
+  background-repeat: no-repeat;
+  animation: zcatSpin 1s infinite steps(12);
+}
+.zcat-spin-loader::before,
+.zcat-spin-loader::after {
+  content: "";
+  grid-area: 1/1;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0.915;
+  transform: rotate(30deg);
+}
+.zcat-spin-loader::after {
+  opacity: 0.83;
+  transform: rotate(60deg);
+}
+
+@keyframes zcatSpin {
+  100% { transform: rotate(1turn); }
+}
+
+/* ============================
+   PROGRESS LOADER
+   ============================ */
+.zcat-progress-loader {
+  height: 4px;
+  width: 100%;
+  --c: no-repeat linear-gradient(var(--zcat-loader-progress-primary) 0 0);
+  background: var(--c), var(--c), var(--zcat-loader-progress-secondary);
+  background-size: 60% 100%;
+  animation: zcatProgress 3s infinite;
+  border-radius: 40px;
+}
+
+@keyframes zcatProgress {
+  0%   { background-position: -150% 0, -150% 0; }
+  66%  { background-position: 250% 0, -150% 0; }
+  100% { background-position: 250% 0, 250% 0; }
+}

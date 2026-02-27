@@ -1,0 +1,91 @@
+<template tag-name="loader-comp">
+  <div class="zcat-page-wrapper">
+    <!-- Header -->
+    <div class="zcat-page-header">
+      <h1 class="zcat-page-title">Loader</h1>
+      <p class="zcat-page-desc">Loaders indicate ongoing processes — skeleton shimmer for content loading, spinner for actions, or a progress bar for measurable operations.</p>
+      <div class="zcat-page-tabs">
+        <span class="zcat-page-tab {{pageTab === 'customize' ? 'active' : ''}}" onclick="{{action('showCustomizeTab')}}">Customize</span>
+        <span class="zcat-page-tab {{pageTab === 'variants' ? 'active' : ''}}" onclick="{{action('showVariantsTab')}}">All Variants</span>
+        <span class="zcat-page-tab">Change Logs</span>
+      </div>
+    </div>
+
+    <!-- Body: Customize Tab -->
+    <div class="zcat-page-body" lyte-if="{{pageTab === 'customize'}}">
+      <!-- Left: Preview + Code -->
+      <div class="zcat-page-left">
+        <h3 class="zcat-section-label">preview</h3>
+        <div class="zcat-preview-box">
+          <div class="zcat-preview-area" style="padding:24px; min-height:120px; display:flex; align-items:center; justify-content:center;">
+            <zcat-loader self="{{self}}" zcat-prop="{{loaderObj}}"></zcat-loader>
+          </div>
+        </div>
+        <!-- Code Tabs -->
+        <div class="zcat-code-tabs">
+          <span class="zcat-code-tab {{activeTab === 'slyte' ? 'active' : ''}}" onclick="{{action('showSlyteTab')}}">sLyte</span>
+          <span class="zcat-code-tab {{activeTab === 'js' ? 'active' : ''}}" onclick="{{action('showJsTab')}}">JS</span>
+          <span class="zcat-code-tab {{activeTab === 'newslyte' ? 'active' : ''}}" onclick="{{action('showNewSlyteTab')}}">sLyte New</span>
+          <span class="zcat-code-tab {{activeTab === 'html' ? 'active' : ''}}" onclick="{{action('showHtmlTab')}}">HTML</span>
+          <span class="zcat-code-tab {{activeTab === 'css' ? 'active' : ''}}" onclick="{{action('showCssTab')}}">CSS</span>
+        </div>
+        <div class="zcat-code-panel">
+          <div class="zcat-code-lines">
+            <pre lyte-if="{{activeTab === 'slyte'}}">{{slyteCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'js'}}">{{jsCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'newslyte'}}">{{newSlyteCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'html'}}">{{htmlCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'css'}}">{{cssCodeSnippet.code}}</pre>
+          </div>
+          <span class="zcat-code-copy" onclick="{{action('copyCode')}}" title="Copy code">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- Right: Customise -->
+      <div class="zcat-page-right">
+        <div class="zcat-custom-header">
+          <h3 class="zcat-custom-title">Customise</h3>
+          <zcat-button self="{{self}}" zcat-prop="{{resetButtonObj}}"></zcat-button>
+        </div>
+        <div class="zcat-custom-body">
+          <!-- Type -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Type</span>
+            <select data-action="changeLoaderType" class="zcat-custom-select">
+              <option value="progress">Progress</option>
+              <option value="spin">Spin</option>
+              <option value="content">Content (Skeleton)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body: All Variants Tab -->
+    <div class="zcat-page-left" lyte-if="{{pageTab === 'variants'}}" style="flex:1">
+      <h3 class="zcat-section-label" style="margin-top:4px">Loader Types</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Progress Bar</span></div>
+          <div class="zcat-variant-card-preview" style="padding:20px; display:flex; align-items:center;">
+            <zcat-loader self="{{self}}" zcat-prop="{{variantProgressObj}}"></zcat-loader>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Spinner</span></div>
+          <div class="zcat-variant-card-preview" style="padding:20px; display:flex; align-items:center; justify-content:center;">
+            <zcat-loader self="{{self}}" zcat-prop="{{variantSpinObj}}"></zcat-loader>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Content / Skeleton</span></div>
+          <div class="zcat-variant-card-preview" style="padding:20px;">
+            <zcat-loader self="{{self}}" zcat-prop="{{variantContentObj}}"></zcat-loader>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
