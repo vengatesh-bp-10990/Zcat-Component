@@ -1,0 +1,50 @@
+<template tag-name="zcat-button">
+    <!-- Normal button (non-split) -->
+    <template lyte-if="{{zcatProp.type !== 'split'}}">
+        <button 
+            class="zcat-btn {{zcatProp.variant}} {{zcatProp.color}} {{zcatProp.size === 'small' ? 'zcat-btn-sm' : zcatProp.size === 'extra-small' ? 'zcat-btn-exsm' : zcatProp.size === 'large' ? 'zcat-btn-lg' : ''}} {{zcatProp.label === undefined || zcatProp.label === null ? 'icon-only' : ''}} {{zcatProp.loading ? 'loading' : ''}} {{zcatProp.classCss}}"
+            onclick="{{action('customLbindForButtonClick')}}"
+            disabled="{{zcatProp.disabled}}"
+        >
+            <template lyte-if="{{zcatProp.icon && zcatProp.icon.position === 'left' && zcatProp.icon.name}}">
+                <svg class="zcat-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </template>
+            <span lyte-if="{{zcatProp.label !== undefined && zcatProp.label !== null}}" class="zcat-btn-text">{{zcatProp.label}}</span>
+            <template lyte-if="{{zcatProp.icon && zcatProp.icon.position === 'right' && zcatProp.icon.name}}">
+                <svg class="zcat-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </template>
+            <div class="zcat-btn-loader-wrap">
+                <div class="zcat-btn-loader"></div>
+            </div>
+        </button>
+    </template>
+
+    <!-- Split button -->
+    <template lyte-if="{{zcatProp.type === 'split'}}">
+        <div class="zcat-split-group">
+            <button 
+                class="zcat-btn {{zcatProp.variant}} {{zcatProp.color}} {{zcatProp.size === 'small' ? 'zcat-btn-sm' : zcatProp.size === 'extra-small' ? 'zcat-btn-exsm' : zcatProp.size === 'large' ? 'zcat-btn-lg' : ''}} split-body {{zcatProp.loading ? 'loading' : ''}}"
+                onclick="{{action('customLbindForButtonClick')}}"
+                disabled="{{zcatProp.disabled}}"
+            >
+                <template lyte-if="{{zcatProp.icon && zcatProp.icon.position === 'left' && zcatProp.icon.name}}">
+                    <svg class="zcat-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </template>
+                <span lyte-if="{{zcatProp.label !== undefined && zcatProp.label !== null}}" class="zcat-btn-text">{{zcatProp.label}}</span>
+                <template lyte-if="{{zcatProp.icon && zcatProp.icon.position === 'right' && zcatProp.icon.name}}">
+                    <svg class="zcat-btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </template>
+                <div class="zcat-btn-loader-wrap">
+                    <div class="zcat-btn-loader"></div>
+                </div>
+            </button>
+            <button 
+                class="zcat-btn {{zcatProp.variant}} {{zcatProp.color}} {{zcatProp.size === 'small' ? 'zcat-btn-sm' : zcatProp.size === 'extra-small' ? 'zcat-btn-exsm' : zcatProp.size === 'large' ? 'zcat-btn-lg' : ''}} split-arrow"
+                onclick="{{action('buttonClick')}}"
+                disabled="{{zcatProp.disabled}}"
+            >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+        </div>
+    </template>
+</template>

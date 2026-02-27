@@ -1,0 +1,393 @@
+<template tag-name="usage-comp">
+  <div class="zcat-page-wrapper">
+    <div class="zcat-page-header">
+      <h1 class="zcat-page-title">Usage</h1>
+      <p class="zcat-page-desc">Learn how to use ZCAT components in your sLyte application.</p>
+      <div class="zcat-page-tabs">
+        <span class="zcat-page-tab active">Guide</span>
+      </div>
+    </div>
+
+    <div class="zcat-page-body">
+      <div class="zcat-page-left" style="max-width:820px;">
+
+        <!-- Overview -->
+        <div class="zcat-content-section">
+          <h2 class="zcat-content-heading">Basic Usage</h2>
+          <p class="zcat-content-text">
+            ZCAT components are standard sLyte components. You use them by placing custom element tags in your template HTML and passing configuration via a <strong>zcat-prop</strong> object.
+          </p>
+          <p class="zcat-content-text" style="margin-top:8px;">
+            Every ZCAT component follows the same pattern:
+          </p>
+          <div class="zcat-code-panel zcat-content-code">
+            <pre>&lt;zcat-{component}
+  self="{{self}}"
+  zcat-prop="{{propObject}}"
+&gt;&lt;/zcat-{component}&gt;</pre>
+          </div>
+        </div>
+
+        <!-- ========== BUTTON ========== -->
+        <div class="zcat-content-section" style="margin-top:8px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+            <span style="display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:8px; background:var(--zcat-btn-fill-bg-primary-default); color:#fff; font-size:13px; font-weight:600;">1</span>
+            <h2 class="zcat-content-heading" style="margin:0;">Button</h2>
+          </div>
+          <p class="zcat-content-text">Add a button to your template:</p>
+          <div class="zcat-code-panel zcat-content-code">
+            <pre>&lt;zcat-button
+  self="{{self}}"
+  zcat-prop="{{btnProp}}"
+&gt;&lt;/zcat-button&gt;</pre>
+          </div>
+          <p class="zcat-content-text" style="margin-top:12px;">Configure it in your component's <strong>data()</strong> method:</p>
+          <div class="zcat-code-panel zcat-content-code">
+            <pre>data() {
+  return {
+    self: prop('object', { default: this }),
+    btnProp: prop('object', {
+      default: {
+        label: "Save Changes",
+        variant: "fill",         // fill | outline | grey | ghost
+        color: "primary",        // primary | success | danger
+        size: "default",         // default | sm | exsm
+        disabled: false,
+        loading: false,
+        icon: {
+          position: "left",      // left | right
+          name: "",
+          class: "icon-class"
+        },
+        callback: {
+          name: "onBtnClicked",  // method name on parent
+          arguments: []
+        }
+      }
+    })
+  };
+}</pre>
+          </div>
+
+          <!-- Button Props Table -->
+          <div style="margin-top:16px; padding:16px; background:var(--zcat-prev-bg); border-radius:10px; border:1px solid var(--zcat-body-border);">
+            <p style="font-size:13px; font-weight:600; color:var(--zcat-body-text-primary); margin-bottom:10px;">Button Props</p>
+            <table style="width:100%; border-collapse:collapse; font-size:12px;">
+              <thead>
+                <tr style="border-bottom:1px solid var(--zcat-body-border); text-align:left;">
+                  <th style="padding:6px 10px; color:var(--zcat-body-text-grey); font-weight:500;">Prop</th>
+                  <th style="padding:6px 10px; color:var(--zcat-body-text-grey); font-weight:500;">Type</th>
+                  <th style="padding:6px 10px; color:var(--zcat-body-text-grey); font-weight:500;">Options</th>
+                  <th style="padding:6px 10px; color:var(--zcat-body-text-grey); font-weight:500;">Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>label</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Any text</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">""</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>variant</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">fill, outline, grey, ghost</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">""</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>color</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">primary, success, danger</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">""</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>size</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">default, sm, exsm</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">"default"</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>disabled</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Boolean</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">true / false</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">false</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>loading</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Boolean</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">true / false</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">false</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>icon</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Object</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">{ position, name, class }</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">{}</td></tr>
+                <tr><td style="padding:6px 10px;"><code>callback</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Object</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">{ name, arguments }</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">{}</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ========== INPUT ========== -->
+        <div class="zcat-content-section" style="margin-top:32px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+            <span style="display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:8px; background:var(--zcat-btn-fill-bg-primary-default); color:#fff; font-size:13px; font-weight:600;">2</span>
+            <h2 class="zcat-content-heading" style="margin:0;">Text Input</h2>
+          </div>
+          <p class="zcat-content-text">Add an input field to your template:</p>
+          <div class="zcat-code-panel zcat-content-code">
+            <pre>&lt;zcat-input
+  self="{{self}}"
+  zcat-prop="{{inputProp}}"
+&gt;&lt;/zcat-input&gt;</pre>
+          </div>
+          <p class="zcat-content-text" style="margin-top:12px;">Configure it in <strong>data()</strong>:</p>
+          <div class="zcat-code-panel zcat-content-code">
+            <pre>data() {
+  return {
+    self: prop('object', { default: this }),
+    inputProp: prop('object', {
+      default: {
+        id: "username",
+        type: "text",            // text | password | number | email
+        label: "Username",
+        placeholder: "Enter your name",
+        width: "300px",
+        size: "default",         // default | sm | exsm
+        variant: "default",      // default | ghost
+        state: "enabled",        // enabled | disabled | error | readOnly
+        optional: false,
+        labelInfo: false,
+        iconLeft: false,
+        errorMessage: "This field is required"
+      }
+    })
+  };
+}</pre>
+          </div>
+
+          <!-- Input Props Table -->
+          <div style="margin-top:16px; padding:16px; background:var(--zcat-prev-bg); border-radius:10px; border:1px solid var(--zcat-body-border);">
+            <p style="font-size:13px; font-weight:600; color:var(--zcat-body-text-primary); margin-bottom:10px;">Input Props</p>
+            <table style="width:100%; border-collapse:collapse; font-size:12px;">
+              <thead>
+                <tr style="border-bottom:1px solid var(--zcat-body-border); text-align:left;">
+                  <th style="padding:6px 10px; color:var(--zcat-body-text-grey); font-weight:500;">Prop</th>
+                  <th style="padding:6px 10px; color:var(--zcat-body-text-grey); font-weight:500;">Type</th>
+                  <th style="padding:6px 10px; color:var(--zcat-body-text-grey); font-weight:500;">Options</th>
+                  <th style="padding:6px 10px; color:var(--zcat-body-text-grey); font-weight:500;">Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>id</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Unique identifier</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">""</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>type</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">text, password, number, email</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">"text"</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>label</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Any text</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">""</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>placeholder</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Any text</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">""</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>width</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">CSS value (e.g. "300px")</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">"100%"</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>size</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">default, sm, exsm</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">"default"</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>variant</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">default, ghost</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">"default"</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>state</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">enabled, disabled, error, readOnly</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">"enabled"</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>optional</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Boolean</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Shows "(optional)" label</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">false</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>labelInfo</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Boolean</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Shows info icon next to label</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">false</td></tr>
+                <tr><td style="padding:6px 10px;"><code>errorMessage</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Shown when state is "error"</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">""</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ========== DROPDOWN ========== -->
+        <div class="zcat-content-section" style="margin-top:32px;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+            <span style="display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:8px; background:var(--zcat-btn-fill-bg-primary-default); color:#fff; font-size:13px; font-weight:600;">3</span>
+            <h2 class="zcat-content-heading" style="margin:0;">Dropdown</h2>
+          </div>
+          <p class="zcat-content-text">Add a dropdown to your template:</p>
+          <div class="zcat-code-panel zcat-content-code">
+            <pre>&lt;zcat-dropdown
+  self="{{self}}"
+  zcat-prop="{{dropdownProp}}"
+&gt;&lt;/zcat-dropdown&gt;</pre>
+          </div>
+          <p class="zcat-content-text" style="margin-top:12px;">Configure it in <strong>data()</strong>:</p>
+          <div class="zcat-code-panel zcat-content-code">
+            <pre>data() {
+  return {
+    self: prop('object', { default: this }),
+    dropdownProp: prop('object', {
+      default: {
+        label: "Country",
+        placeholder: "Select a country",
+        width: "300px",
+        size: "default",         // default | sm | exsm
+        variant: "default",      // default | ghost
+        state: "enabled",        // enabled | disabled | error
+        optional: false,
+        labelInfo: false,
+        iconLeft: false,
+        selected: "india",       // pre-selected value
+        options: [
+          { name: "India", value: "india" },
+          { name: "Pakistan", value: "pakistan" },
+          { name: "Sri Lanka", value: "srilanka" }
+        ],
+        showSearch: true,        // search bar in menu
+        menuHeader: "Choose Country",
+        showIcon: false,         // icons on menu items
+        createNewBtn: {
+          show: true,
+          label: "+ Create New",
+          callback: { name: "onCreateNew" }
+        },
+        errorMessage: "Selection is required",
+        callback: {
+          name: "onDropdownSelect"
+        }
+      }
+    })
+  };
+}</pre>
+          </div>
+
+          <!-- Dropdown Props Table -->
+          <div style="margin-top:16px; padding:16px; background:var(--zcat-prev-bg); border-radius:10px; border:1px solid var(--zcat-body-border);">
+            <p style="font-size:13px; font-weight:600; color:var(--zcat-body-text-primary); margin-bottom:10px;">Dropdown Props</p>
+            <table style="width:100%; border-collapse:collapse; font-size:12px;">
+              <thead>
+                <tr style="border-bottom:1px solid var(--zcat-body-border); text-align:left;">
+                  <th style="padding:6px 10px; color:var(--zcat-body-text-grey); font-weight:500;">Prop</th>
+                  <th style="padding:6px 10px; color:var(--zcat-body-text-grey); font-weight:500;">Type</th>
+                  <th style="padding:6px 10px; color:var(--zcat-body-text-grey); font-weight:500;">Description</th>
+                  <th style="padding:6px 10px; color:var(--zcat-body-text-grey); font-weight:500;">Default</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>label</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Field label text</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">""</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>placeholder</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Trigger placeholder text</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">"Select"</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>options</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Array</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">[{ name, value, icon?, disabled? }]</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">[]</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>selected</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Value of pre-selected item</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">""</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>size</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">default, sm, exsm</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">"default"</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>variant</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">default, ghost</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">"default"</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>state</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">enabled, disabled, error</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">"enabled"</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>showSearch</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Boolean</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Show search field in menu</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">false</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>menuHeader</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">String</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Header text above menu items</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">""</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>showIcon</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Boolean</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Show icons on menu items</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">false</td></tr>
+                <tr style="border-bottom:1px solid var(--zcat-body-border);"><td style="padding:6px 10px;"><code>createNewBtn</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Object</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">{ show, label, callback: { name } }</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">{ show: false }</td></tr>
+                <tr><td style="padding:6px 10px;"><code>callback</code></td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">Object</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">{ name } — called on select</td><td style="padding:6px 10px; color:var(--zcat-body-text-grey);">{}</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ========== CALLBACKS ========== -->
+        <div class="zcat-content-section" style="margin-top:32px;">
+          <h2 class="zcat-content-heading">Handling Callbacks</h2>
+          <p class="zcat-content-text">
+            ZCAT components fire callbacks on the parent component via the <strong>self</strong> reference. Define callback methods in your component's <strong>methods()</strong> block:
+          </p>
+          <div class="zcat-code-panel zcat-content-code">
+            <pre>static methods() {
+  return {
+    // Button callback
+    onBtnClicked() {
+      console.log("Button was clicked!");
+    },
+
+    // Dropdown callback — receives the selected item
+    onDropdownSelect(item) {
+      console.log("Selected:", item.name, item.value);
+    },
+
+    // Create new callback from dropdown
+    onCreateNew() {
+      console.log("Create new item clicked");
+    }
+  };
+}</pre>
+          </div>
+        </div>
+
+        <!-- ========== DARK MODE ========== -->
+        <div class="zcat-content-section" style="margin-top:32px;">
+          <h2 class="zcat-content-heading">Dark Mode</h2>
+          <p class="zcat-content-text">
+            Add the <strong>data-user-color-scheme="dark"</strong> attribute to the <code>&lt;html&gt;</code> element. All ZCAT components automatically switch to their dark mode token values.
+          </p>
+          <div class="zcat-code-panel zcat-content-code">
+            <pre>&lt;html data-user-color-scheme="dark"&gt;</pre>
+          </div>
+        </div>
+
+        <!-- ========== CUSTOMIZING FONTS ========== -->
+        <div class="zcat-content-section" style="margin-top:32px;">
+          <h2 class="zcat-content-heading">Customizing Fonts</h2>
+          <p class="zcat-content-text">
+            Override the <strong>--zcat-font-family-primary</strong> token to use a different font:
+          </p>
+          <div class="zcat-code-panel zcat-content-code">
+            <pre>:root {
+  --zcat-font-family-primary: 'Inter', sans-serif;
+}</pre>
+          </div>
+        </div>
+
+        <!-- ========== COMPLETE EXAMPLE ========== -->
+        <div class="zcat-content-section" style="margin-top:32px;">
+          <h2 class="zcat-content-heading">Complete Example</h2>
+          <p class="zcat-content-text">
+            Here's a complete sLyte component using all three ZCAT components together:
+          </p>
+          <p class="zcat-content-text" style="margin-top:8px; font-size:13px; font-weight:500; color:var(--zcat-body-text-primary);">Template (my-form.html):</p>
+          <div class="zcat-code-panel zcat-content-code">
+            <pre>&lt;template tag-name="my-form"&gt;
+  &lt;div style="padding:24px; display:flex; flex-direction:column; gap:16px;"&gt;
+
+    &lt;zcat-input
+      self="{{self}}"
+      zcat-prop="{{nameProp}}"
+    &gt;&lt;/zcat-input&gt;
+
+    &lt;zcat-dropdown
+      self="{{self}}"
+      zcat-prop="{{countryProp}}"
+    &gt;&lt;/zcat-dropdown&gt;
+
+    &lt;zcat-button
+      self="{{self}}"
+      zcat-prop="{{submitProp}}"
+    &gt;&lt;/zcat-button&gt;
+
+  &lt;/div&gt;
+&lt;/template&gt;</pre>
+          </div>
+          <p class="zcat-content-text" style="margin-top:16px; font-size:13px; font-weight:500; color:var(--zcat-body-text-primary);">Logic (my-form.js):</p>
+          <div class="zcat-code-panel zcat-content-code">
+            <pre>import { Component } from '@slyte/component';
+import { prop } from '@slyte/core';
+
+class MyForm extends Component {
+  data() {
+    return {
+      self: prop('object', { default: this }),
+      nameProp: prop('object', {
+        default: {
+          id: "fullname",
+          label: "Full Name",
+          placeholder: "Enter your name",
+          width: "300px"
+        }
+      }),
+      countryProp: prop('object', {
+        default: {
+          label: "Country",
+          placeholder: "Select country",
+          width: "300px",
+          showSearch: true,
+          options: [
+            { name: "India", value: "india" },
+            { name: "USA", value: "usa" },
+            { name: "UK", value: "uk" }
+          ],
+          callback: { name: "onCountrySelect" }
+        }
+      }),
+      submitProp: prop('object', {
+        default: {
+          label: "Submit",
+          variant: "fill",
+          color: "primary",
+          callback: { name: "onSubmit" }
+        }
+      })
+    };
+  }
+
+  static methods() {
+    return {
+      onCountrySelect(item) {
+        console.log("Country:", item.name);
+      },
+      onSubmit() {
+        console.log("Form submitted!");
+      }
+    };
+  }
+
+  static actions() { return {}; }
+  static observers() { return {}; }
+}
+
+export { MyForm };</pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>

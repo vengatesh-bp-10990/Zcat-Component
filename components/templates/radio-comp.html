@@ -1,0 +1,171 @@
+<template tag-name="radio-comp">
+  <div class="zcat-page-wrapper">
+    <!-- Header -->
+    <div class="zcat-page-header">
+      <h1 class="zcat-page-title">Radio</h1>
+      <p class="zcat-page-desc">Radio buttons let users choose exactly one option from a set of mutually exclusive choices.</p>
+      <div class="zcat-page-tabs">
+        <span class="zcat-page-tab {{pageTab === 'customize' ? 'active' : ''}}" onclick="{{action('showCustomizeTab')}}">Customize</span>
+        <span class="zcat-page-tab {{pageTab === 'variants' ? 'active' : ''}}" onclick="{{action('showVariantsTab')}}">All Variants</span>
+        <span class="zcat-page-tab">Change Logs</span>
+      </div>
+    </div>
+
+    <!-- Body: Customize Tab -->
+    <div class="zcat-page-body" lyte-if="{{pageTab === 'customize'}}">
+      <!-- Left: Preview + Code -->
+      <div class="zcat-page-left">
+        <h3 class="zcat-section-label">preview</h3>
+        <div class="zcat-preview-box">
+          <div class="zcat-preview-area">
+            <zcat-radio self="{{self}}" zcat-prop="{{radioObj}}"></zcat-radio>
+          </div>
+        </div>
+        <!-- Code Tabs -->
+        <div class="zcat-code-tabs">
+          <span class="zcat-code-tab {{activeTab === 'slyte' ? 'active' : ''}}" onclick="{{action('showSlyteTab')}}">sLyte</span>
+          <span class="zcat-code-tab {{activeTab === 'js' ? 'active' : ''}}" onclick="{{action('showJsTab')}}">JS</span>
+          <span class="zcat-code-tab {{activeTab === 'newslyte' ? 'active' : ''}}" onclick="{{action('showNewSlyteTab')}}">sLyte New</span>
+          <span class="zcat-code-tab {{activeTab === 'html' ? 'active' : ''}}" onclick="{{action('showHtmlTab')}}">HTML</span>
+          <span class="zcat-code-tab {{activeTab === 'css' ? 'active' : ''}}" onclick="{{action('showCssTab')}}">CSS</span>
+        </div>
+        <div class="zcat-code-panel">
+          <div class="zcat-code-lines">
+            <pre lyte-if="{{activeTab === 'slyte'}}">{{slyteCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'js'}}">{{jsCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'newslyte'}}">{{newSlyteCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'html'}}">{{htmlCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'css'}}">{{cssCodeSnippet.code}}</pre>
+          </div>
+          <span class="zcat-code-copy" onclick="{{action('copyCode')}}" title="Copy code">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- Right: Customise -->
+      <div class="zcat-page-right">
+        <div class="zcat-custom-header">
+          <h3 class="zcat-custom-title">Customise</h3>
+          <zcat-button self="{{self}}" zcat-prop="{{resetButtonObj}}"></zcat-button>
+        </div>
+        <div class="zcat-custom-body">
+          <!-- Variant -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Variant</span>
+            <select data-action="changeRadioVariant" class="zcat-custom-select">
+              <option value="primary">Primary</option>
+              <option value="secondary">Secondary</option>
+            </select>
+          </div>
+          <!-- Size -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Size</span>
+            <select data-action="changeRadioSize" class="zcat-custom-select">
+              <option value="default">Default</option>
+              <option value="small">Small</option>
+              <option value="extra-small">Extra-small</option>
+            </select>
+          </div>
+          <!-- Direction -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Direction</span>
+            <select data-action="changeRadioDirection" class="zcat-custom-select">
+              <option value="vertical">Vertical</option>
+              <option value="horizontal">Horizontal</option>
+            </select>
+          </div>
+          <!-- Label toggle -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Group Label</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleLabelObj}}"></zcat-toggle>
+          </div>
+          <!-- Disabled toggle -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Disabled</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleDisabledObj}}"></zcat-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body: All Variants Tab -->
+    <div class="zcat-page-left" lyte-if="{{pageTab === 'variants'}}" style="flex:1">
+      <h3 class="zcat-section-label" style="margin-top:4px">Primary Variant</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Default</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-radio self="{{self}}" zcat-prop="{{variantPrimaryObj}}"></zcat-radio>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Horizontal</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-radio self="{{self}}" zcat-prop="{{variantHorizontalObj}}"></zcat-radio>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">With Label</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-radio self="{{self}}" zcat-prop="{{variantLabelObj}}"></zcat-radio>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="zcat-section-label" style="margin-top:24px">Secondary Variant (Card)</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Card Style</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-radio self="{{self}}" zcat-prop="{{variantSecondaryObj}}"></zcat-radio>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">With Description</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-radio self="{{self}}" zcat-prop="{{variantSecondaryDescObj}}"></zcat-radio>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="zcat-section-label" style="margin-top:24px">Sizes</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Default</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-radio self="{{self}}" zcat-prop="{{variantSizeDefaultObj}}"></zcat-radio>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Small</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-radio self="{{self}}" zcat-prop="{{variantSizeSmallObj}}"></zcat-radio>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Extra-small</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-radio self="{{self}}" zcat-prop="{{variantSizeExsmObj}}"></zcat-radio>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="zcat-section-label" style="margin-top:24px">States</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Disabled</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-radio self="{{self}}" zcat-prop="{{variantDisabledObj}}"></zcat-radio>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Pre-selected</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-radio self="{{self}}" zcat-prop="{{variantPreselectedObj}}"></zcat-radio>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

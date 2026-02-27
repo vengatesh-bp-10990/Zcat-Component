@@ -1,0 +1,18 @@
+<template tag-name="zcat-toggle">
+  <label class="zcat-toggle-wrap
+    {{zcatProp.size === 'small' ? 'zcat-toggle-sm' : zcatProp.size === 'extra-small' ? 'zcat-toggle-exsm' : ''}}
+    {{zcatProp.disabled ? 'zcat-toggle-disabled' : ''}}
+    {{zcatProp.classCss || ''}}">
+    <span class="zcat-toggle-track {{isChecked ? 'checked' : ''}}">
+      <span class="zcat-toggle-thumb"></span>
+    </span>
+    <template lyte-if="{{zcatProp.label}}">
+      <span class="zcat-toggle-label">{{zcatProp.label}}</span>
+    </template>
+    <input type="checkbox"
+           class="zcat-toggle-input"
+           checked="{{isChecked}}"
+           disabled="{{zcatProp.disabled}}"
+           onclick="{{action('onToggleChange')}}"/>
+  </label>
+</template>

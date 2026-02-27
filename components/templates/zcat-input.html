@@ -1,0 +1,44 @@
+<template tag-name="zcat-input">
+    <div class="zcat-input-wrapper {{zcatProp.disabled ? 'zcat-input-disabled' : ''}} {{zcatProp.errorMessage ? 'zcat-input-error' : ''}}">
+        <template lyte-if="{{zcatProp.label}}">
+            <div class="zcat-input-label-row">
+                <label class="zcat-input-label">{{zcatProp.label}}</label>
+                <template lyte-if="{{zcatProp.isOptional}}">
+                    <span class="zcat-input-optional">(Optional)</span>
+                </template>
+            </div>
+        </template>
+        <div class="zcat-input-field-wrap {{zcatProp.iconLeft ? 'has-icon-left' : ''}} {{zcatProp.iconRight ? 'has-icon-right' : ''}}">
+            <template lyte-if="{{zcatProp.iconLeft && zcatProp.iconLeft.name}}">
+                <svg class="zcat-input-icon-l" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--zcat-inputField-icon-placeholder)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </template>
+            <template lyte-if="{{zcatProp.type === 'textarea'}}">
+                <textarea
+                    class="zcat-input-el {{zcatProp.size === 'small' ? 'zcat-input-sm' : zcatProp.size === 'extra-small' ? 'zcat-input-exsm' : ''}}"
+                    placeholder="{{zcatProp.placeholder || ''}}"
+                    disabled="{{zcatProp.disabled || false}}"
+                    style="{{zcatProp.width ? 'width:' + zcatProp.width : ''}}"
+                    oninput="{{action('onInputChange')}}"
+                    onfocus="{{action('onInputFocus')}}"
+                ></textarea>
+            </template>
+            <template lyte-if="{{zcatProp.type !== 'textarea'}}">
+                <input
+                    type="text"
+                    class="zcat-input-el {{zcatProp.size === 'small' ? 'zcat-input-sm' : zcatProp.size === 'extra-small' ? 'zcat-input-exsm' : ''}}"
+                    placeholder="{{zcatProp.placeholder || ''}}"
+                    disabled="{{zcatProp.disabled || false}}"
+                    style="{{zcatProp.width ? 'width:' + zcatProp.width : ''}}"
+                    oninput="{{action('onInputChange')}}"
+                    onfocus="{{action('onInputFocus')}}"
+                />
+            </template>
+            <template lyte-if="{{zcatProp.iconRight && zcatProp.iconRight.name}}">
+                <svg class="zcat-input-icon-r" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--zcat-inputField-icon-placeholder)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </template>
+        </div>
+        <template lyte-if="{{zcatProp.errorMessage}}">
+            <div class="zcat-input-error-msg">{{zcatProp.errorMessage}}</div>
+        </template>
+    </div>
+</template>

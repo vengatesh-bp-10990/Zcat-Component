@@ -1,0 +1,147 @@
+<template tag-name="layout-comp">
+    <div class="zcat-app-layout">
+        <aside class="zcat-sidebar">
+            <div class="zcat-sidebar-brand">
+                <div class="zcat-sidebar-logo">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>
+                </div>
+                <div class="zcat-sidebar-brand-text">
+                    <span class="zcat-sidebar-brand-name">ZCAT</span>
+                    <span class="zcat-sidebar-brand-version">Design System v1.0</span>
+                </div>
+            </div>
+
+            <!-- Search -->
+            <div class="zcat-sidebar-search-wrap" data-action="focusSearch">
+                <svg class="zcat-sidebar-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" class="zcat-sidebar-search" placeholder="Search components..." data-action="sidebarSearch"/>
+                <kbd class="zcat-sidebar-search-kbd">⌘K</kbd>
+            </div>
+
+            <div class="zcat-sidebar-nav" data-sidebar-nav>
+                <!-- Getting Started group -->
+                <div class="zcat-sidebar-group" data-group="getting-started">
+                    <div class="zcat-sidebar-group-header" data-action="toggleGroup">
+                        <span class="zcat-sidebar-group-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                        </span>
+                        <span class="zcat-sidebar-group-label">Getting Started</span>
+                        <span class="zcat-sidebar-group-arrow">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="zcat-sidebar-group-body">
+                        <a href="#/overview" class="zcat-sidebar-item" data-search-label="overview introduction">
+                            <span class="zcat-sidebar-item-dot"></span>
+                            <span>Overview</span>
+                        </a>
+                        <a href="#/installation" class="zcat-sidebar-item" data-search-label="installation setup install">
+                            <span class="zcat-sidebar-item-dot"></span>
+                            <span>Installation</span>
+                        </a>
+                        <a href="#/usage" class="zcat-sidebar-item" data-search-label="usage guide how to">
+                            <span class="zcat-sidebar-item-dot"></span>
+                            <span>Usage</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Components group -->
+                <div class="zcat-sidebar-group" data-group="components">
+                    <div class="zcat-sidebar-group-header" data-action="toggleGroup">
+                        <span class="zcat-sidebar-group-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                        </span>
+                        <span class="zcat-sidebar-group-label">Components</span>
+                        <span class="zcat-sidebar-group-count">6</span>
+                        <span class="zcat-sidebar-group-arrow">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        </span>
+                    </div>
+                    <div class="zcat-sidebar-group-body">
+                        <div class="zcat-sidebar-group-title">INPUTS</div>
+                        <a href="#/button" class="zcat-sidebar-item" data-search-label="button click action submit">
+                            <svg class="zcat-sidebar-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                            <span>Button</span>
+                            <span class="zcat-badge-stable">Stable</span>
+                        </a>
+                        <a href="#/input" class="zcat-sidebar-item" data-search-label="text-box input textbox textfield form">
+                            <svg class="zcat-sidebar-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6" y2="16"/></svg>
+                            <span>Text-box</span>
+                            <span class="zcat-badge-stable">Stable</span>
+                        </a>
+                        <a href="#/dropdown" class="zcat-sidebar-item" data-search-label="dropdown select menu option list">
+                            <svg class="zcat-sidebar-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="8 10 12 14 16 10"/></svg>
+                            <span>Dropdown</span>
+                            <span class="zcat-badge-stable">Stable</span>
+                        </a>
+                        <a href="#/radio" class="zcat-sidebar-item" data-search-label="radio button option select group">
+                            <svg class="zcat-sidebar-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/></svg>
+                            <span>Radio</span>
+                            <span class="zcat-badge-stable">Stable</span>
+                        </a>
+                        <a href="#/checkbox" class="zcat-sidebar-item" data-search-label="checkbox check tick select multi">
+                            <svg class="zcat-sidebar-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><polyline points="9 11 12 14 16 9"/></svg>
+                            <span>Checkbox</span>
+                            <span class="zcat-badge-stable">Stable</span>
+                        </a>
+                        <a href="#/toggle" class="zcat-sidebar-item" data-search-label="toggle switch on off">
+                            <svg class="zcat-sidebar-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="16" cy="12" r="4"/></svg>
+                            <span>Toggle</span>
+                            <span class="zcat-badge-stable">Stable</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar footer -->
+            <div class="zcat-sidebar-footer">
+                <a href="https://github.com" target="_blank" class="zcat-sidebar-footer-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                    <span>GitHub</span>
+                </a>
+                <a href="#/overview" class="zcat-sidebar-footer-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                    <span>About</span>
+                </a>
+            </div>
+        </aside>
+
+        <div class="zcat-main-area">
+            <!-- Top Header Bar -->
+            <header class="zcat-topbar">
+                <div class="zcat-topbar-left">
+                    <div class="zcat-topbar-breadcrumb">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <span class="zcat-topbar-sep">/</span>
+                        <span class="zcat-topbar-title" data-breadcrumb-title>Overview</span>
+                    </div>
+                </div>
+                <div class="zcat-topbar-right">
+                    <span class="zcat-topbar-version-pill">v1.0.0</span>
+                    <!-- Font Switcher -->
+                    <div class="zcat-topbar-control">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+                        <select class="zcat-topbar-select" data-action="changeFont">
+                            <option value="puvi">Zoho Puvi</option>
+                            <option value="inter">Inter</option>
+                        </select>
+                    </div>
+                    <!-- Dark / Light Toggle -->
+                    <div class="zcat-topbar-control">
+                        <svg class="zcat-theme-icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                        <svg class="zcat-theme-icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                        <label class="zcat-toggle zcat-toggle-sm">
+                            <input type="checkbox" checked data-action="toggleTheme"/>
+                            <span class="zcat-toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </header>
+            <div id="page-outlet" class="zcat-page-outlet"></div>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div class="zcat-toast-container" data-toast-container></div>
+</template>

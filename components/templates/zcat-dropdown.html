@@ -1,0 +1,118 @@
+<template tag-name="zcat-dropdown">
+  <div class="zcat-dropdown-wrapper
+    {{zcatProp.size === 'small' ? 'zcat-dropdown-sm' : zcatProp.size === 'extra-small' ? 'zcat-dropdown-exsm' : ''}}
+    {{zcatProp.variant === 'ghost' ? 'zcat-dropdown-ghost' : ''}}
+    {{zcatProp.disabled ? 'zcat-dropdown-disabled' : ''}}
+    {{zcatProp.errorMessage ? 'zcat-dropdown-error' : ''}}
+    {{zcatProp.width === 'zcat-w-fc' ? 'zcat-dropdown-fit-content' : zcatProp.width === 'zcat-w100p' ? 'zcat-dropdown-fullwidth' : zcatProp.width === 'zcat-w300' ? 'zcat-dropdown-w300' : ''}}">
+
+    <!-- Label Row -->
+    <template lyte-if="{{zcatProp.label}}">
+      <div class="zcat-dropdown-label-row {{zcatProp.disabled ? 'zcat-dropdown-label-disabled' : ''}}">
+        <label class="zcat-dropdown-label">
+          {{zcatProp.label}}
+          <span lyte-if="{{zcatProp.isOptional}}" class="zcat-dropdown-optional">(Optional)</span>
+        </label>
+        <template lyte-if="{{zcatProp.infoIcon}}">
+          <svg class="zcat-dropdown-info-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--zcat-inputField-icon-label)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </template>
+      </div>
+    </template>
+
+    <div class="zcat-dropdown-trigger-wrap">
+      <!-- Icon Left -->
+      <template lyte-if="{{zcatProp.icon}}">
+        <svg class="zcat-dropdown-icon-left {{zcatProp.disabled ? 'zcat-dropdown-icon-disabled' : ''}}" width="{{zcatProp.size === 'small' || zcatProp.size === 'extra-small' ? '14' : '16'}}" height="{{zcatProp.size === 'small' || zcatProp.size === 'extra-small' ? '14' : '16'}}" viewBox="0 0 24 24" fill="none" stroke="var(--zcat-inputField-icon-label)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </template>
+
+      <!-- === SINGLE SELECT TRIGGER === -->
+      <template lyte-if="{{zcatProp.variant !== 'multiple'}}">
+        <div class="zcat-dropdown-trigger {{isOpen ? 'active' : ''}} {{zcatProp.icon ? 'has-icon-left' : ''}}" onclick="{{action('toggleDropdown')}}" tabindex="0" onkeydown="{{action('onTriggerKeydown')}}">
+          <span lyte-if="{{selectedLabel}}" class="zcat-dropdown-value">{{selectedLabel}}</span>
+          <span lyte-if="{{!selectedLabel}}" class="zcat-dropdown-placeholder">{{zcatProp.placeholder || 'Select Option'}}{{zcatProp.isOptional && !zcatProp.label ? ' (Optional)' : ''}}</span>
+          <span class="zcat-dropdown-arrow"></span>
+        </div>
+      </template>
+
+      <!-- === MULTI SELECT – CHIP MODE TRIGGER === -->
+      <template lyte-if="{{zcatProp.variant === 'multiple' && zcatProp.multipleType === 'chip'}}">
+        <div class="zcat-dropdown-trigger zcat-dropdown-trigger-chips {{isOpen ? 'active' : ''}} {{zcatProp.icon ? 'has-icon-left' : ''}}" onclick="{{action('toggleDropdown')}}" tabindex="0" onkeydown="{{action('onTriggerKeydown')}}">
+          <template lyte-if="{{selectedItems.length}}">
+            <div class="zcat-dropdown-chips-wrap">
+              <template lyte-for="{{selectedItems}} as chip chipIdx">
+                <span class="zcat-dropdown-chip">
+                  <span class="zcat-dropdown-chip-text">{{chip.name}}</span>
+                  <span class="zcat-dropdown-chip-remove" onclick="{{action('removeChip', chip)}}">
+                    <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+                  </span>
+                </span>
+              </template>
+            </div>
+          </template>
+          <span lyte-if="{{!selectedItems.length}}" class="zcat-dropdown-placeholder">{{zcatProp.placeholder || 'Select Option'}}</span>
+          <span class="zcat-dropdown-arrow"></span>
+        </div>
+      </template>
+
+      <!-- === MULTI SELECT – DEFAULT MODE TRIGGER === -->
+      <template lyte-if="{{zcatProp.variant === 'multiple' && zcatProp.multipleType !== 'chip'}}">
+        <div class="zcat-dropdown-trigger {{isOpen ? 'active' : ''}} {{zcatProp.icon ? 'has-icon-left' : ''}}" onclick="{{action('toggleDropdown')}}" tabindex="0" onkeydown="{{action('onTriggerKeydown')}}">
+          <span lyte-if="{{multiDisplayLabel}}" class="zcat-dropdown-value">{{multiDisplayLabel}}</span>
+          <span lyte-if="{{!multiDisplayLabel}}" class="zcat-dropdown-placeholder">{{zcatProp.placeholder || 'Select Option'}}</span>
+          <span class="zcat-dropdown-arrow"></span>
+        </div>
+      </template>
+    </div>
+
+    <!-- === DROPDOWN MENU === -->
+    <div class="zcat-dropdown-menu {{isOpen ? 'open' : ''}}">
+      <template lyte-if="{{zcatProp.isSearchable}}">
+        <div class="zcat-dropdown-search-wrap">
+          <svg class="zcat-dropdown-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="zcat-dropdown-search-input" placeholder="Search" oninput="{{action('onSearchInput')}}"/>
+        </div>
+      </template>
+      <div class="zcat-dropdown-menu-body">
+        <template lyte-if="{{zcatProp.dropLabel && filteredOptions.length}}">
+          <div class="zcat-dropdown-menu-header">{{zcatProp.dropLabel}}</div>
+        </template>
+        <template lyte-for="{{filteredOptions}} as item index">
+          <!-- Single Select Item -->
+          <template lyte-if="{{zcatProp.variant !== 'multiple'}}">
+            <div class="zcat-dropdown-item {{item.value === selectedValue ? 'selected' : ''}} {{item.disabled ? 'disabled' : ''}}"
+                 onclick="{{action('selectItem', item)}}">
+              <template lyte-if="{{item.icon}}">
+                <svg class="zcat-dropdown-item-icon" width="{{zcatProp.size === 'small' || zcatProp.size === 'extra-small' ? '12' : '14'}}" height="{{zcatProp.size === 'small' || zcatProp.size === 'extra-small' ? '12' : '14'}}" viewBox="0 0 24 24" fill="none" stroke="var(--zcat-menuList-icon-active)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </template>
+              <span class="zcat-dropdown-item-text">{{item.name}}</span>
+            </div>
+          </template>
+          <!-- Multi Select Item -->
+          <template lyte-if="{{zcatProp.variant === 'multiple'}}">
+            <div class="zcat-dropdown-item zcat-dropdown-item-multi {{item._selected ? 'selected' : ''}} {{item.disabled ? 'disabled' : ''}}"
+                 onclick="{{action('toggleItem', item)}}">
+              <template lyte-if="{{zcatProp.menuListType === 'checkbox'}}">
+                <zcat-checkbox zcat-prop="{{item._checkboxProp}}"></zcat-checkbox>
+              </template>
+              <template lyte-if="{{item.icon}}">
+                <svg class="zcat-dropdown-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--zcat-menuList-icon-active)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </template>
+              <span class="zcat-dropdown-item-text">{{item.name}}</span>
+            </div>
+          </template>
+        </template>
+        <div lyte-if="{{!filteredOptions.length}}" class="zcat-dropdown-no-result">No results found</div>
+      </div>
+      <template lyte-if="{{zcatProp.createNewBtn}}">
+        <div class="zcat-dropdown-footer">
+          <div class="zcat-dropdown-create-btn" onclick="{{action('createNewClicked')}}">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>{{zcatProp.createNewBtn.label || 'Create New'}}</span>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <span lyte-if="{{zcatProp.errorMessage}}" class="zcat-dropdown-error-msg">{{zcatProp.errorMessage}}</span>
+  </div>
+</template>

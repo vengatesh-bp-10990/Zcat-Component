@@ -1,0 +1,247 @@
+/* ==============================
+   ZCAT Radio Component
+   Matches reference design exactly
+   ============================== */
+
+zcat-radio * {
+  box-sizing: border-box;
+}
+zcat-radio p {
+  margin: 0;
+}
+
+/* --- Group container --- */
+.zcat-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--zcat-font-family-primary);
+}
+
+/* --- Group label (matches input field label style) --- */
+.zcat-radio-group-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--zcat-inputField-text-label);
+  margin-bottom: 4px;
+}
+
+/* --- Options container --- */
+.zcat-radio-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.zcat-radio-horizontal .zcat-radio-options {
+  flex-direction: row;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* --- Individual radio wrapper --- */
+.zcat-radio-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1;
+  font: 400 14px/20px var(--zcat-font-family-primary);
+  color: var(--zcat-body-text-primary);
+  width: 100%;
+}
+
+/* --- Hidden native input --- */
+.zcat-radio-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* --- Radio circle (outer ring) — 14px to match reference --- */
+.zcat-radio-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--zcat-radio-border-default);
+  border-radius: 50%;
+  background-color: var(--zcat-radio-bg-default);
+  flex-shrink: 0;
+  vertical-align: middle;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+/* --- Radio dot (inner circle) — 6px, hidden by default --- */
+.zcat-radio-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background-color 0.15s;
+}
+
+/*  Hover (unchecked) — light blue bg + primary border  */
+.zcat-radio-wrap:hover .zcat-radio-circle:not(.checked) {
+  background-color: var(--zcat-radio-bg-hover);
+  border-color: var(--zcat-radio-border-hover);
+}
+
+/*  Checked state — entire circle fills primary, white inner dot  */
+.zcat-radio-circle.checked {
+  background-color: var(--zcat-radio-bg-clicked);
+  border-color: var(--zcat-radio-bg-clicked);
+}
+.zcat-radio-circle.checked .zcat-radio-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--zcat-radio-inner-default);
+}
+
+/*  Hover on checked — slightly darker primary  */
+.zcat-radio-wrap:hover .zcat-radio-circle.checked {
+  background-color: var(--zcat-radio-bg-clicked-hover);
+}
+
+/* --- Label --- */
+.zcat-radio-label {
+  margin-left: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--zcat-body-text-primary);
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Secondary variant: description text --- */
+.zcat-radio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 4px;
+}
+.zcat-radio-content .zcat-radio-label {
+  margin-left: 0;
+  font-weight: 600;
+}
+.zcat-radio-desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--zcat-body-text-grey);
+  line-height: 16px;
+}
+
+/* ===============================
+   SECONDARY VARIANT (CARD STYLE)
+   =============================== */
+.zcat-radio-secondary .zcat-radio-wrap {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--zcat-radio-outer-border-default);
+  background: var(--zcat-radio-outer-bg-default);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.2s;
+  align-items: baseline;
+}
+/* Secondary without desc — center align */
+.zcat-radio-secondary .zcat-radio-wrap:not(.zcat-radio-has-desc) {
+  align-items: center;
+}
+/* Secondary: hover — shadow */
+.zcat-radio-secondary .zcat-radio-wrap:hover {
+  box-shadow: 0px 0px 6px 1px var(--zcat-shadow-bg-default);
+}
+/* Secondary: selected card — primary border + light bg */
+.zcat-radio-secondary .zcat-radio-wrap.zcat-radio-selected {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--zcat-radio-border-default);
+  background: var(--zcat-radio-bg-default);
+}
+
+/* ===========================
+   SIZES
+   =========================== */
+/* Small */
+.zcat-radio-sm .zcat-radio-circle {
+  width: 12px;
+  height: 12px;
+}
+.zcat-radio-sm .zcat-radio-circle.checked .zcat-radio-dot {
+  width: 5px;
+  height: 5px;
+}
+.zcat-radio-sm .zcat-radio-label {
+  font-size: 13px;
+  line-height: 18px;
+}
+.zcat-radio-sm.zcat-radio-secondary .zcat-radio-wrap {
+  padding: 8px 10px;
+}
+
+/* Extra-small */
+.zcat-radio-exsm .zcat-radio-circle {
+  width: 10px;
+  height: 10px;
+}
+.zcat-radio-exsm .zcat-radio-circle.checked .zcat-radio-dot {
+  width: 4px;
+  height: 4px;
+}
+.zcat-radio-exsm .zcat-radio-label {
+  font-size: 12px;
+  line-height: 16px;
+}
+.zcat-radio-exsm.zcat-radio-secondary .zcat-radio-wrap {
+  padding: 6px 8px;
+}
+
+/* ===========================
+   DISABLED STATE
+   =========================== */
+/* Entire group disabled */
+.zcat-radio-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.zcat-radio-disabled .zcat-radio-circle {
+  background-color: var(--zcat-radio-bg-disabled);
+  border-color: var(--zcat-radio-border-disabled);
+  cursor: not-allowed;
+}
+.zcat-radio-disabled .zcat-radio-circle.checked {
+  background-color: var(--zcat-radio-bg-clicked-disabled);
+  border-color: var(--zcat-radio-bg-clicked-disabled);
+}
+.zcat-radio-disabled .zcat-radio-circle.checked .zcat-radio-dot {
+  background-color: var(--zcat-radio-inner-disabled);
+}
+
+/* Individual item disabled */
+.zcat-radio-item-disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.zcat-radio-item-disabled .zcat-radio-circle {
+  background-color: var(--zcat-radio-bg-disabled);
+  border-color: var(--zcat-radio-border-disabled);
+}
+.zcat-radio-item-disabled .zcat-radio-circle.checked {
+  background-color: var(--zcat-radio-bg-clicked-disabled);
+  border-color: var(--zcat-radio-bg-clicked-disabled);
+}
+.zcat-radio-item-disabled .zcat-radio-circle.checked .zcat-radio-dot {
+  background-color: var(--zcat-radio-inner-disabled);
+}
+
+/* ===========================
+   FOCUS VISIBLE
+   =========================== */
+.zcat-radio-input:focus-visible ~ .zcat-radio-circle {
+  box-shadow: none;
+}
