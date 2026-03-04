@@ -21,7 +21,15 @@
           "idx": 1,
           "id": "60047179487",
           "name": "Development",
-          "type": 3
+          "type": 3,
+          "env_status": "Active",
+          "project_details": {
+            "project_name": "DoNotDel-EC",
+            "id": "21282000000043055",
+            "project_type": "Live"
+          },
+          "is_default": false,
+          "action_required": false
         }
       ]
     }
