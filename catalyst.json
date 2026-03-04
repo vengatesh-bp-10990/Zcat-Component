@@ -1,8 +1,8 @@
 {
   "slate": [
     {
-      "name": "zcatcomponents",
-      "source": "./dist"
+      "name": "UIComponents",
+      "source": "./"
     }
   ]
 }

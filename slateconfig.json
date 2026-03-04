@@ -1,0 +1,23 @@
+{
+  "buildKey": "default",
+  "errorPages": {
+    "404": "/index.html"
+  },
+  "headers": [
+    {
+      "source": "/**",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "**",
+      "destination": "/index.html"
+    }
+  ]
+}
