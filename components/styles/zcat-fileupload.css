@@ -1,0 +1,205 @@
+/* ==============================
+   ZCAT File Upload Component
+   ============================== */
+
+zcat-fileupload * { box-sizing: border-box; }
+
+.zcat-fileupload-wrapper {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--zcat-font-family-primary);
+  width: 100%;
+}
+
+/* Label */
+.zcat-fileupload-label-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.zcat-fileupload-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--zcat-inputField-text-label);
+}
+.zcat-fileupload-optional {
+  font-size: 12px;
+  color: var(--zcat-inputField-text-optional);
+}
+
+/* === PRIMARY: Drop Zone === */
+.zcat-fileupload-dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  padding: 24px;
+  border: 2px dashed var(--zcat-body-border);
+  border-radius: 6px;
+  background: var(--zcat-inputField-bg-default);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.zcat-fileupload-dropzone:hover {
+  border-color: var(--zcat-inputField-border-hover);
+  background: var(--zcat-inputField-bg-hover);
+}
+.zcat-fileupload-dropzone.dragging {
+  border-color: var(--zcat-btn-fill-bg-primary-default);
+  background: var(--zcat-btn-outline-bg-primaryHover);
+}
+.zcat-fileupload-dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.zcat-fileupload-upload-icon {
+  color: var(--zcat-inputField-icon-placeholder);
+}
+.zcat-fileupload-dropzone.dragging .zcat-fileupload-upload-icon {
+  color: var(--zcat-btn-fill-bg-primary-default);
+}
+.zcat-fileupload-dropzone-text {
+  margin: 0;
+  font-size: 14px;
+  color: var(--zcat-body-text-secondary);
+}
+.zcat-fileupload-browse-link {
+  color: var(--zcat-btn-fill-bg-primary-default);
+  font-weight: 500;
+  cursor: pointer;
+}
+.zcat-fileupload-browse-link:hover {
+  text-decoration: underline;
+}
+.zcat-fileupload-dropzone-hint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--zcat-inputField-text-placeholder);
+}
+
+/* === SECONDARY: Button Mode === */
+.zcat-fileupload-btn-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.zcat-fileupload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  height: 36px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--zcat-font-family-primary);
+  color: var(--zcat-btn-outline-text-primary-default);
+  background: transparent;
+  border: 1px solid var(--zcat-btn-outline-border-primary-default);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.zcat-fileupload-btn:hover {
+  color: var(--zcat-btn-outline-text-primary-hover);
+  border-color: var(--zcat-btn-outline-border-primary-hover);
+  background: var(--zcat-btn-outline-bg-primaryHover);
+}
+.zcat-fileupload-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.zcat-fileupload-btn svg { stroke: currentColor; }
+.zcat-fileupload-btn-hint {
+  font-size: 12px;
+  color: var(--zcat-inputField-text-placeholder);
+}
+
+/* === File List === */
+.zcat-fileupload-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+.zcat-fileupload-file {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--zcat-inputField-bg-default);
+  border: 1px solid var(--zcat-body-border);
+  border-radius: 6px;
+  transition: background 0.12s;
+}
+.zcat-fileupload-file:hover {
+  background: var(--zcat-btn-grey-bg-hover);
+}
+.zcat-fileupload-file-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: var(--zcat-btn-grey-bg-hover);
+  color: var(--zcat-inputField-icon-active);
+  flex-shrink: 0;
+}
+.zcat-fileupload-file-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.zcat-fileupload-file-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--zcat-body-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.zcat-fileupload-file-size {
+  font-size: 11px;
+  color: var(--zcat-inputField-text-placeholder);
+}
+.zcat-fileupload-file-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--zcat-inputField-icon-placeholder);
+  transition: background 0.12s, color 0.12s;
+  flex-shrink: 0;
+}
+.zcat-fileupload-file-remove:hover {
+  background: var(--zcat-inputField-bg-error, rgba(255, 0, 0, 0.06));
+  color: var(--zcat-inputField-text-error);
+}
+
+/* === Disabled === */
+.zcat-fileupload-disabled .zcat-fileupload-dropzone {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.zcat-fileupload-disabled .zcat-fileupload-label {
+  color: var(--zcat-inputField-text-disabled);
+}
+
+/* Error */
+.zcat-fileupload-error-msg {
+  position: relative;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--zcat-inputField-text-error);
+  line-height: 16px;
+  font-family: var(--zcat-font-family-primary);
+}

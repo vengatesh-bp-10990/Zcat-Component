@@ -1,0 +1,118 @@
+<template tag-name="tab-comp">
+  <div class="zcat-page-wrapper">
+    <div class="zcat-page-header">
+      <h1 class="zcat-page-title">Tabs</h1>
+      <p class="zcat-page-desc">Tabs organize content into separate views where only one view is visible at a time.</p>
+      <div class="zcat-page-tabs">
+        <span class="zcat-page-tab {{pageTab === 'customize' ? 'active' : ''}}" onclick="{{action('showCustomizeTab')}}">Customize</span>
+        <span class="zcat-page-tab {{pageTab === 'variants' ? 'active' : ''}}" onclick="{{action('showVariantsTab')}}">All Variants</span>
+        <span class="zcat-page-tab">Change Logs</span>
+      </div>
+    </div>
+
+    <!-- Customize Tab -->
+    <div class="zcat-page-body" lyte-if="{{pageTab === 'customize'}}">
+      <div class="zcat-page-left">
+        <h3 class="zcat-section-label">preview</h3>
+        <div class="zcat-preview-box">
+          <div class="zcat-preview-area">
+            <zcat-tab self="{{self}}" zcat-prop="{{tabObj}}"></zcat-tab>
+          </div>
+        </div>
+        <div class="zcat-code-tabs">
+          <span class="zcat-code-tab {{activeTab === 'slyte' ? 'active' : ''}}" onclick="{{action('showSlyteTab')}}">sLyte</span>
+          <span class="zcat-code-tab {{activeTab === 'js' ? 'active' : ''}}" onclick="{{action('showJsTab')}}">JS</span>
+          <span class="zcat-code-tab {{activeTab === 'html' ? 'active' : ''}}" onclick="{{action('showHtmlTab')}}">HTML</span>
+          <span class="zcat-code-tab {{activeTab === 'css' ? 'active' : ''}}" onclick="{{action('showCssTab')}}">CSS</span>
+        </div>
+        <div class="zcat-code-panel">
+          <div class="zcat-code-lines">
+            <pre lyte-if="{{activeTab === 'slyte'}}">{{slyteCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'js'}}">{{jsCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'html'}}">{{htmlCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'css'}}">{{cssCodeSnippet.code}}</pre>
+          </div>
+          <span class="zcat-code-copy" onclick="{{action('copyCode')}}" title="Copy code">
+            <zcat-icon name="copy" width="16" height="16" stroke="currentColor" stroke-width="1.3"></zcat-icon>
+          </span>
+        </div>
+      </div>
+
+      <div class="zcat-page-right">
+        <div class="zcat-custom-header">
+          <h3 class="zcat-custom-title">Customise</h3>
+          <zcat-button self="{{self}}" zcat-prop="{{resetButtonObj}}"></zcat-button>
+        </div>
+        <div class="zcat-custom-body">
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Variant</span>
+            <select data-action="changeTabVariant" class="zcat-custom-select">
+              <option value="primary">Primary</option>
+              <option value="secondary">Secondary</option>
+              <option value="code">Code</option>
+            </select>
+          </div>
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Size</span>
+            <select data-action="changeTabSize" class="zcat-custom-select">
+              <option value="default">Default</option>
+              <option value="small">Small</option>
+              <option value="extra-small">Extra-small</option>
+            </select>
+          </div>
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Close Icon</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleCloseObj}}"></zcat-toggle>
+          </div>
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Badge</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleBadgeObj}}"></zcat-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Variants Tab -->
+    <div class="zcat-page-left" lyte-if="{{pageTab === 'variants'}}" style="flex:1">
+      <h3 class="zcat-section-label" style="margin-top:4px">Primary Variant</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card" style="min-width:360px">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Primary Tabs</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-tab self="{{self}}" zcat-prop="{{variantPrimaryObj}}"></zcat-tab>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="zcat-section-label" style="margin-top:24px">Secondary Variant</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card" style="min-width:360px">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Secondary (Pill) Tabs</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-tab self="{{self}}" zcat-prop="{{variantSecondaryObj}}"></zcat-tab>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="zcat-section-label" style="margin-top:24px">Code Variant</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card" style="min-width:360px">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Code Tabs (File Browser)</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-tab self="{{self}}" zcat-prop="{{variantCodeObj}}"></zcat-tab>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="zcat-section-label" style="margin-top:24px">With Badge</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card" style="min-width:360px">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Tabs with Badge Count</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-tab self="{{self}}" zcat-prop="{{variantBadgeObj}}"></zcat-tab>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

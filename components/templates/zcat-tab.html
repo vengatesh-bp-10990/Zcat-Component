@@ -1,0 +1,42 @@
+<template tag-name="zcat-tab">
+  <div class="zcat-tabs-wrapper
+    {{zcatProp.variant === 'secondary' ? 'zcat-tabs-secondary' : zcatProp.variant === 'code' ? 'zcat-tabs-code' : 'zcat-tabs-primary'}}
+    {{zcatProp.size === 'small' ? 'zcat-tabs-sm' : zcatProp.size === 'extra-small' ? 'zcat-tabs-exsm' : ''}}
+    {{zcatProp.classCss || ''}}">
+    <!-- Tab Head -->
+    <div class="zcat-tab-head">
+      <div class="zcat-tab-title
+        {{activeTabId === item.id ? 'zcat-tab-active' : ''}}
+        {{item.disabled ? 'zcat-tab-disabled' : ''}}"
+           lyte-for="{{zcatProp.list}} as item index"
+           onclick="{{action('selectTab', item)}}">
+        <template lyte-if="{{item.icon && item.icon.name}}">
+          <zcat-icon name="{{item.icon.name}}" width="14" height="14" stroke="currentColor" stroke-width="1.5" class="zcat-tab-icon"></zcat-icon>
+        </template>
+        <span class="zcat-tab-label">{{item.title.name}}</span>
+        <template lyte-if="{{item.title.badge}}">
+          <span class="zcat-tab-badge">{{item.title.badge}}</span>
+        </template>
+        <template lyte-if="{{zcatProp.variant === 'code'}}">
+          <div class="zcat-tab-code-slide"></div>
+        </template>
+        <template lyte-if="{{zcatProp.closeIcon}}">
+          <span class="zcat-tab-close" onclick="{{action('closeTab', item, event)}}">
+            <zcat-icon name="close" width="10" height="10" stroke="currentColor" stroke-width="2"></zcat-icon>
+          </span>
+        </template>
+      </div>
+    </div>
+    <!-- Tab Body -->
+    <template lyte-if="{{zcatProp.showBody !== false}}">
+      <div class="zcat-tab-body">
+        <div class="zcat-tab-content {{activeTabId === item.id ? 'zcat-tab-show' : 'zcat-tab-hide'}}"
+             lyte-for="{{zcatProp.list}} as item index">
+          <template lyte-if="{{item.body && item.body.content}}">
+            {{item.body.content}}
+          </template>
+        </div>
+      </div>
+    </template>
+  </div>
+</template>

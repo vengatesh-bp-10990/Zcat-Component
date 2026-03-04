@@ -1,8 +1,8 @@
 {
   "slate": [
     {
-      "name": "zcatcomponent",
-      "source": "/Users/vengatesh-10990/Desktop/Catalyst-UI-Components/zcat-app/dist"
+      "name": "zcatcomponents",
+      "source": "./dist"
     }
   ]
 }

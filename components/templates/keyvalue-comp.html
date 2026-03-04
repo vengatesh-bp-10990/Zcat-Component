@@ -1,0 +1,75 @@
+<template tag-name="keyvalue-comp">
+  <div class="zcat-page-wrapper">
+    <div class="zcat-page-header">
+      <h1 class="zcat-page-title">Key-Value Pair</h1>
+      <p class="zcat-page-desc">Dynamic key-value row editor with add/remove rows, supporting custom field definitions.</p>
+      <div class="zcat-page-tabs">
+        <span class="zcat-page-tab {{pageTab === 'customize' ? 'active' : ''}}" onclick="{{action('showCustomizeTab')}}">Customize</span>
+        <span class="zcat-page-tab {{pageTab === 'variants' ? 'active' : ''}}" onclick="{{action('showVariantsTab')}}">All Variants</span>
+        <span class="zcat-page-tab">Change Logs</span>
+      </div>
+    </div>
+
+    <div class="zcat-page-body" lyte-if="{{pageTab === 'customize'}}">
+      <div class="zcat-page-left">
+        <h3 class="zcat-section-label">preview</h3>
+        <div class="zcat-preview-box">
+          <div class="zcat-preview-area" style="padding:24px">
+            <zcat-keyvalue-pair self="{{self}}" zcat-prop="{{keyvalueObj}}"></zcat-keyvalue-pair>
+          </div>
+        </div>
+        <div class="zcat-code-tabs">
+          <span class="zcat-code-tab {{activeTab === 'slyte' ? 'active' : ''}}" onclick="{{action('showSlyteTab')}}">sLyte</span>
+          <span class="zcat-code-tab {{activeTab === 'js' ? 'active' : ''}}" onclick="{{action('showJsTab')}}">JS</span>
+          <span class="zcat-code-tab {{activeTab === 'html' ? 'active' : ''}}" onclick="{{action('showHtmlTab')}}">HTML</span>
+          <span class="zcat-code-tab {{activeTab === 'css' ? 'active' : ''}}" onclick="{{action('showCssTab')}}">CSS</span>
+        </div>
+        <div class="zcat-code-panel">
+          <div class="zcat-code-lines">
+            <pre lyte-if="{{activeTab === 'slyte'}}">{{slyteCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'js'}}">{{jsCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'html'}}">{{htmlCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'css'}}">{{cssCodeSnippet.code}}</pre>
+          </div>
+          <span class="zcat-code-copy" onclick="{{action('copyCode')}}" title="Copy code">
+            <zcat-icon name="copy" width="16" height="16" stroke="currentColor" stroke-width="1.3"></zcat-icon>
+          </span>
+        </div>
+      </div>
+      <div class="zcat-page-right">
+        <div class="zcat-custom-header">
+          <h3 class="zcat-custom-title">Customise</h3>
+          <zcat-button self="{{self}}" zcat-prop="{{resetButtonObj}}"></zcat-button>
+        </div>
+        <div class="zcat-custom-body">
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Label</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleLabelObj}}"></zcat-toggle>
+          </div>
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Disabled</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleDisabledObj}}"></zcat-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="zcat-page-left" lyte-if="{{pageTab === 'variants'}}" style="flex:1">
+      <h3 class="zcat-section-label" style="margin-top:4px">Use Cases</h3>
+      <div class="zcat-variants-grid" style="grid-template-columns: 1fr">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Parameters</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <zcat-keyvalue-pair self="{{self}}" zcat-prop="{{keyvalueObj}}"></zcat-keyvalue-pair>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">HTTP Headers</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <zcat-keyvalue-pair self="{{self}}" zcat-prop="{{keyvalueObj2}}"></zcat-keyvalue-pair>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,136 @@
+/* ==============================
+   ZCAT Double Field Component
+   ============================== */
+
+zcat-double-field * { box-sizing: border-box; }
+
+.zcat-doublefield-wrapper {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--zcat-font-family-primary);
+}
+
+/* Label */
+.zcat-doublefield-label-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.zcat-doublefield-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--zcat-inputField-text-label);
+}
+.zcat-doublefield-optional {
+  font-size: 12px;
+  color: var(--zcat-inputField-text-optional);
+}
+
+/* Fields row */
+.zcat-doublefield-row {
+  display: flex;
+  align-items: stretch;
+}
+
+/* Field items — override child component border-radius */
+.zcat-doublefield-item {
+  position: relative;
+}
+.zcat-doublefield-item + .zcat-doublefield-item {
+  margin-left: -1px;
+}
+
+/* First field: rounded left corners only */
+.zcat-field-first zcat-input .zcat-input-el,
+.zcat-field-first zcat-dropdown .zcat-dropdown-trigger {
+  border-radius: 6px 0 0 6px;
+}
+.zcat-field-first zcat-input .zcat-input-label-row,
+.zcat-field-first zcat-dropdown .zcat-dropdown-label-row {
+  display: none;
+}
+
+/* Middle fields: no border-radius */
+.zcat-field-mid zcat-input .zcat-input-el,
+.zcat-field-mid zcat-dropdown .zcat-dropdown-trigger {
+  border-radius: 0;
+}
+.zcat-field-mid zcat-input .zcat-input-label-row,
+.zcat-field-mid zcat-dropdown .zcat-dropdown-label-row {
+  display: none;
+}
+
+/* Last field: rounded right corners only */
+.zcat-field-last zcat-input .zcat-input-el,
+.zcat-field-last zcat-dropdown .zcat-dropdown-trigger {
+  border-radius: 0 6px 6px 0;
+}
+.zcat-field-last zcat-input .zcat-input-label-row,
+.zcat-field-last zcat-dropdown .zcat-dropdown-label-row {
+  display: none;
+}
+
+/* Hover z-index so border shows on top */
+.zcat-doublefield-item:hover {
+  z-index: 1;
+}
+.zcat-doublefield-item:focus-within {
+  z-index: 2;
+}
+
+/* Hide individual field error messages — show parent one */
+.zcat-doublefield-item zcat-input .zcat-input-error-msg,
+.zcat-doublefield-item zcat-dropdown .zcat-dropdown-error-msg {
+  display: none;
+}
+
+/* Error */
+.zcat-doublefield-error .zcat-doublefield-item zcat-input .zcat-input-el,
+.zcat-doublefield-error .zcat-doublefield-item zcat-dropdown .zcat-dropdown-trigger {
+  border-color: var(--zcat-inputField-border-error) !important;
+}
+.zcat-doublefield-error-msg {
+  position: relative;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--zcat-inputField-text-error);
+  font-family: var(--zcat-font-family-primary);
+}
+
+/* Disabled */
+.zcat-doublefield-disabled .zcat-doublefield-label {
+  color: var(--zcat-inputField-text-disabled);
+}
+
+/* Sizes */
+.zcat-doublefield-sm .zcat-field-first zcat-input .zcat-input-el,
+.zcat-doublefield-sm .zcat-field-first zcat-dropdown .zcat-dropdown-trigger,
+.zcat-doublefield-sm .zcat-field-last zcat-input .zcat-input-el,
+.zcat-doublefield-sm .zcat-field-last zcat-dropdown .zcat-dropdown-trigger {
+  border-radius: 6px 0 0 6px;
+}
+.zcat-doublefield-sm .zcat-field-last zcat-input .zcat-input-el,
+.zcat-doublefield-sm .zcat-field-last zcat-dropdown .zcat-dropdown-trigger {
+  border-radius: 0 6px 6px 0;
+}
+.zcat-doublefield-exsm .zcat-field-first zcat-input .zcat-input-el,
+.zcat-doublefield-exsm .zcat-field-first zcat-dropdown .zcat-dropdown-trigger {
+  border-radius: 6px 0 0 6px;
+}
+.zcat-doublefield-exsm .zcat-field-last zcat-input .zcat-input-el,
+.zcat-doublefield-exsm .zcat-field-last zcat-dropdown .zcat-dropdown-trigger {
+  border-radius: 0 6px 6px 0;
+}
+
+/* Make child wrappers full-width */
+.zcat-doublefield-item zcat-input,
+.zcat-doublefield-item zcat-dropdown {
+  display: block;
+  width: 100%;
+}
+.zcat-doublefield-item zcat-input .zcat-input-wrapper,
+.zcat-doublefield-item zcat-dropdown .zcat-dropdown-wrapper {
+  width: 100%;
+}

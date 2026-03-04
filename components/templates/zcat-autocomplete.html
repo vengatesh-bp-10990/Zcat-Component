@@ -1,0 +1,72 @@
+<template tag-name="zcat-autocomplete">
+  <div class="zcat-autocomplete-wrapper
+    {{zcatProp.size === 'small' ? 'zcat-autocomplete-sm' : zcatProp.size === 'extra-small' ? 'zcat-autocomplete-exsm' : ''}}
+    {{zcatProp.disabled ? 'zcat-autocomplete-disabled' : ''}}
+    {{zcatProp.errorMessage ? 'zcat-autocomplete-error' : ''}}">
+
+    <!-- Label Row -->
+    <template lyte-if="{{zcatProp.label}}">
+      <div class="zcat-autocomplete-label-row">
+        <label class="zcat-autocomplete-label">{{zcatProp.label}}</label>
+        <template lyte-if="{{zcatProp.isOptional}}">
+          <span class="zcat-autocomplete-optional">(Optional)</span>
+        </template>
+      </div>
+    </template>
+
+    <!-- Search Input -->
+    <div class="zcat-autocomplete-input-wrap">
+      <zcat-icon class="zcat-autocomplete-search-icon" name="search" width="{{zcatProp.size === 'extra-small' ? '12' : '14'}}" height="{{zcatProp.size === 'extra-small' ? '12' : '14'}}" stroke="var(--zcat-inputField-icon-placeholder)" stroke-width="1.3"></zcat-icon>
+      <input
+        type="text"
+        class="zcat-autocomplete-input"
+        placeholder="{{zcatProp.placeholder || 'Search...'}}"
+        value="{{searchQuery}}"
+        disabled="{{zcatProp.disabled || false}}"
+        style="{{zcatProp.width ? 'width:' + zcatProp.width : ''}}"
+        oninput="{{action('onSearchInput')}}"
+        onfocus="{{action('onSearchFocus')}}"
+        onkeydown="{{action('onSearchKeydown')}}"
+      />
+      <template lyte-if="{{searchQuery}}">
+        <span class="zcat-autocomplete-clear" onclick="{{action('clearSearch')}}">
+          <zcat-icon name="close" width="12" height="12" stroke="currentColor" stroke-width="2"></zcat-icon>
+        </span>
+      </template>
+    </div>
+
+    <!-- Dropdown Menu -->
+    <div class="zcat-autocomplete-menu {{isOpen ? 'open' : ''}}">
+      <template lyte-if="{{zcatProp.dropLabel && filteredOptions.length}}">
+        <div class="zcat-autocomplete-menu-header">{{zcatProp.dropLabel}}</div>
+      </template>
+      <div class="zcat-autocomplete-menu-body">
+        <template lyte-for="{{filteredOptions}} as item index">
+          <div class="zcat-autocomplete-item {{item.value === selectedValue ? 'selected' : ''}} {{index === highlightIndex ? 'highlighted' : ''}} {{item.disabled ? 'disabled' : ''}}"
+               onclick="{{action('selectItem', item)}}">
+            <template lyte-if="{{item.icon}}">
+              <zcat-icon class="zcat-autocomplete-item-icon" name="{{item.icon}}" width="14" height="14" stroke="currentColor" stroke-width="1.3"></zcat-icon>
+            </template>
+            <span class="zcat-autocomplete-item-text">
+              <span>{{item._highlightBefore}}</span><strong class="zcat-autocomplete-highlight">{{item._highlightMatch}}</strong><span>{{item._highlightAfter}}</span>
+            </span>
+          </div>
+        </template>
+        <template lyte-if="{{!filteredOptions.length}}">
+          <div class="zcat-autocomplete-empty">No results found</div>
+        </template>
+      </div>
+      <template lyte-if="{{zcatProp.createNewBtn}}">
+        <div class="zcat-autocomplete-footer" onclick="{{action('createNewClicked')}}">
+          <zcat-icon name="plus" width="14" height="14" stroke="var(--zcat-primary-1)" stroke-width="2"></zcat-icon>
+          <span>{{zcatProp.createNewBtn.label || 'Create New'}}</span>
+        </div>
+      </template>
+    </div>
+
+    <!-- Error Message -->
+    <template lyte-if="{{zcatProp.errorMessage}}">
+      <div class="zcat-autocomplete-error-msg">{{zcatProp.errorMessage}}</div>
+    </template>
+  </div>
+</template>

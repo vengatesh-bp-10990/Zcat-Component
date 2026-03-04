@@ -1,0 +1,51 @@
+<template tag-name="zcat-modal">
+  <template lyte-if="{{isOpen}}">
+    <div class="zcat-modal-overlay
+      {{zcatProp.size === 'small' ? 'zcat-modal-sm' : zcatProp.size === 'large' ? 'zcat-modal-lg' : zcatProp.size === 'full' ? 'zcat-modal-full' : ''}}
+      {{zcatProp.classCss || ''}}"
+         onclick="{{action('onOverlayClick', event)}}">
+      <div class="zcat-modal-container" style="{{zcatProp.width ? 'width:' + zcatProp.width : ''}}">
+        <!-- Header -->
+        <div class="zcat-modal-header">
+          <div class="zcat-modal-header-left">
+            <template lyte-if="{{zcatProp.header && zcatProp.header.backArrow}}">
+              <button class="zcat-modal-back" onclick="{{action('closeModal')}}">
+                <zcat-icon name="arrow-left" width="16" height="16" stroke="currentColor" stroke-width="2"></zcat-icon>
+              </button>
+            </template>
+            <div class="zcat-modal-header-text">
+              <h2 class="zcat-modal-title">{{zcatProp.header ? zcatProp.header.title : 'Modal'}}</h2>
+              <template lyte-if="{{zcatProp.header && zcatProp.header.desc}}">
+                <p class="zcat-modal-desc">{{zcatProp.header.desc}}</p>
+              </template>
+            </div>
+          </div>
+          <button class="zcat-modal-close" onclick="{{action('closeModal')}}">
+            <zcat-icon name="close" width="14" height="14" stroke="currentColor" stroke-width="2"></zcat-icon>
+          </button>
+        </div>
+        <!-- Body -->
+        <div class="zcat-modal-body">
+          <template lyte-if="{{zcatProp.body && zcatProp.body.content}}">
+            {{zcatProp.body.content}}
+          </template>
+        </div>
+        <!-- Footer -->
+        <template lyte-if="{{zcatProp.footer}}">
+          <div class="zcat-modal-footer">
+            <div class="zcat-modal-footer-left">
+              <template lyte-if="{{zcatProp.footer.left}}">
+                <zcat-button lyte-for="{{zcatProp.footer.left}} as btn index" self="{{self}}" zcat-prop="{{btn}}"></zcat-button>
+              </template>
+            </div>
+            <div class="zcat-modal-footer-right">
+              <template lyte-if="{{zcatProp.footer.right}}">
+                <zcat-button lyte-for="{{zcatProp.footer.right}} as btn index" self="{{self}}" zcat-prop="{{btn}}"></zcat-button>
+              </template>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </template>
+</template>

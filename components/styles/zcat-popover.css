@@ -1,0 +1,171 @@
+/* ==============================
+   ZCAT Popover Component
+   ============================== */
+
+zcat-popover * {
+  box-sizing: border-box;
+}
+
+/* --- Wrapper --- */
+.zcat-popover-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+/* --- Default trigger --- */
+.zcat-popover-default-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--zcat-body-border);
+  background: var(--zcat-popup-bg);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--zcat-body-text-secondary);
+  transition: background 0.15s, border-color 0.15s;
+}
+.zcat-popover-default-trigger:hover {
+  background: var(--zcat-btn-grey-bg-hover);
+  color: var(--zcat-body-text-primary);
+}
+
+/* --- Menu panel --- */
+.zcat-popover-menu {
+  position: absolute;
+  z-index: 500;
+  min-width: 180px;
+  max-width: 320px;
+  background: var(--zcat-popup-bg);
+  border: 1px solid var(--zcat-popup-border);
+  border-radius: 8px;
+  box-shadow: var(--zcat-shadow-dark-all);
+  padding: 4px;
+  animation: zcatPopoverFadeIn 0.15s ease;
+}
+
+@keyframes zcatPopoverFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Positions */
+.zcat-popover-bottom { top: calc(100% + 4px); left: 0; }
+.zcat-popover-top { bottom: calc(100% + 4px); left: 0; }
+.zcat-popover-left { right: calc(100% + 4px); top: 0; }
+.zcat-popover-right { left: calc(100% + 4px); top: 0; }
+
+/* --- Search --- */
+.zcat-popover-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--zcat-popup-border);
+  margin-bottom: 4px;
+  color: var(--zcat-body-text-grey);
+}
+.zcat-popover-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: 400 13px/18px var(--zcat-font-family-primary);
+  color: var(--zcat-body-text-primary);
+}
+.zcat-popover-search-input::placeholder {
+  color: var(--zcat-body-text-grey);
+}
+
+/* --- Heading --- */
+.zcat-popover-heading {
+  font: 500 11px/14px var(--zcat-font-family-primary);
+  color: var(--zcat-body-text-grey);
+  padding: 6px 8px 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* --- Options list --- */
+.zcat-popover-options {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+/* --- Menu item --- */
+.zcat-popover-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font: 400 14px/20px var(--zcat-font-family-primary);
+  color: var(--zcat-body-text-primary);
+  transition: background 0.12s;
+  position: relative;
+}
+.zcat-popover-item:hover {
+  background: var(--zcat-btn-grey-bg-hover);
+}
+.zcat-popover-item-selected {
+  color: var(--zcat-btn-fill-bg-primary-default);
+  font-weight: 500;
+}
+.zcat-popover-item-selected .zcat-popover-item-icon {
+  color: var(--zcat-btn-fill-bg-primary-default);
+}
+.zcat-popover-item-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+}
+.zcat-popover-item-icon {
+  flex-shrink: 0;
+  color: var(--zcat-body-text-grey);
+}
+.zcat-popover-item-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.zcat-popover-item-arrow {
+  flex-shrink: 0;
+  margin-left: auto;
+  opacity: 0.5;
+}
+
+/* --- Nested submenu --- */
+.zcat-popover-submenu {
+  position: absolute;
+  left: calc(100% + 4px);
+  top: 0;
+  min-width: 160px;
+  background: var(--zcat-popup-bg);
+  border: 1px solid var(--zcat-popup-border);
+  border-radius: 8px;
+  box-shadow: var(--zcat-shadow-dark-all);
+  padding: 4px;
+  z-index: 501;
+}
+
+/* --- Create New button --- */
+.zcat-popover-create {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border-top: 1px solid var(--zcat-popup-border);
+  margin-top: 4px;
+  cursor: pointer;
+  font: 500 13px/18px var(--zcat-font-family-primary);
+  color: var(--zcat-btn-fill-bg-primary-default);
+  border-radius: 0 0 4px 4px;
+  transition: background 0.12s;
+}
+.zcat-popover-create:hover {
+  background: var(--zcat-btn-outline-bg-primaryHover);
+}

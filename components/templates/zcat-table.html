@@ -1,0 +1,72 @@
+<template tag-name="zcat-table">
+  <div class="zcat-table-wrapper {{zcatProp.bordered ? 'zcat-table-bordered' : ''}} {{zcatProp.striped ? 'zcat-table-striped' : ''}} {{zcatProp.compact ? 'zcat-table-compact' : ''}} {{zcatProp.classCss || ''}}">
+    <table class="zcat-table">
+      <!-- Table Head -->
+      <thead class="zcat-table-head">
+        <tr>
+          <template lyte-if="{{zcatProp.checkbox}}">
+            <th class="zcat-table-th zcat-table-th-check" style="width:40px">
+              <label class="zcat-table-check-wrap">
+                <input type="checkbox" class="zcat-table-checkbox" checked="{{selectAll}}" onclick="{{action('toggleSelectAll')}}"/>
+                <span class="zcat-table-checkmark"></span>
+              </label>
+            </th>
+          </template>
+          <th class="zcat-table-th {{col.sortable ? 'zcat-table-sortable' : ''}} {{sortColumn === col.value ? 'zcat-table-sorted' : ''}}"
+              lyte-for="{{zcatProp.header}} as col colIdx"
+              onclick="{{action('sortBy', col)}}"
+              style="{{col.width ? 'width:' + col.width : ''}}">
+            <div class="zcat-table-th-inner">
+              <span class="zcat-table-th-label">{{col.label}}</span>
+              <template lyte-if="{{col.sortable}}">
+                <span class="zcat-table-sort-icon {{sortColumn === col.value && sortDirection === 'desc' ? 'zcat-sort-desc' : ''}}">
+                  <zcat-icon name="chevron-up" width="12" height="12" stroke="currentColor" stroke-width="2"></zcat-icon>
+                </span>
+              </template>
+            </div>
+          </th>
+          <template lyte-if="{{zcatProp.moreOptions}}">
+            <th class="zcat-table-th" style="width:48px"></th>
+          </template>
+        </tr>
+      </thead>
+      <!-- Table Body -->
+      <tbody class="zcat-table-body">
+        <tr class="zcat-table-row {{row._selectedClass}}"
+            lyte-for="{{_bodyRows}} as row rowIdx"
+            onclick="{{action('onRowClick', row, row._rowIdx)}}">
+          <template lyte-if="{{zcatProp.checkbox}}">
+            <td class="zcat-table-td zcat-table-td-check">
+              <label class="zcat-table-check-wrap" onclick="event.stopPropagation()">
+                <input type="checkbox" class="zcat-table-checkbox" checked="{{row._isChecked}}" onclick="{{action('toggleRowSelect', row._rowIdx)}}"/>
+                <span class="zcat-table-checkmark"></span>
+              </label>
+            </td>
+          </template>
+          <td class="zcat-table-td"
+              lyte-for="{{zcatProp.header}} as col colIdx">
+            <template lyte-if="{{col.field_type === 'status'}}">
+              <span class="zcat-table-status zcat-table-status-{{row[col.value + '_status'] || 'default'}}">{{row[col.value]}}</span>
+            </template>
+            <template lyte-if="{{col.field_type !== 'status'}}">
+              {{row[col.value]}}
+            </template>
+          </td>
+          <template lyte-if="{{zcatProp.moreOptions}}">
+            <td class="zcat-table-td zcat-table-td-more">
+              <button class="zcat-table-more-btn" onclick="{{action('onMoreClick', row, rowIdx, event)}}">
+                <zcat-icon name="more-vertical" width="16" height="16" stroke="currentColor" stroke-width="2"></zcat-icon>
+              </button>
+            </td>
+          </template>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Empty state -->
+    <template lyte-if="{{!zcatProp.body || zcatProp.body.length === 0}}">
+      <div class="zcat-table-empty">
+        <p>No data available</p>
+      </div>
+    </template>
+  </div>
+</template>

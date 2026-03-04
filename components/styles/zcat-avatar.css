@@ -1,0 +1,94 @@
+/* ==============================
+   ZCAT Avatar Component
+   ============================== */
+
+zcat-avatar * {
+  box-sizing: border-box;
+}
+
+/* --- Base --- */
+.zcat-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--zcat-avatar-bg-default);
+  border: 1px solid var(--zcat-avatar-border-default);
+  color: var(--zcat-avatar-icon-default);
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  cursor: default;
+  user-select: none;
+  font-family: var(--zcat-font-family-primary);
+}
+
+/* --- Sizes --- */
+.zcat-avatar-sm {
+  width: 24px;
+  height: 24px;
+}
+.zcat-avatar-md {
+  width: 32px;
+  height: 32px;
+}
+.zcat-avatar-lg {
+  width: 40px;
+  height: 40px;
+}
+.zcat-avatar-xl {
+  width: 56px;
+  height: 56px;
+}
+
+/* --- Image --- */
+.zcat-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* --- Letter --- */
+.zcat-avatar-letter {
+  font-weight: 600;
+  color: var(--zcat-avatar-text-default);
+  line-height: 1;
+}
+.zcat-avatar-sm .zcat-avatar-letter { font-size: 10px; }
+.zcat-avatar-md .zcat-avatar-letter { font-size: 13px; }
+.zcat-avatar-lg .zcat-avatar-letter { font-size: 16px; }
+.zcat-avatar-xl .zcat-avatar-letter { font-size: 22px; }
+
+/* --- Icon (SVG) --- */
+.zcat-avatar-icon {
+  color: var(--zcat-avatar-icon-default);
+}
+.zcat-avatar-sm .zcat-avatar-icon { width: 14px; height: 14px; }
+.zcat-avatar-md .zcat-avatar-icon { width: 18px; height: 18px; }
+.zcat-avatar-lg .zcat-avatar-icon { width: 22px; height: 22px; }
+.zcat-avatar-xl .zcat-avatar-icon { width: 30px; height: 30px; }
+
+/* --- Status badge --- */
+.zcat-avatar-status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--zcat-popup-bg);
+}
+.zcat-avatar-sm .zcat-avatar-status { width: 6px; height: 6px; border-width: 1.5px; }
+.zcat-avatar-xl .zcat-avatar-status { width: 12px; height: 12px; border-width: 2px; }
+
+.zcat-avatar-status-online { background: var(--zcat-green-1); }
+.zcat-avatar-status-offline { background: var(--zcat-dark-4); }
+.zcat-avatar-status-busy { background: var(--zcat-red-1); }
+.zcat-avatar-status-away { background: var(--zcat-orange-1); }
+
+/* --- Disabled --- */
+.zcat-avatar-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

@@ -17,6 +17,18 @@ class ZcatAppMap extends RouterMap {
             this.route("alert",{path:'/alert'});
             this.route("loader",{path:'/loader'});
             this.route("attention",{path:'/attention'});
+            this.route("tab",{path:'/tab'});
+            this.route("modal",{path:'/modal'});
+            this.route("table",{path:'/table'});
+            this.route("popover",{path:'/popover'});
+            this.route("pagination",{path:'/pagination'});
+            this.route("avatar",{path:'/avatar'});
+            this.route("autocomplete",{path:'/autocomplete'});
+            this.route("fileupload",{path:'/fileupload'});
+            this.route("cards",{path:'/cards'});
+            this.route("doublefield",{path:'/doublefield'});
+            this.route("keyvalue",{path:'/keyvalue'});
+            this.route("datepicker",{path:'/datepicker'});
         });
 	}
 }

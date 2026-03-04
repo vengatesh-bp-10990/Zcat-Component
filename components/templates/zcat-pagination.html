@@ -1,0 +1,44 @@
+<template tag-name="zcat-pagination">
+  <div class="zcat-pagination {{zcatProp.variant === 'secondary' ? 'zcat-pagination-secondary' : 'zcat-pagination-primary'}} {{zcatProp.classCss || ''}}">
+    <!-- Left: Rows per page (primary variant) -->
+    <template lyte-if="{{zcatProp.variant !== 'secondary'}}">
+      <div class="zcat-pagination-left">
+        <span class="zcat-pagination-label">Rows per page:</span>
+        <select class="zcat-pagination-select" onchange="{{action('changeRowsPerPage', event)}}">
+          <option value="5">5</option>
+          <option value="10" selected="{{rowsPerPage === 10}}">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+    </template>
+
+    <!-- Center/Right: Page info + Navigation -->
+    <div class="zcat-pagination-right">
+      <template lyte-if="{{zcatProp.variant === 'secondary'}}">
+        <span class="zcat-pagination-info">{{zcatProp.totalRecords || 0}} total records</span>
+      </template>
+      <template lyte-if="{{zcatProp.variant !== 'secondary'}}">
+        <span class="zcat-pagination-info">
+          {{((currentPage - 1) * rowsPerPage) + 1}} – {{currentPage * rowsPerPage > (zcatProp.totalRecords || 0) ? (zcatProp.totalRecords || 0) : currentPage * rowsPerPage}} of {{zcatProp.totalRecords || 0}}
+        </span>
+      </template>
+
+      <div class="zcat-pagination-nav">
+        <button class="zcat-pagination-btn" onclick="{{action('goToFirst')}}" disabled="{{currentPage <= 1}}">
+          <zcat-icon name="chevrons-left" width="14" height="14" stroke="currentColor" stroke-width="2"></zcat-icon>
+        </button>
+        <button class="zcat-pagination-btn" onclick="{{action('goToPrev')}}" disabled="{{currentPage <= 1}}">
+          <zcat-icon name="chevron-left" width="14" height="14" stroke="currentColor" stroke-width="2"></zcat-icon>
+        </button>
+        <button class="zcat-pagination-btn" onclick="{{action('goToNext')}}" disabled="{{currentPage * rowsPerPage >= (zcatProp.totalRecords || 0)}}">
+          <zcat-icon name="chevron-right" width="14" height="14" stroke="currentColor" stroke-width="2"></zcat-icon>
+        </button>
+        <button class="zcat-pagination-btn" onclick="{{action('goToLast')}}" disabled="{{currentPage * rowsPerPage >= (zcatProp.totalRecords || 0)}}">
+          <zcat-icon name="chevrons-right" width="14" height="14" stroke="currentColor" stroke-width="2"></zcat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>

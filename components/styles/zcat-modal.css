@@ -1,0 +1,154 @@
+/* ==============================
+   ZCAT Modal Component
+   ============================== */
+
+zcat-modal * {
+  box-sizing: border-box;
+}
+zcat-modal p {
+  margin: 0;
+}
+
+/* --- Overlay --- */
+.zcat-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--zcat-popup-bg-blur);
+  animation: zcatModalFadeIn 0.2s ease;
+}
+
+@keyframes zcatModalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- Container --- */
+.zcat-modal-container {
+  display: flex;
+  flex-direction: column;
+  width: 520px;
+  max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 48px);
+  background: var(--zcat-popup-bg);
+  border: 1px solid var(--zcat-popup-border);
+  border-radius: 12px;
+  box-shadow: var(--zcat-shadow-dark-all);
+  animation: zcatModalSlideIn 0.2s ease;
+  overflow: hidden;
+}
+
+@keyframes zcatModalSlideIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Size variants */
+.zcat-modal-sm .zcat-modal-container { width: 400px; }
+.zcat-modal-lg .zcat-modal-container { width: 720px; }
+.zcat-modal-full .zcat-modal-container {
+  width: calc(100vw - 48px);
+  height: calc(100vh - 48px);
+  max-width: none;
+  max-height: none;
+}
+
+/* --- Header --- */
+.zcat-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 24px 12px;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.zcat-modal-header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+.zcat-modal-header-text {
+  flex: 1;
+  min-width: 0;
+}
+.zcat-modal-title {
+  font: 600 var(--zcat-font-18-22) var(--zcat-font-family-primary);
+  color: var(--zcat-body-text-primary);
+  margin: 0;
+}
+.zcat-modal-desc {
+  font: 400 var(--zcat-font-14-20) var(--zcat-font-family-primary);
+  color: var(--zcat-body-text-grey);
+  margin-top: 4px;
+}
+.zcat-modal-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  color: var(--zcat-body-text-primary);
+  transition: background 0.15s;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.zcat-modal-back:hover {
+  background: var(--zcat-btn-grey-bg-hover);
+}
+
+/* --- Close button --- */
+.zcat-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  color: var(--zcat-body-text-grey);
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.zcat-modal-close:hover {
+  background: var(--zcat-btn-grey-bg-hover);
+  color: var(--zcat-body-text-primary);
+}
+
+/* --- Body --- */
+.zcat-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 24px 20px;
+  font: 400 var(--zcat-font-14-20) var(--zcat-font-family-primary);
+  color: var(--zcat-body-text-primary);
+}
+
+/* --- Footer --- */
+.zcat-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px 20px;
+  gap: 12px;
+  flex-shrink: 0;
+  border-top: 1px solid var(--zcat-popup-border);
+}
+.zcat-modal-footer-left,
+.zcat-modal-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

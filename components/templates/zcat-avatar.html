@@ -1,0 +1,27 @@
+<template tag-name="zcat-avatar">
+  <div class="zcat-avatar
+    {{_sizeClass}}
+    {{zcatProp.disabled ? 'zcat-avatar-disabled' : ''}}
+    {{zcatProp.classCss || ''}}"
+       onclick="{{action('onAvatarClick')}}">
+    <!-- Image avatar -->
+    <template lyte-if="{{zcatProp.type === 'img'}}">
+      <img class="zcat-avatar-img" src="{{zcatProp.src}}" alt="{{zcatProp.name || 'Avatar'}}"/>
+    </template>
+    <!-- Letter avatar -->
+    <template lyte-if="{{zcatProp.type === 'letter'}}">
+      <span class="zcat-avatar-letter">{{_initial}}</span>
+    </template>
+    <!-- Icon avatar (default) -->
+    <template lyte-if="{{zcatProp.type === 'icon'}}">
+      <svg class="zcat-avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+    </template>
+    <!-- Status badge -->
+    <template lyte-if="{{zcatProp.status}}">
+      <span class="zcat-avatar-status zcat-avatar-status-{{zcatProp.status}}"></span>
+    </template>
+  </div>
+</template>
