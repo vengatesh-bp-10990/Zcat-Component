@@ -28,10 +28,6 @@ class IconComp extends Component {
         this.constructCodeSnippet();
     }
 
-    didConnect() {
-        this._bindEvents();
-    }
-
     constructCodeSnippet() {
         // sLyte tab
         var slyte_code = '<zcat-icon\n  name="icon-name"\n  width="16"\n  height="16"\n  stroke="var(--token)"\n  stroke-width="1.3"\n></zcat-icon>';
@@ -53,54 +49,6 @@ class IconComp extends Component {
         this.setData('newSlyteCodeSnippet.code', newSlyte_code);
         this.setData('htmlCodeSnippet.code', html_code);
         this.setData('cssCodeSnippet.code', css_code);
-    }
-
-    _bindEvents() {
-        var comp = this;
-        var node = this.$node;
-
-        // Search
-        var searchInput = node.querySelector('[data-action="searchIcons"]');
-        if (searchInput) {
-            searchInput.addEventListener('input', function (e) {
-                comp._filterIcons(e.target.value.toLowerCase().trim());
-            });
-        }
-
-        // Icon Size
-        var sizeSelect = node.querySelector('[data-action="changeIconSize"]');
-        if (sizeSelect) {
-            sizeSelect.addEventListener('change', function (e) {
-                comp.setData('iconSize', e.target.value);
-            });
-        }
-
-        // Stroke Width — range slider
-        var strokeSlider = node.querySelector('[data-action="changeStrokeWidth"]');
-        if (strokeSlider) {
-            strokeSlider.addEventListener('input', function (e) {
-                comp.setData('iconStrokeWidth', e.target.value);
-            });
-        }
-
-        // Color picker
-        var colorPicker = node.querySelector('[data-action="changeIconColor"]');
-        if (colorPicker) {
-            colorPicker.addEventListener('input', function (e) {
-                comp.setData('iconColor', e.target.value);
-                var textInput = node.querySelector('[data-action="changeIconColorText"]');
-                if (textInput) { textInput.value = e.target.value; }
-            });
-        }
-
-        // Color text input
-        var colorText = node.querySelector('[data-action="changeIconColorText"]');
-        if (colorText) {
-            colorText.addEventListener('change', function (e) {
-                comp.setData('iconColor', e.target.value);
-                if (colorPicker) { colorPicker.value = e.target.value; }
-            });
-        }
     }
 
     _filterIcons(query) {
@@ -139,6 +87,21 @@ class IconComp extends Component {
 
     static actions() {
         return {
+            searchIcons(e) {
+                this._filterIcons(e.target.value.toLowerCase().trim());
+            },
+            changeIconSize(e) {
+                this.setData('iconSize', e.target.value);
+            },
+            changeStrokeWidth(e) {
+                this.setData('iconStrokeWidth', e.target.value);
+            },
+            changeIconColor(e) {
+                this.setData('iconColor', e.target.value);
+            },
+            changeIconColorText(e) {
+                this.setData('iconColor', e.target.value);
+            },
             showSlyteTab() { this.setData('activeTab', 'slyte'); },
             showJsTab() { this.setData('activeTab', 'js'); },
             showNewSlyteTab() { this.setData('activeTab', 'newslyte'); },

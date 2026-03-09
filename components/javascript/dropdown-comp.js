@@ -10,10 +10,6 @@ class DropdownComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
   _getDefaultOptions(withIcons) {
     if (withIcons) {
       return [
@@ -31,91 +27,6 @@ class DropdownComp extends Component {
       { "name": "Mumbai", "value": "mumbai" },
       { "name": "Jammu", "value": "jammu" }
     ];
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    // Bind select dropdowns
-    let variantSelect = node.querySelector('[data-action="changeDropdownVariant"]');
-    let sizeSelect = node.querySelector('[data-action="changeDropdownSize"]');
-    let stateSelect = node.querySelector('[data-action="changeDropdownState"]');
-    let widthSelect = node.querySelector('[data-action="changeDropdownWidth"]');
-
-    if (variantSelect) {
-      variantSelect.addEventListener('change', function (e) {
-        let ddObj = comp.getData('dropdownStyles');
-        let val = e.target.value;
-        if (val === 'multiple') {
-          comp.$app.objectUtils(ddObj, 'add', 'variant', 'multiple');
-          comp.$app.objectUtils(ddObj, 'add', 'selected', ['india', 'pakistan']);
-          comp.$app.objectUtils(ddObj, 'add', 'multipleType', 'default');
-          comp.$app.objectUtils(ddObj, 'add', 'menuListType', 'checkbox');
-          comp._toggleMultiOptions(true);
-        } else {
-          comp.$app.objectUtils(ddObj, 'add', 'variant', val);
-          comp.$app.objectUtils(ddObj, 'add', 'selected', 'india');
-          comp.$app.objectUtils(ddObj, 'delete', 'multipleType');
-          comp.$app.objectUtils(ddObj, 'delete', 'menuListType');
-          comp._toggleMultiOptions(false);
-        }
-        comp.constructCodeSnippet();
-      });
-    }
-    if (sizeSelect) {
-      sizeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('dropdownStyles'), 'add', 'size', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (stateSelect) {
-      stateSelect.addEventListener('change', function (e) {
-        let val = e.target.value;
-        let ddObj = comp.getData('dropdownStyles');
-        if (val === 'disabled') {
-          comp.$app.objectUtils(ddObj, 'add', 'disabled', true);
-          comp.$app.objectUtils(ddObj, 'add', 'errorMessage', '');
-        } else if (val === 'error') {
-          comp.$app.objectUtils(ddObj, 'add', 'disabled', false);
-          comp.$app.objectUtils(ddObj, 'add', 'errorMessage', 'This field is required');
-        } else {
-          comp.$app.objectUtils(ddObj, 'add', 'disabled', false);
-          comp.$app.objectUtils(ddObj, 'add', 'errorMessage', '');
-        }
-        comp.constructCodeSnippet();
-      });
-    }
-    if (widthSelect) {
-      widthSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('dropdownStyles'), 'add', 'width', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-
-    // Bind multi-select specific controls
-    let multiTypeSelect = node.querySelector('[data-action="changeMultipleType"]');
-    let menuListTypeSelect = node.querySelector('[data-action="changeMenuListType"]');
-
-    if (multiTypeSelect) {
-      multiTypeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('dropdownStyles'), 'add', 'multipleType', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (menuListTypeSelect) {
-      menuListTypeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('dropdownStyles'), 'add', 'menuListType', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
-  _toggleMultiOptions(show) {
-    let rows = this.$node.querySelectorAll('[data-section="multipleOptions"]');
-    if (rows) {
-      rows.forEach(function(r) { r.style.display = show ? '' : 'none'; });
-    }
   }
 
   data() {
@@ -181,7 +92,8 @@ class DropdownComp extends Component {
       slyteCodeSnippet: prop('object', { default: { code: "" } }),
       newSlyteCodeSnippet: prop('object', { default: { code: "" } }),
       htmlCodeSnippet: prop('object', { default: { code: "" } }),
-      cssCodeSnippet: prop('object', { default: { code: "" } })
+      cssCodeSnippet: prop('object', { default: { code: "" } }),
+      showMultiOptions: prop('boolean', { default: false })
     };
   }
 
@@ -503,6 +415,55 @@ class DropdownComp extends Component {
 
   static actions() {
     return {
+      changeDropdownVariant(e) {
+        let val = e.target.value;
+        let ddObj = this.getData('dropdownStyles');
+        if (val === 'multiple') {
+          this.$app.objectUtils(ddObj, 'add', 'variant', 'multiple');
+          this.$app.objectUtils(ddObj, 'add', 'selected', ['india', 'pakistan']);
+          this.$app.objectUtils(ddObj, 'add', 'multipleType', 'default');
+          this.$app.objectUtils(ddObj, 'add', 'menuListType', 'checkbox');
+          this.setData('showMultiOptions', true);
+        } else {
+          this.$app.objectUtils(ddObj, 'add', 'variant', val);
+          this.$app.objectUtils(ddObj, 'add', 'selected', 'india');
+          this.$app.objectUtils(ddObj, 'delete', 'multipleType');
+          this.$app.objectUtils(ddObj, 'delete', 'menuListType');
+          this.setData('showMultiOptions', false);
+        }
+        this.constructCodeSnippet();
+      },
+      changeDropdownSize(e) {
+        this.$app.objectUtils(this.getData('dropdownStyles'), 'add', 'size', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeDropdownState(e) {
+        let val = e.target.value;
+        let ddObj = this.getData('dropdownStyles');
+        if (val === 'disabled') {
+          this.$app.objectUtils(ddObj, 'add', 'disabled', true);
+          this.$app.objectUtils(ddObj, 'add', 'errorMessage', '');
+        } else if (val === 'error') {
+          this.$app.objectUtils(ddObj, 'add', 'disabled', false);
+          this.$app.objectUtils(ddObj, 'add', 'errorMessage', 'This field is required');
+        } else {
+          this.$app.objectUtils(ddObj, 'add', 'disabled', false);
+          this.$app.objectUtils(ddObj, 'add', 'errorMessage', '');
+        }
+        this.constructCodeSnippet();
+      },
+      changeDropdownWidth(e) {
+        this.$app.objectUtils(this.getData('dropdownStyles'), 'add', 'width', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeMultipleType(e) {
+        this.$app.objectUtils(this.getData('dropdownStyles'), 'add', 'multipleType', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeMenuListType(e) {
+        this.$app.objectUtils(this.getData('dropdownStyles'), 'add', 'menuListType', e.target.value);
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showNewSlyteTab() { this.setData('activeTab', 'newslyte'); },

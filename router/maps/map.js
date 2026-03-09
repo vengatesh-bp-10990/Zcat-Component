@@ -29,6 +29,10 @@ class ZcatAppMap extends RouterMap {
             this.route("doublefield",{path:'/doublefield'});
             this.route("keyvalue",{path:'/keyvalue'});
             this.route("datepicker",{path:'/datepicker'});
+            this.route("linkbox",{path:'/linkbox'});
+            this.route("inlineedit",{path:'/inlineedit'});
+            this.route("tooltip",{path:'/tooltip'});
+            this.route("label",{path:'/label'});
         });
 	}
 }

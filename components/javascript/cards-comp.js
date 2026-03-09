@@ -10,31 +10,6 @@ class CardsComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let typeSelect = node.querySelector('[data-action="changeType"]');
-    let bgSelect = node.querySelector('[data-action="changeBg"]');
-
-    if (typeSelect) {
-      typeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('cardsObj'), 'add', 'type', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (bgSelect) {
-      bgSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('cardsObj'), 'add', 'bgVariant', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let obj = this.getData('cardsObj') || {};
 
@@ -103,6 +78,14 @@ class CardsComp extends Component {
 
   static actions() {
     return {
+      changeType(e) {
+        this.$app.objectUtils(this.getData('cardsObj'), 'add', 'type', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeBg(e) {
+        this.$app.objectUtils(this.getData('cardsObj'), 'add', 'bgVariant', e.target.value);
+        this.constructCodeSnippet();
+      },
       showCustomizeTab() { this.setData('pageTab', 'customize'); },
       showVariantsTab() { this.setData('pageTab', 'variants'); },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },

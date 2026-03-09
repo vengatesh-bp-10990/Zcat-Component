@@ -1,6 +1,13 @@
 import { Component } from "@slyte/component";
 import { prop } from '@slyte/core';
 
+const ICON_OPTIONS = [
+  'search','edit','plus','minus','close','tick','delete','copy',
+  'eye-open','eye-close','upload-cloud','download-cloud','folder',
+  'user','star','refresh','settings','notification','link','filter',
+  'calendar','clock','phone','info','alert-circle','globe','edit-pencil'
+];
+
 class InputComp extends Component {
   constructor() {
     super();
@@ -10,115 +17,79 @@ class InputComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let typeSelect = node.querySelector('[data-action="changeInputType"]');
-    let sizeSelect = node.querySelector('[data-action="changeInputSize"]');
-
-    if (typeSelect) {
-      typeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('inputObj'), 'add', 'type', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (sizeSelect) {
-      sizeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('inputObj'), 'add', 'size', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let inputObj = this.getData('inputObj') || {};
-    let defaults = { id: 'input-id', type: 'text', width: '300px', size: 'default', placeholder: 'Enter a text', label: 'Label' };
 
-    // --- sLyte tab: template + JS combined ---
-    let inputData = {};
-    inputData.id = inputObj.id || defaults.id;
-    if (inputObj.type && inputObj.type !== defaults.type) { inputData.type = inputObj.type; }
-    if (inputObj.width && inputObj.width !== defaults.width) { inputData.width = inputObj.width; }
-    if (inputObj.size && inputObj.size !== defaults.size) { inputData.size = inputObj.size; }
-    if (inputObj.placeholder && inputObj.placeholder !== defaults.placeholder) { inputData.placeholder = inputObj.placeholder; }
-    if (inputObj.label) { inputData.label = inputObj.label; }
-    if (inputObj.disabled) { inputData.disabled = true; }
-    if (inputObj.errorMessage) { inputData.errorMessage = inputObj.errorMessage; }
-
+    // --- sLyte tab ---
     let slyte_code = '<zcat-input\n  self="{{self}}"\n  zcat-prop="{{inputObj}}"\n></zcat-input>';
 
-    // 2. JS tab: data() code
+    // --- JS tab: build minimal inputData showing only non-default values ---
+    let inputData = { id: inputObj.id || 'input-id' };
+    if (inputObj.type && inputObj.type !== 'text') { inputData.type = inputObj.type; }
+    if (inputObj.size && inputObj.size !== 'default') { inputData.size = inputObj.size; }
+    if (inputObj.placeholder) { inputData.placeholder = inputObj.placeholder; }
+    if (inputObj.label) { inputData.label = inputObj.label; }
+    if (inputObj.disabled) { inputData.disabled = true; }
+    if (inputObj.readonly) { inputData.readonly = true; }
+    if (inputObj.isOptional) { inputData.isOptional = true; }
+    if (inputObj.errorMessage) { inputData.errorMessage = inputObj.errorMessage; }
+    if (inputObj.iconLeft) { inputData.iconLeft = inputObj.iconLeft; }
+    if (inputObj.iconRight) { inputData.iconRight = inputObj.iconRight; }
+    if (inputObj.infoIcon) { inputData.infoIcon = inputObj.infoIcon; }
+
     let js_code = 'data() {\n  return {\n    self: prop(\'object\', { default: this }),\n    inputObj: prop("object", {\n      default: ' + JSON.stringify(inputData, null, 6) + '\n    })\n  };\n}';
 
-    // 3. sLyte New tab: attributes + self + inline callback
-    let newSlyteAttrs = [];
-    newSlyteAttrs.push('  self="{{self}}"');
-    newSlyteAttrs.push('  zcat-prop-id="' + (inputObj.id || defaults.id) + '"');
+    // --- sLyte New tab ---
+    let newSlyteAttrs = ['  self="{{self}}"', '  zcat-prop-id="' + (inputObj.id || 'input-id') + '"'];
     if (inputObj.label) { newSlyteAttrs.push('  zcat-prop-label="' + inputObj.label + '"'); }
-    if (inputObj.type && inputObj.type !== defaults.type) { newSlyteAttrs.push('  zcat-prop-type="' + inputObj.type + '"'); }
+    if (inputObj.type && inputObj.type !== 'text') { newSlyteAttrs.push('  zcat-prop-type="' + inputObj.type + '"'); }
     if (inputObj.placeholder) { newSlyteAttrs.push('  zcat-prop-placeholder="' + inputObj.placeholder + '"'); }
-    if (inputObj.size && inputObj.size !== defaults.size) { newSlyteAttrs.push('  zcat-prop-size="' + inputObj.size + '"'); }
-    if (inputObj.width && inputObj.width !== defaults.width) { newSlyteAttrs.push('  zcat-prop-width="' + inputObj.width + '"'); }
+    if (inputObj.size && inputObj.size !== 'default') { newSlyteAttrs.push('  zcat-prop-size="' + inputObj.size + '"'); }
     if (inputObj.disabled) { newSlyteAttrs.push('  zcat-prop-disabled="true"'); }
-    if (inputObj.errorMessage) { newSlyteAttrs.push('  zcat-prop-errorMessage="' + inputObj.errorMessage + '"'); }
-    newSlyteAttrs.push('  zcat-prop-callback-onValueChange="onInputChange"');
-
+    if (inputObj.readonly) { newSlyteAttrs.push('  zcat-prop-readonly="true"'); }
+    if (inputObj.isOptional) { newSlyteAttrs.push('  zcat-prop-is-optional="true"'); }
+    if (inputObj.errorMessage) { newSlyteAttrs.push('  zcat-prop-error-message="' + inputObj.errorMessage + '"'); }
+    if (inputObj.iconLeft) { newSlyteAttrs.push('  zcat-prop-icon-left-position="left"\n  zcat-prop-icon-left-name="' + inputObj.iconLeft.name + '"'); }
+    if (inputObj.iconRight) { newSlyteAttrs.push('  zcat-prop-icon-right-position="right"\n  zcat-prop-icon-right-name="' + inputObj.iconRight.name + '"'); }
+    newSlyteAttrs.push('  zcat-prop-callback-on-value-change="onInputChange"');
     let newSlyte_code = '// Template\n<zcat-input\n' + newSlyteAttrs.join('\n') + '\n></zcat-input>\n\n'
-      + '// Inline JS — callback via self\nstatic methods() {\n  return {\n    onInputChange(value) {\n      console.log("Input changed:", value);\n    }\n  };\n}';
+      + '// JS — callback\nstatic methods() {\n  return {\n    onInputChange(value) {\n      console.log("Input changed:", value);\n    }\n  };\n}';
 
-    // 4. HTML tab: plain HTML
+    // --- HTML tab ---
     let isTextarea = (inputObj.type === 'textarea');
-    let sizeClass = '';
-    let size = inputObj.size || 'default';
-    if (size === 'small') { sizeClass = ' zcat-input-sm'; }
-    else if (size === 'extra-small') { sizeClass = ' zcat-input-exsm'; }
-
+    let sizeClass = inputObj.size === 'small' ? ' zcat-input-sm' : inputObj.size === 'extra-small' ? ' zcat-input-exsm' : '';
+    let disabledAttr = inputObj.disabled ? ' disabled' : '';
+    let readonlyAttr = inputObj.readonly ? ' readonly' : '';
     let htmlParts = [];
     if (inputObj.label) {
-      htmlParts.push('<label class="zcat-input-label">' + inputObj.label + '</label>');
+      let optLabel = inputObj.isOptional ? ' <span class="optional-label">(Optional)</span>' : '';
+      htmlParts.push('<label class="zcat-input-label">' + inputObj.label + optLabel + '</label>');
     }
-    let disabledAttr = inputObj.disabled ? ' disabled' : '';
-    if (isTextarea) {
-      htmlParts.push('<textarea class="zcat-input-el' + sizeClass + '"' +
-        ' placeholder="' + (inputObj.placeholder || '') + '"' +
-        ' style="width: ' + (inputObj.width || '300px') + '"' +
-        disabledAttr + '></textarea>');
+    if (inputObj.iconLeft || inputObj.iconRight) {
+      let iconLeftHtml = inputObj.iconLeft ? '\n  <span class="zcat-input-icon-left"><!-- ' + inputObj.iconLeft.name + ' icon --></span>' : '';
+      let iconRightHtml = inputObj.iconRight ? '\n  <span class="zcat-input-icon-right"><!-- ' + inputObj.iconRight.name + ' icon --></span>' : '';
+      if (isTextarea) {
+        htmlParts.push('<div class="zcat-input-relative-wrapper">' + iconLeftHtml + '\n  <textarea class="zcat-input-el' + sizeClass + '" placeholder="' + (inputObj.placeholder || '') + '"' + disabledAttr + readonlyAttr + '></textarea>' + iconRightHtml + '\n</div>');
+      } else {
+        htmlParts.push('<div class="zcat-input-relative-wrapper">' + iconLeftHtml + '\n  <input type="' + (inputObj.type || 'text') + '" class="zcat-input-el' + sizeClass + '" placeholder="' + (inputObj.placeholder || '') + '"' + disabledAttr + readonlyAttr + ' />' + iconRightHtml + '\n</div>');
+      }
     } else {
-      htmlParts.push('<input type="text" class="zcat-input-el' + sizeClass + '"' +
-        ' placeholder="' + (inputObj.placeholder || '') + '"' +
-        ' style="width: ' + (inputObj.width || '300px') + '"' +
-        disabledAttr + ' />');
+      if (isTextarea) {
+        htmlParts.push('<textarea class="zcat-input-el' + sizeClass + '" placeholder="' + (inputObj.placeholder || '') + '"' + disabledAttr + readonlyAttr + '></textarea>');
+      } else {
+        htmlParts.push('<input type="' + (inputObj.type || 'text') + '" class="zcat-input-el' + sizeClass + '" placeholder="' + (inputObj.placeholder || '') + '"' + disabledAttr + readonlyAttr + ' />');
+      }
     }
-    if (inputObj.errorMessage) {
-      htmlParts.push('<span class="zcat-input-error">' + inputObj.errorMessage + '</span>');
-    }
+    if (inputObj.errorMessage) { htmlParts.push('<span class="zcat-input-error-msg">' + inputObj.errorMessage + '</span>'); }
     let html_code = '<div class="zcat-input-wrapper">\n  ' + htmlParts.join('\n  ') + '\n</div>';
 
-    // 5. CSS tab: relevant CSS classes
-    let css_code = '.zcat-input-wrapper {\n  display: flex;\n  flex-direction: column;\n}\n';
-    if (inputObj.label) {
-      css_code += '.zcat-input-label {\n  font-size: 13px;\n  font-weight: 500;\n  color: var(--zcat-inputField-text-label);\n  margin-bottom: 6px;\n}\n';
-    }
-    if (isTextarea) {
-      css_code += 'textarea.zcat-input-el {\n  height: 80px;\n  padding: 10px 12px;\n  resize: vertical;\n  font-size: 14px;\n  background: var(--zcat-inputField-bg-default);\n  border: var(--zcat-inputField-border-default);\n  border-radius: 8px;\n  color: var(--zcat-body-text-primary);\n}\n';
-    } else {
-      css_code += '.zcat-input-el {\n  height: 36px;\n  padding: 0 12px;\n  font-size: 14px;\n  background: var(--zcat-inputField-bg-default);\n  border: var(--zcat-inputField-border-default);\n  border-radius: 8px;\n  color: var(--zcat-body-text-primary);\n}\n';
-    }
-    css_code += '.zcat-input-el:hover {\n  background: var(--zcat-inputField-bg-hover);\n  border: var(--zcat-inputField-border-hover);\n}\n';
-    css_code += '.zcat-input-el:focus {\n  background: var(--zcat-inputField-bg-active);\n  border: var(--zcat-inputField-border-active);\n}\n';
-    if (sizeClass) {
-      let sizeMap = { ' zcat-input-sm': { h: '30px', fs: '13px', p: '0 10px' }, ' zcat-input-exsm': { h: '24px', fs: '12px', p: '0 8px' } };
-      let s = sizeMap[sizeClass];
-      if (s) { css_code += sizeClass.trim() + ' {\n  height: ' + s.h + ';\n  font-size: ' + s.fs + ';\n  padding: ' + s.p + ';\n}\n'; }
-    }
-    if (inputObj.errorMessage) {
-      css_code += '.zcat-input-error-msg {\n  font-size: 12px;\n  color: var(--zcat-inputField-text-error);\n  margin-top: 4px;\n}';
-    }
+    // --- CSS tab ---
+    let css_code = '.zcat-input-wrapper { display: flex; flex-direction: column; gap: 4px; }\n';
+    if (inputObj.label) { css_code += '.zcat-input-label { font-size: 13px; font-weight: 500; color: var(--zcat-inputField-text-label); }\n'; }
+    css_code += '.zcat-input-el { height: 36px; padding: 0 12px; font-size: 14px;\n  background: var(--zcat-inputField-bg-default);\n  border: var(--zcat-inputField-border-default);\n  border-radius: 8px;\n  color: var(--zcat-body-text-primary);\n}\n';
+    css_code += '.zcat-input-el:hover { background: var(--zcat-inputField-bg-hover); border: var(--zcat-inputField-border-hover); }\n';
+    css_code += '.zcat-input-el:focus { background: var(--zcat-inputField-bg-active); border: var(--zcat-inputField-border-active); }\n';
+    if (inputObj.errorMessage) { css_code += '.zcat-input-error-msg { font-size: 12px; color: var(--zcat-inputField-text-error); }\n'; }
 
     this.setData('slyteCodeSnippet.code', slyte_code);
     this.setData('jsCodeSnippet.code', js_code);
@@ -132,16 +103,30 @@ class InputComp extends Component {
       activeTab: prop('string', { default: 'slyte' }),
       pageTab: prop('string', { default: 'customize' }),
       self: prop("object", { default: this }),
-      inputObj: prop("object", { 
+      inputObj: prop("object", {
         default: {
-          "id": "input-id", 
-          "width": "300px",
+          "id": "input-id",
+          "width": "100%",
           "label": "Label",
           "type": "text",
           "placeholder": "Enter a text",
           "size": "default"
         }
       }),
+      iconOptions: prop('array', { default: ICON_OPTIONS }),
+      showInfoIconRow: prop('boolean', { default: false }),
+      showIconLeftRow: prop('boolean', { default: false }),
+      showIconRightRow: prop('boolean', { default: false }),
+      varDefaultObj: prop('object', { default: { id: 'v-default', placeholder: 'Default size', width: '220px' } }),
+      varSmallObj: prop('object', { default: { id: 'v-small', placeholder: 'Small size', size: 'small', width: '220px' } }),
+      varExsmObj: prop('object', { default: { id: 'v-exsm', placeholder: 'Extra small', size: 'extra-small', width: '220px' } }),
+      varLabelledObj: prop('object', { default: { id: 'v-labelled', label: 'Full Name', placeholder: 'Enter your name', width: '220px' } }),
+      varTextareaObj: prop('object', { default: { id: 'v-textarea', label: 'Description', type: 'textarea', placeholder: 'Enter description', width: '220px' } }),
+      varPasswordObj: prop('object', { default: { id: 'v-password', label: 'Password', type: 'password', placeholder: 'Enter password', width: '220px' } }),
+      varDisabledObj: prop('object', { default: { id: 'v-disabled', label: 'Disabled Field', placeholder: 'Cannot edit', disabled: true, width: '220px' } }),
+      varErrorObj: prop('object', { default: { id: 'v-error', label: 'Email', placeholder: 'Enter email', errorMessage: 'Invalid email address', width: '220px' } }),
+      varReadonlyObj: prop('object', { default: { id: 'v-readonly', label: 'Username', value: 'john.doe', readonly: true, width: '220px' } }),
+      varCompletedObj: prop('object', { default: { id: 'v-completed', label: 'Full Name', value: 'John Doe', width: '220px' } }),
       resetButtonObj: prop('object', {
         default: {
           "label": "Reset",
@@ -154,8 +139,17 @@ class InputComp extends Component {
       toggleLabelObj: prop('object', {
         default: { checked: true, size: 'small', callback: { name: 'onToggleLabel' } }
       }),
-      toggleDisabledObj: prop('object', {
-        default: { checked: false, size: 'small', callback: { name: 'onToggleDisabled' } }
+      toggleInfoIconObj: prop('object', {
+        default: { checked: false, size: 'small', callback: { name: 'onToggleInfoIcon' } }
+      }),
+      toggleIconLeftObj: prop('object', {
+        default: { checked: false, size: 'small', callback: { name: 'onToggleIconLeft' } }
+      }),
+      toggleIconRightObj: prop('object', {
+        default: { checked: false, size: 'small', callback: { name: 'onToggleIconRight' } }
+      }),
+      toggleOptionalObj: prop('object', {
+        default: { checked: false, size: 'small', callback: { name: 'onToggleOptional' } }
       }),
       toggleErrorObj: prop('object', {
         default: { checked: false, size: 'small', callback: { name: 'onToggleError' } }
@@ -173,16 +167,22 @@ class InputComp extends Component {
       resetInputCustomization() {
         this.setData('inputObj', {
           "id": "input-id",
-          "width": "300px",
+          "width": "100%",
           "label": "Label",
           "type": "text",
           "placeholder": "Enter a text",
           "size": "default"
         });
-        // Reset toggle prop objects
         this.$app.objectUtils(this.getData('toggleLabelObj'), 'add', 'checked', true);
-        this.$app.objectUtils(this.getData('toggleDisabledObj'), 'add', 'checked', false);
+        this.$app.objectUtils(this.getData('toggleInfoIconObj'), 'add', 'checked', false);
+        this.$app.objectUtils(this.getData('toggleIconLeftObj'), 'add', 'checked', false);
+        this.$app.objectUtils(this.getData('toggleIconRightObj'), 'add', 'checked', false);
+        this.$app.objectUtils(this.getData('toggleOptionalObj'), 'add', 'checked', false);
         this.$app.objectUtils(this.getData('toggleErrorObj'), 'add', 'checked', false);
+        this.setData('showInfoIconRow', false);
+        this.setData('showIconLeftRow', false);
+        this.setData('showIconRightRow', false);
+        this.$app.objectUtils(this.getData('toggleOptionalObj'), 'add', 'checked', false);
         let selects = this.$node.querySelectorAll('.zcat-custom-select');
         if (selects) { selects.forEach(function(s) { s.selectedIndex = 0; }); }
         this.constructCodeSnippet();
@@ -196,13 +196,43 @@ class InputComp extends Component {
         }
         this.constructCodeSnippet();
       },
-      onToggleDisabled(checked) {
+      onToggleInfoIcon(checked) {
         let inputObj = this.getData('inputObj');
+        this.setData('showInfoIconRow', checked);
         if (checked) {
-          this.$app.objectUtils(inputObj, 'add', 'disabled', true);
+          this.$app.objectUtils(inputObj, 'add', 'infoIcon', {
+            id: inputObj.id + '-info',
+            value: 'Field information tooltip',
+            placement: 'auto'
+          });
         } else {
-          this.$app.objectUtils(inputObj, 'delete', 'disabled');
+          this.$app.objectUtils(inputObj, 'delete', 'infoIcon');
         }
+        this.constructCodeSnippet();
+      },
+      onToggleIconLeft(checked) {
+        let inputObj = this.getData('inputObj');
+        this.setData('showIconLeftRow', checked);
+        if (checked) {
+          this.$app.objectUtils(inputObj, 'add', 'iconLeft', { position: 'left', name: 'search', strokeWidth: 1.3 });
+        } else {
+          this.$app.objectUtils(inputObj, 'add', 'iconLeft', null);
+        }
+        this.constructCodeSnippet();
+      },
+      onToggleIconRight(checked) {
+        let inputObj = this.getData('inputObj');
+        this.setData('showIconRightRow', checked);
+        if (checked) {
+          this.$app.objectUtils(inputObj, 'add', 'iconRight', { position: 'right', name: 'edit', strokeWidth: 1.3 });
+        } else {
+          this.$app.objectUtils(inputObj, 'delete', 'iconRight');
+        }
+        this.constructCodeSnippet();
+      },
+      onToggleOptional(checked) {
+        let inputObj = this.getData('inputObj');
+        this.$app.objectUtils(inputObj, 'add', 'isOptional', !!checked);
         this.constructCodeSnippet();
       },
       onToggleError(checked) {
@@ -219,6 +249,49 @@ class InputComp extends Component {
 
   static actions() {
     return {
+      changeInputVariant(e) {
+        let inputObj = this.getData('inputObj');
+        this.$app.objectUtils(inputObj, 'add', 'type', e.target.value);
+        if (e.target.value === 'password') {
+          this.$app.objectUtils(inputObj, 'delete', 'iconRight');
+          this.setData('showIconRightRow', false);
+        }
+        this.constructCodeSnippet();
+      },
+      changeInputSize(e) {
+        this.$app.objectUtils(this.getData('inputObj'), 'add', 'size', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeTooltipPlacement(e) {
+        let inputObj = this.getData('inputObj');
+        if (inputObj.infoIcon) {
+          this.$app.objectUtils(inputObj.infoIcon, 'add', 'placement', e.target.value);
+        }
+        this.constructCodeSnippet();
+      },
+      changeIconLeft(e) {
+        let inputObj = this.getData('inputObj');
+        if (inputObj.iconLeft) {
+          this.$app.objectUtils(inputObj, 'add', 'iconLeft.name', e.target.value);
+        }
+        this.constructCodeSnippet();
+      },
+      changeIconRight(e) {
+        let inputObj = this.getData('inputObj');
+        if (inputObj.iconRight) {
+          this.$app.objectUtils(inputObj, 'add', 'iconRight.name', e.target.value);
+        }
+        this.constructCodeSnippet();
+      },
+      changeInputState(e) {
+        let inputObj = this.getData('inputObj');
+        let state = e.target.value;
+        this.$app.objectUtils(inputObj, 'delete', 'disabled');
+        this.$app.objectUtils(inputObj, 'delete', 'readonly');
+        if (state === 'disabled') { this.$app.objectUtils(inputObj, 'add', 'disabled', true); }
+        else if (state === 'readonly') { this.$app.objectUtils(inputObj, 'add', 'readonly', true); }
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showNewSlyteTab() { this.setData('activeTab', 'newslyte'); },

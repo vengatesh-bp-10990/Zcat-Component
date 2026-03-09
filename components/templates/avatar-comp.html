@@ -46,7 +46,7 @@
         <div class="zcat-custom-body">
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Type</span>
-            <select data-action="changeAvatarType" class="zcat-custom-select">
+            <select onchange="{{action('changeAvatarType', event)}}" class="zcat-custom-select">
               <option value="letter">Letter</option>
               <option value="icon">Icon</option>
               <option value="img">Image</option>
@@ -54,7 +54,7 @@
           </div>
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Size</span>
-            <select data-action="changeAvatarSize" class="zcat-custom-select">
+            <select onchange="{{action('changeAvatarSize', event)}}" class="zcat-custom-select">
               <option value="small">Small</option>
               <option value="medium" selected>Medium</option>
               <option value="large">Large</option>
@@ -63,7 +63,7 @@
           </div>
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Status</span>
-            <select data-action="changeAvatarStatus" class="zcat-custom-select">
+            <select onchange="{{action('changeAvatarStatus', event)}}" class="zcat-custom-select">
               <option value="online">Online</option>
               <option value="busy">Busy</option>
               <option value="away">Away</option>

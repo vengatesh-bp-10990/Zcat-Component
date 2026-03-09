@@ -11,9 +11,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AvatarComp": () => (/* binding */ AvatarComp)
 /* harmony export */ });
-/* harmony import */ var _zcat_icon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./zcat-icon.js */ 122993);
-/* harmony import */ var _zcat_button_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./zcat-button.js */ 28020792);
-/* harmony import */ var _zcat_avatar_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./zcat-avatar.js */ 26299788);
+/* harmony import */ var _node_modules_zcat_ui_components_javascript_zcat_icon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/zcat-ui/components/javascript/zcat-icon.js */ 35554276);
+/* harmony import */ var _node_modules_zcat_ui_components_javascript_zcat_button_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/zcat-ui/components/javascript/zcat-button.js */ 43360219);
+/* harmony import */ var _node_modules_zcat_ui_components_javascript_zcat_avatar_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../node_modules/zcat-ui/components/javascript/zcat-avatar.js */ 99057076);
 /* harmony import */ var _node_modules_slyte_component_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../node_modules/@slyte/component/index.js */ 93132498);
 /* harmony import */ var _node_modules_slyte_core_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../node_modules/@slyte/core/index.js */ 60469700);
 
@@ -30,39 +30,6 @@ class AvatarComp extends _node_modules_slyte_component_index_js__WEBPACK_IMPORTE
 
   init() {
     this.constructCodeSnippet();
-  }
-
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let typeSelect = node.querySelector('[data-action="changeAvatarType"]');
-    let sizeSelect = node.querySelector('[data-action="changeAvatarSize"]');
-    let statusSelect = node.querySelector('[data-action="changeAvatarStatus"]');
-
-    if (typeSelect) {
-      typeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('avatarObj'), 'add', 'type', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (sizeSelect) {
-      sizeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('avatarObj'), 'add', 'size', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (statusSelect) {
-      statusSelect.addEventListener('change', function (e) {
-        let val = e.target.value;
-        comp.$app.objectUtils(comp.getData('avatarObj'), 'add', 'status', val === 'none' ? '' : val);
-        comp.constructCodeSnippet();
-      });
-    }
   }
 
   constructCodeSnippet() {
@@ -187,6 +154,19 @@ class AvatarComp extends _node_modules_slyte_component_index_js__WEBPACK_IMPORTE
 
   static actions(arg1) {
     return Object.assign(super.actions({
+      changeAvatarType(e) {
+        this.$app.objectUtils(this.getData('avatarObj'), 'add', 'type', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeAvatarSize(e) {
+        this.$app.objectUtils(this.getData('avatarObj'), 'add', 'size', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeAvatarStatus(e) {
+        let val = e.target.value;
+        this.$app.objectUtils(this.getData('avatarObj'), 'add', 'status', val === 'none' ? '' : val);
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showHtmlTab() { this.setData('activeTab', 'html'); },
@@ -212,8 +192,8 @@ class AvatarComp extends _node_modules_slyte_component_index_js__WEBPACK_IMPORTE
   }
 }
 
-AvatarComp._template = "<template tag-name=\"avatar-comp\"> <div class=\"zcat-page-wrapper\"> <div class=\"zcat-page-header\"> <h1 class=\"zcat-page-title\">Avatar</h1> <p class=\"zcat-page-desc\">Avatars represent users or entities with images, initials, or icons in various sizes and states.</p> <div class=\"zcat-page-tabs\"> <span class=\"zcat-page-tab {{expHandlers(expHandlers(pageTab,'===','customize'),'?:','active','')}}\" onclick=\"{{action('showCustomizeTab')}}\">Customize</span> <span class=\"zcat-page-tab {{expHandlers(expHandlers(pageTab,'===','variants'),'?:','active','')}}\" onclick=\"{{action('showVariantsTab')}}\">All Variants</span> <span class=\"zcat-page-tab\">Change Logs</span> </div> </div> <!-- Customize Tab --> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(pageTab,'===','customize')}}\" is=\"case\" lc-id=\"lc_id_0\"><div class=\"zcat-page-body\"> <div class=\"zcat-page-left\"> <h3 class=\"zcat-section-label\">preview</h3> <div class=\"zcat-preview-box\"> <div class=\"zcat-preview-area\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{avatarObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-code-tabs\"> <span class=\"zcat-code-tab {{expHandlers(expHandlers(activeTab,'===','slyte'),'?:','active','')}}\" onclick=\"{{action('showSlyteTab')}}\">sLyte</span> <span class=\"zcat-code-tab {{expHandlers(expHandlers(activeTab,'===','js'),'?:','active','')}}\" onclick=\"{{action('showJsTab')}}\">JS</span> <span class=\"zcat-code-tab {{expHandlers(expHandlers(activeTab,'===','html'),'?:','active','')}}\" onclick=\"{{action('showHtmlTab')}}\">HTML</span> <span class=\"zcat-code-tab {{expHandlers(expHandlers(activeTab,'===','css'),'?:','active','')}}\" onclick=\"{{action('showCssTab')}}\">CSS</span> </div> <div class=\"zcat-code-panel\"> <div class=\"zcat-code-lines\"> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(activeTab,'===','slyte')}}\" is=\"case\" lc-id=\"lc_id_0\"><pre>{{slyteCodeSnippet.code}}</pre></template></template> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(activeTab,'===','js')}}\" is=\"case\" lc-id=\"lc_id_0\"><pre>{{jsCodeSnippet.code}}</pre></template></template> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(activeTab,'===','html')}}\" is=\"case\" lc-id=\"lc_id_0\"><pre>{{htmlCodeSnippet.code}}</pre></template></template> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(activeTab,'===','css')}}\" is=\"case\" lc-id=\"lc_id_0\"><pre>{{cssCodeSnippet.code}}</pre></template></template> </div> <span class=\"zcat-code-copy\" onclick=\"{{action('copyCode')}}\" title=\"Copy code\"> <zcat-icon name=\"copy\" width=\"16\" height=\"16\" stroke=\"currentColor\" stroke-width=\"1.3\"></zcat-icon> </span> </div> </div> <div class=\"zcat-page-right\"> <div class=\"zcat-custom-header\"> <h3 class=\"zcat-custom-title\">Customise</h3> <zcat-button self=\"{{self}}\" zcat-prop=\"{{resetButtonObj}}\"></zcat-button> </div> <div class=\"zcat-custom-body\"> <div class=\"zcat-custom-row\"> <span class=\"zcat-custom-label\">Type</span> <select data-action=\"changeAvatarType\" class=\"zcat-custom-select\"> <option value=\"letter\">Letter</option> <option value=\"icon\">Icon</option> <option value=\"img\">Image</option> </select> </div> <div class=\"zcat-custom-row\"> <span class=\"zcat-custom-label\">Size</span> <select data-action=\"changeAvatarSize\" class=\"zcat-custom-select\"> <option value=\"small\">Small</option> <option value=\"medium\" selected=\"\">Medium</option> <option value=\"large\">Large</option> <option value=\"extra-large\">Extra Large</option> </select> </div> <div class=\"zcat-custom-row\"> <span class=\"zcat-custom-label\">Status</span> <select data-action=\"changeAvatarStatus\" class=\"zcat-custom-select\"> <option value=\"online\">Online</option> <option value=\"busy\">Busy</option> <option value=\"away\">Away</option> <option value=\"offline\">Offline</option> <option value=\"none\">None</option> </select> </div> </div> </div> </div></template></template> <!-- All Variants Tab --> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(pageTab,'===','variants')}}\" is=\"case\" lc-id=\"lc_id_0\"><div class=\"zcat-page-left\" style=\"flex:1\"> <h3 class=\"zcat-section-label\" style=\"margin-top:4px\">Types</h3> <div class=\"zcat-variants-grid\"> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Icon</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantIconObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Letter</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantLetterObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Image</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantImgObj}}\"></zcat-avatar> </div> </div> </div> <h3 class=\"zcat-section-label\" style=\"margin-top:24px\">Sizes</h3> <div class=\"zcat-variants-grid\"> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Small (24px)</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantSmObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Medium (32px)</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantMdObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Large (40px)</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantLgObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Extra Large (56px)</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantXlObj}}\"></zcat-avatar> </div> </div> </div> <h3 class=\"zcat-section-label\" style=\"margin-top:24px\">Status</h3> <div class=\"zcat-variants-grid\"> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Online</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantOnlineObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Busy</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantBusyObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Away</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantAwayObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Offline</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantOfflineObj}}\"></zcat-avatar> </div> </div> </div> </div></template></template> </div> </template><style>/* avatar-comp specific overrides if needed */\n</style>";;
-AvatarComp._dynamicNodes = [{"t":"a","p":[1,1,5,1]},{"t":"a","p":[1,1,5,3]},{"t":"s","p":[1,5],"c":{"lc_id_0":{"dN":[{"t":"a","p":[0,1,3,1,1],"cn":"lc_id_0"},{"t":"cD","p":[0,1,3,1,1],"in":6,"sibl":[5],"cn":"lc_id_0"},{"t":"a","p":[0,1,5,1],"cn":"lc_id_0"},{"t":"a","p":[0,1,5,3],"cn":"lc_id_0"},{"t":"a","p":[0,1,5,5],"cn":"lc_id_0"},{"t":"a","p":[0,1,5,7],"cn":"lc_id_0"},{"t":"s","p":[0,1,7,1,1],"c":{"lc_id_0":{"dN":[{"t":"tX","p":[0,0],"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{}},"hd":true,"co":["lc_id_0"],"in":5,"sibl":[4],"cn":"lc_id_0"},{"t":"s","p":[0,1,7,1,3],"c":{"lc_id_0":{"dN":[{"t":"tX","p":[0,0],"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{}},"hd":true,"co":["lc_id_0"],"in":4,"sibl":[3],"cn":"lc_id_0"},{"t":"s","p":[0,1,7,1,5],"c":{"lc_id_0":{"dN":[{"t":"tX","p":[0,0],"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{}},"hd":true,"co":["lc_id_0"],"in":3,"sibl":[2],"cn":"lc_id_0"},{"t":"s","p":[0,1,7,1,7],"c":{"lc_id_0":{"dN":[{"t":"tX","p":[0,0],"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{}},"hd":true,"co":["lc_id_0"],"in":2,"sibl":[1],"cn":"lc_id_0"},{"t":"a","p":[0,1,7,3],"cn":"lc_id_0"},{"t":"cD","p":[0,1,7,3,1],"in":1,"sibl":[0],"cn":"lc_id_0"},{"t":"a","p":[0,3,1,3],"cn":"lc_id_0"},{"t":"cD","p":[0,3,1,3],"in":0,"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{"dc":[6,1,0],"hc":true,"trans":true}},"hd":true,"co":["lc_id_0"],"hc":true,"trans":true,"in":1,"sibl":[0]},{"t":"s","p":[1,9],"c":{"lc_id_0":{"dN":[{"t":"a","p":[0,3,1,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,3,1,3,1],"in":10,"sibl":[9],"cn":"lc_id_0"},{"t":"a","p":[0,3,3,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,3,3,3,1],"in":9,"sibl":[8],"cn":"lc_id_0"},{"t":"a","p":[0,3,5,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,3,5,3,1],"in":8,"sibl":[7],"cn":"lc_id_0"},{"t":"a","p":[0,7,1,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,7,1,3,1],"in":7,"sibl":[6],"cn":"lc_id_0"},{"t":"a","p":[0,7,3,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,7,3,3,1],"in":6,"sibl":[5],"cn":"lc_id_0"},{"t":"a","p":[0,7,5,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,7,5,3,1],"in":5,"sibl":[4],"cn":"lc_id_0"},{"t":"a","p":[0,7,7,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,7,7,3,1],"in":4,"sibl":[3],"cn":"lc_id_0"},{"t":"a","p":[0,11,1,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,11,1,3,1],"in":3,"sibl":[2],"cn":"lc_id_0"},{"t":"a","p":[0,11,3,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,11,3,3,1],"in":2,"sibl":[1],"cn":"lc_id_0"},{"t":"a","p":[0,11,5,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,11,5,3,1],"in":1,"sibl":[0],"cn":"lc_id_0"},{"t":"a","p":[0,11,7,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,11,7,3,1],"in":0,"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{"dc":[10,9,8,7,6,5,4,3,2,1,0],"hc":true,"trans":true}},"hd":true,"co":["lc_id_0"],"hc":true,"trans":true,"in":0},{"type":"dc","trans":true,"hc":true,"p":[1,0]}];;
+AvatarComp._template = "<template tag-name=\"avatar-comp\"> <div class=\"zcat-page-wrapper\"> <div class=\"zcat-page-header\"> <h1 class=\"zcat-page-title\">Avatar</h1> <p class=\"zcat-page-desc\">Avatars represent users or entities with images, initials, or icons in various sizes and states.</p> <div class=\"zcat-page-tabs\"> <span class=\"zcat-page-tab {{expHandlers(expHandlers(pageTab,'===','customize'),'?:','active','')}}\" onclick=\"{{action('showCustomizeTab')}}\">Customize</span> <span class=\"zcat-page-tab {{expHandlers(expHandlers(pageTab,'===','variants'),'?:','active','')}}\" onclick=\"{{action('showVariantsTab')}}\">All Variants</span> <span class=\"zcat-page-tab\">Change Logs</span> </div> </div> <!-- Customize Tab --> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(pageTab,'===','customize')}}\" is=\"case\" lc-id=\"lc_id_0\"><div class=\"zcat-page-body\"> <div class=\"zcat-page-left\"> <h3 class=\"zcat-section-label\">preview</h3> <div class=\"zcat-preview-box\"> <div class=\"zcat-preview-area\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{avatarObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-code-tabs\"> <span class=\"zcat-code-tab {{expHandlers(expHandlers(activeTab,'===','slyte'),'?:','active','')}}\" onclick=\"{{action('showSlyteTab')}}\">sLyte</span> <span class=\"zcat-code-tab {{expHandlers(expHandlers(activeTab,'===','js'),'?:','active','')}}\" onclick=\"{{action('showJsTab')}}\">JS</span> <span class=\"zcat-code-tab {{expHandlers(expHandlers(activeTab,'===','html'),'?:','active','')}}\" onclick=\"{{action('showHtmlTab')}}\">HTML</span> <span class=\"zcat-code-tab {{expHandlers(expHandlers(activeTab,'===','css'),'?:','active','')}}\" onclick=\"{{action('showCssTab')}}\">CSS</span> </div> <div class=\"zcat-code-panel\"> <div class=\"zcat-code-lines\"> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(activeTab,'===','slyte')}}\" is=\"case\" lc-id=\"lc_id_0\"><pre>{{slyteCodeSnippet.code}}</pre></template></template><template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(activeTab,'===','js')}}\" is=\"case\" lc-id=\"lc_id_0\"><pre>{{jsCodeSnippet.code}}</pre></template></template><template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(activeTab,'===','html')}}\" is=\"case\" lc-id=\"lc_id_0\"><pre>{{htmlCodeSnippet.code}}</pre></template></template><template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(activeTab,'===','css')}}\" is=\"case\" lc-id=\"lc_id_0\"><pre>{{cssCodeSnippet.code}}</pre></template></template></div> <span class=\"zcat-code-copy\" onclick=\"{{action('copyCode')}}\" title=\"Copy code\"> <zcat-icon name=\"copy\" width=\"16\" height=\"16\" stroke=\"currentColor\" stroke-width=\"1.3\"></zcat-icon> </span> </div> </div> <div class=\"zcat-page-right\"> <div class=\"zcat-custom-header\"> <h3 class=\"zcat-custom-title\">Customise</h3> <zcat-button self=\"{{self}}\" zcat-prop=\"{{resetButtonObj}}\"></zcat-button> </div> <div class=\"zcat-custom-body\"> <div class=\"zcat-custom-row\"> <span class=\"zcat-custom-label\">Type</span> <select onchange=\"{{action('changeAvatarType',event)}}\" class=\"zcat-custom-select\"> <option value=\"letter\">Letter</option> <option value=\"icon\">Icon</option> <option value=\"img\">Image</option> </select> </div> <div class=\"zcat-custom-row\"> <span class=\"zcat-custom-label\">Size</span> <select onchange=\"{{action('changeAvatarSize',event)}}\" class=\"zcat-custom-select\"> <option value=\"small\">Small</option> <option value=\"medium\" selected=\"\">Medium</option> <option value=\"large\">Large</option> <option value=\"extra-large\">Extra Large</option> </select> </div> <div class=\"zcat-custom-row\"> <span class=\"zcat-custom-label\">Status</span> <select onchange=\"{{action('changeAvatarStatus',event)}}\" class=\"zcat-custom-select\"> <option value=\"online\">Online</option> <option value=\"busy\">Busy</option> <option value=\"away\">Away</option> <option value=\"offline\">Offline</option> <option value=\"none\">None</option> </select> </div> </div> </div> </div></template></template><!-- All Variants Tab --> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(pageTab,'===','variants')}}\" is=\"case\" lc-id=\"lc_id_0\"><div class=\"zcat-page-left\" style=\"flex:1\"> <h3 class=\"zcat-section-label\" style=\"margin-top:4px\">Types</h3> <div class=\"zcat-variants-grid\"> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Icon</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantIconObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Letter</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantLetterObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Image</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantImgObj}}\"></zcat-avatar> </div> </div> </div> <h3 class=\"zcat-section-label\" style=\"margin-top:24px\">Sizes</h3> <div class=\"zcat-variants-grid\"> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Small (24px)</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantSmObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Medium (32px)</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantMdObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Large (40px)</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantLgObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Extra Large (56px)</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantXlObj}}\"></zcat-avatar> </div> </div> </div> <h3 class=\"zcat-section-label\" style=\"margin-top:24px\">Status</h3> <div class=\"zcat-variants-grid\"> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Online</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantOnlineObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Busy</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantBusyObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Away</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantAwayObj}}\"></zcat-avatar> </div> </div> <div class=\"zcat-variant-card\"> <div class=\"zcat-variant-card-head\"><span class=\"zcat-variant-card-title\">Offline</span></div> <div class=\"zcat-variant-card-preview\"> <zcat-avatar self=\"{{self}}\" zcat-prop=\"{{variantOfflineObj}}\"></zcat-avatar> </div> </div> </div> </div></template></template></div> </template><style>/* avatar-comp specific overrides if needed */\n</style>";;
+AvatarComp._dynamicNodes = [{"t":"a","p":[1,1,5,1]},{"t":"a","p":[1,1,5,3]},{"t":"s","p":[1,5],"c":{"lc_id_0":{"dN":[{"t":"a","p":[0,1,3,1,1],"cn":"lc_id_0"},{"t":"cD","p":[0,1,3,1,1],"in":6,"sibl":[5],"cn":"lc_id_0"},{"t":"a","p":[0,1,5,1],"cn":"lc_id_0"},{"t":"a","p":[0,1,5,3],"cn":"lc_id_0"},{"t":"a","p":[0,1,5,5],"cn":"lc_id_0"},{"t":"a","p":[0,1,5,7],"cn":"lc_id_0"},{"t":"s","p":[0,1,7,1,1],"c":{"lc_id_0":{"dN":[{"t":"tX","p":[0,0],"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{}},"hd":true,"co":["lc_id_0"],"in":5,"sibl":[4],"cn":"lc_id_0"},{"t":"s","p":[0,1,7,1,2],"c":{"lc_id_0":{"dN":[{"t":"tX","p":[0,0],"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{}},"hd":true,"co":["lc_id_0"],"in":4,"sibl":[3],"cn":"lc_id_0"},{"t":"s","p":[0,1,7,1,3],"c":{"lc_id_0":{"dN":[{"t":"tX","p":[0,0],"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{}},"hd":true,"co":["lc_id_0"],"in":3,"sibl":[2],"cn":"lc_id_0"},{"t":"s","p":[0,1,7,1,4],"c":{"lc_id_0":{"dN":[{"t":"tX","p":[0,0],"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{}},"hd":true,"co":["lc_id_0"],"in":2,"sibl":[1],"cn":"lc_id_0"},{"t":"a","p":[0,1,7,3],"cn":"lc_id_0"},{"t":"cD","p":[0,1,7,3,1],"in":1,"sibl":[0],"cn":"lc_id_0"},{"t":"a","p":[0,3,1,3],"cn":"lc_id_0"},{"t":"cD","p":[0,3,1,3],"in":0,"cn":"lc_id_0"},{"t":"a","p":[0,3,3,1,3],"cn":"lc_id_0"},{"t":"a","p":[0,3,3,3,3],"cn":"lc_id_0"},{"t":"a","p":[0,3,3,5,3],"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{"dc":[6,1,0],"hc":true,"trans":true}},"hd":true,"co":["lc_id_0"],"hc":true,"trans":true,"in":1,"sibl":[0]},{"t":"s","p":[1,8],"c":{"lc_id_0":{"dN":[{"t":"a","p":[0,3,1,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,3,1,3,1],"in":10,"sibl":[9],"cn":"lc_id_0"},{"t":"a","p":[0,3,3,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,3,3,3,1],"in":9,"sibl":[8],"cn":"lc_id_0"},{"t":"a","p":[0,3,5,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,3,5,3,1],"in":8,"sibl":[7],"cn":"lc_id_0"},{"t":"a","p":[0,7,1,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,7,1,3,1],"in":7,"sibl":[6],"cn":"lc_id_0"},{"t":"a","p":[0,7,3,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,7,3,3,1],"in":6,"sibl":[5],"cn":"lc_id_0"},{"t":"a","p":[0,7,5,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,7,5,3,1],"in":5,"sibl":[4],"cn":"lc_id_0"},{"t":"a","p":[0,7,7,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,7,7,3,1],"in":4,"sibl":[3],"cn":"lc_id_0"},{"t":"a","p":[0,11,1,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,11,1,3,1],"in":3,"sibl":[2],"cn":"lc_id_0"},{"t":"a","p":[0,11,3,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,11,3,3,1],"in":2,"sibl":[1],"cn":"lc_id_0"},{"t":"a","p":[0,11,5,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,11,5,3,1],"in":1,"sibl":[0],"cn":"lc_id_0"},{"t":"a","p":[0,11,7,3,1],"cn":"lc_id_0"},{"t":"cD","p":[0,11,7,3,1],"in":0,"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{"dc":[10,9,8,7,6,5,4,3,2,1,0],"hc":true,"trans":true}},"hd":true,"co":["lc_id_0"],"hc":true,"trans":true,"in":0},{"type":"dc","trans":true,"hc":true,"p":[1,0]}];;
 
 AvatarComp._observedAttributes = [
   "activeTab",
@@ -241,108 +221,7 @@ AvatarComp._observedAttributes = [
 
 
 AvatarComp.register("avatar-comp", {
-  hash: "AvatarComp_2",
-  refHash: "C_zcat-app_app_0"
-});
-
-
-/***/ }),
-
-/***/ 26299788:
-/*!**********************************************!*\
-  !*** ./components/javascript/zcat-avatar.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ZcatAvatar": () => (/* binding */ ZcatAvatar)
-/* harmony export */ });
-/* harmony import */ var _node_modules_slyte_component_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/@slyte/component/index.js */ 93132498);
-/* harmony import */ var _node_modules_slyte_core_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/@slyte/core/index.js */ 60469700);
-
-
-
-
-class ZcatAvatar extends _node_modules_slyte_component_index_js__WEBPACK_IMPORTED_MODULE_0__.Component {
-  constructor() {
-    super();
-  }
-
-  data(arg1) {
-    return Object.assign(super.data({
-      self: (0,_node_modules_slyte_core_index_js__WEBPACK_IMPORTED_MODULE_1__.prop)('object'),
-      zcatProp: (0,_node_modules_slyte_core_index_js__WEBPACK_IMPORTED_MODULE_1__.prop)('object', { default: {} }, { watch: true }),
-      _initial: (0,_node_modules_slyte_core_index_js__WEBPACK_IMPORTED_MODULE_1__.prop)('string', { default: '?' }),
-      _sizeClass: (0,_node_modules_slyte_core_index_js__WEBPACK_IMPORTED_MODULE_1__.prop)('string', { default: 'zcat-avatar-md' })
-    }), arg1);
-  }
-
-  init() {
-    this._computeAvatar();
-  }
-
-  _computeAvatar() {
-    let zcatProp = this.getData('zcatProp');
-    // Compute initial
-    let initial = '?';
-    if (zcatProp && zcatProp.name && zcatProp.name.length > 0) {
-      let parts = zcatProp.name.trim().split(/\s+/);
-      if (parts.length >= 2) {
-        initial = (parts[0][0] + parts[1][0]).toUpperCase();
-      } else {
-        initial = parts[0][0].toUpperCase();
-      }
-    }
-    this.setData('_initial', initial);
-    // Compute size class
-    let size = (zcatProp && zcatProp.size) || '';
-    let sizeClass = 'zcat-avatar-md';
-    if (size === 'small') sizeClass = 'zcat-avatar-sm';
-    else if (size === 'large') sizeClass = 'zcat-avatar-lg';
-    else if (size === 'extra-large') sizeClass = 'zcat-avatar-xl';
-    this.setData('_sizeClass', sizeClass);
-  }
-
-  static methods(arg1) {
-    return Object.assign(super.methods({}), arg1);
-  }
-
-  static actions(arg1) {
-    return Object.assign(super.actions({
-      onAvatarClick() {
-        let self = this.getData('self');
-        let zcatProp = this.getData('zcatProp');
-        if (self && zcatProp && zcatProp.callback && zcatProp.callback.name) {
-          self.executeMethod(zcatProp.callback.name, zcatProp);
-        }
-      }
-    }), arg1);
-  }
-
-  static observers(arg1) {
-    return Object.assign(super.observers({
-      zcatPropChanged: {
-        watch: ['zcatProp'],
-        handler() {
-          this._computeAvatar();
-        }
-      }
-    }), arg1);
-  }
-
-  _() {
-    _;
-  }
-}
-
-ZcatAvatar._template = "<template tag-name=\"zcat-avatar\"> <div class=\"zcat-avatar {{_sizeClass}} {{expHandlers(zcatProp.disabled,'?:','zcat-avatar-disabled','')}} {{expHandlers(zcatProp.classCss,'||','')}}\" onclick=\"{{action('onAvatarClick')}}\"> <!-- Image avatar --> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(zcatProp.type,'===','img')}}\" is=\"case\" lc-id=\"lc_id_0\"> <img class=\"zcat-avatar-img\" src=\"{{zcatProp.src}}\" alt=\"{{expHandlers(zcatProp.name,'||','Avatar')}}\"> </template></template> <!-- Letter avatar --> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(zcatProp.type,'===','letter')}}\" is=\"case\" lc-id=\"lc_id_0\"> <span class=\"zcat-avatar-letter\">{{_initial}}</span> </template></template> <!-- Icon avatar (default) --> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{expHandlers(zcatProp.type,'===','icon')}}\" is=\"case\" lc-id=\"lc_id_0\"> <svg class=\"zcat-avatar-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"> <path d=\"M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2\"></path> <circle cx=\"12\" cy=\"7\" r=\"4\"></circle> </svg> </template></template> <!-- Status badge --> <template is=\"switch\" l-c=\"true\" _new=\"true\"><template case=\"{{zcatProp.status}}\" is=\"case\" lc-id=\"lc_id_0\"> <span class=\"zcat-avatar-status zcat-avatar-status-{{zcatProp.status}}\"></span> </template></template> </div> </template><style>/* ==============================\n   ZCAT Avatar Component\n   ============================== */\n\nzcat-avatar * {\n  box-sizing: border-box;\n}\n\n/* --- Base --- */\n.zcat-avatar {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 50%;\n  background: var(--zcat-avatar-bg-default);\n  border: 1px solid var(--zcat-avatar-border-default);\n  color: var(--zcat-avatar-icon-default);\n  overflow: hidden;\n  flex-shrink: 0;\n  position: relative;\n  cursor: default;\n  user-select: none;\n  font-family: var(--zcat-font-family-primary);\n}\n\n/* --- Sizes --- */\n.zcat-avatar-sm {\n  width: 24px;\n  height: 24px;\n}\n.zcat-avatar-md {\n  width: 32px;\n  height: 32px;\n}\n.zcat-avatar-lg {\n  width: 40px;\n  height: 40px;\n}\n.zcat-avatar-xl {\n  width: 56px;\n  height: 56px;\n}\n\n/* --- Image --- */\n.zcat-avatar-img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  border-radius: 50%;\n}\n\n/* --- Letter --- */\n.zcat-avatar-letter {\n  font-weight: 600;\n  color: var(--zcat-avatar-text-default);\n  line-height: 1;\n}\n.zcat-avatar-sm .zcat-avatar-letter { font-size: 10px; }\n.zcat-avatar-md .zcat-avatar-letter { font-size: 13px; }\n.zcat-avatar-lg .zcat-avatar-letter { font-size: 16px; }\n.zcat-avatar-xl .zcat-avatar-letter { font-size: 22px; }\n\n/* --- Icon (SVG) --- */\n.zcat-avatar-icon {\n  color: var(--zcat-avatar-icon-default);\n}\n.zcat-avatar-sm .zcat-avatar-icon { width: 14px; height: 14px; }\n.zcat-avatar-md .zcat-avatar-icon { width: 18px; height: 18px; }\n.zcat-avatar-lg .zcat-avatar-icon { width: 22px; height: 22px; }\n.zcat-avatar-xl .zcat-avatar-icon { width: 30px; height: 30px; }\n\n/* --- Status badge --- */\n.zcat-avatar-status {\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  border: 2px solid var(--zcat-popup-bg);\n}\n.zcat-avatar-sm .zcat-avatar-status { width: 6px; height: 6px; border-width: 1.5px; }\n.zcat-avatar-xl .zcat-avatar-status { width: 12px; height: 12px; border-width: 2px; }\n\n.zcat-avatar-status-online { background: var(--zcat-green-1); }\n.zcat-avatar-status-offline { background: var(--zcat-dark-4); }\n.zcat-avatar-status-busy { background: var(--zcat-red-1); }\n.zcat-avatar-status-away { background: var(--zcat-orange-1); }\n\n/* --- Disabled --- */\n.zcat-avatar-disabled {\n  opacity: 0.5;\n  pointer-events: none;\n}\n</style>";;
-ZcatAvatar._dynamicNodes = [{"t":"a","p":[1]},{"t":"s","p":[1,3],"c":{"lc_id_0":{"dN":[{"t":"a","p":[1],"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{}},"hd":true,"co":["lc_id_0"],"sibl":[2]},{"t":"s","p":[1,7],"c":{"lc_id_0":{"dN":[{"t":"tX","p":[1,0],"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{}},"hd":true,"co":["lc_id_0"],"sibl":[1]},{"t":"s","p":[1,11],"c":{"lc_id_0":{"dN":[],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{}},"hd":true,"co":["lc_id_0"],"sibl":[0]},{"t":"s","p":[1,15],"c":{"lc_id_0":{"dN":[{"t":"a","p":[1],"cn":"lc_id_0"}],"cdp":{"t":"a","p":[0]},"dcn":true}},"d":{},"dc":{"lc_id_0":{}},"hd":true,"co":["lc_id_0"]}];;
-ZcatAvatar._observedAttributes = ["self", "zcatProp", "_initial", "_sizeClass"];
-
-
-ZcatAvatar.register("zcat-avatar", {
-  hash: "ZcatAvatar_2",
+  hash: "AvatarComp_6",
   refHash: "C_zcat-app_app_0"
 });
 

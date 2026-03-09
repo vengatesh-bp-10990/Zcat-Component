@@ -10,23 +10,6 @@ class PaginationComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let variantSelect = node.querySelector('[data-action="changePaginationVariant"]');
-    if (variantSelect) {
-      variantSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('paginationObj'), 'add', 'variant', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let paginationObj = this.getData('paginationObj') || {};
 
@@ -152,6 +135,10 @@ class PaginationComp extends Component {
 
   static actions() {
     return {
+      changePaginationVariant(e) {
+        this.$app.objectUtils(this.getData('paginationObj'), 'add', 'variant', e.target.value);
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showHtmlTab() { this.setData('activeTab', 'html'); },

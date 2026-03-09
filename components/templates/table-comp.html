@@ -46,7 +46,7 @@
         <div class="zcat-custom-body">
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Style</span>
-            <select data-action="changeTableVariant" class="zcat-custom-select">
+            <select onchange="{{action('changeTableVariant', event)}}" class="zcat-custom-select">
               <option value="default">Default</option>
               <option value="striped">Striped</option>
               <option value="bordered">Bordered</option>

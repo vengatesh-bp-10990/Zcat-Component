@@ -53,7 +53,7 @@
           <!-- Type -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Type</span>
-            <select data-action="changeLoaderType" class="zcat-custom-select">
+            <select onchange="{{action('changeLoaderType', event)}}" class="zcat-custom-select">
               <option value="progress">Progress</option>
               <option value="spin">Spin</option>
               <option value="content">Content (Skeleton)</option>

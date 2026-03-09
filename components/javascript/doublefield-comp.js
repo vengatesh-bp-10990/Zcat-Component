@@ -99,6 +99,54 @@ class DoublefieldComp extends Component {
           ]
         }
       }),
+      doublefieldDisabledObj: prop('object', {
+        default: {
+          label: 'Phone Number (Disabled)',
+          disabled: true,
+          fields: [
+            {
+              type: 'dropdown',
+              width: '110px',
+              props: {
+                placeholder: '+1',
+                options: [
+                  { name: '+1 US', value: '+1' },
+                  { name: '+44 UK', value: '+44' },
+                  { name: '+91 IN', value: '+91' }
+                ]
+              }
+            },
+            {
+              type: 'input',
+              props: { placeholder: 'Enter phone number' }
+            }
+          ]
+        }
+      }),
+      doublefieldErrorObj: prop('object', {
+        default: {
+          label: 'Amount',
+          errorMessage: 'Please enter a valid amount',
+          fields: [
+            {
+              type: 'dropdown',
+              width: '100px',
+              props: {
+                placeholder: 'USD',
+                options: [
+                  { name: 'USD', value: 'usd' },
+                  { name: 'EUR', value: 'eur' },
+                  { name: 'GBP', value: 'gbp' }
+                ]
+              }
+            },
+            {
+              type: 'input',
+              props: { placeholder: 'Enter amount' }
+            }
+          ]
+        }
+      }),
       toggleLabelObj: prop('object', {
         default: { checked: true, size: 'small', callback: { name: 'toggleLabel' } }
       }),

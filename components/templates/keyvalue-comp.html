@@ -50,6 +50,10 @@
             <span class="zcat-custom-label">Disabled</span>
             <zcat-toggle self="{{self}}" zcat-prop="{{toggleDisabledObj}}"></zcat-toggle>
           </div>
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Show Error</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleErrorObj}}"></zcat-toggle>
+          </div>
         </div>
       </div>
     </div>
@@ -67,6 +71,24 @@
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">HTTP Headers</span></div>
           <div class="zcat-variant-card-preview" style="padding:16px">
             <zcat-keyvalue-pair self="{{self}}" zcat-prop="{{keyvalueObj2}}"></zcat-keyvalue-pair>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Environment Variables</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <zcat-keyvalue-pair self="{{self}}" zcat-prop="{{keyvalueObj3}}"></zcat-keyvalue-pair>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Query Parameters</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <zcat-keyvalue-pair self="{{self}}" zcat-prop="{{keyvalueObj4}}"></zcat-keyvalue-pair>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Disabled (Read-only)</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <zcat-keyvalue-pair self="{{self}}" zcat-prop="{{keyvalueDisabledObj}}"></zcat-keyvalue-pair>
           </div>
         </div>
       </div>

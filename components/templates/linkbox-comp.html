@@ -1,0 +1,206 @@
+<template tag-name="linkbox-comp">
+  <div class="zcat-page-wrapper">
+    <div class="zcat-page-header">
+      <h1 class="zcat-page-title">Link Box</h1>
+      <p class="zcat-page-desc">A read-only field for displaying URLs or structured links with a one-click copy button. Supports top, left, inside, and no-label variants.</p>
+      <div class="zcat-page-tabs">
+        <span class="zcat-page-tab {{pageTab === 'customize' ? 'active' : ''}}" onclick="{{action('showCustomizeTab')}}">Customize</span>
+        <span class="zcat-page-tab {{pageTab === 'variants' ? 'active' : ''}}" onclick="{{action('showVariantsTab')}}">All Variants</span>
+        <span class="zcat-page-tab">Change Logs</span>
+      </div>
+    </div>
+
+    <!-- Customize Tab -->
+    <div class="zcat-page-body" lyte-if="{{pageTab === 'customize'}}">
+      <div class="zcat-page-left">
+        <h3 class="zcat-section-label">preview</h3>
+        <div class="zcat-preview-box">
+          <div class="zcat-preview-area" style="padding:24px;display:flex;align-items:center;justify-content:center">
+            <!-- Label Top -->
+            <div style="width:100%" lyte-if="{{linkboxObj.labelPosition === 'top'}}">
+              <div class="zcat-dF zcat-align-center zcat-gap-2 zcat-mb-2 {{linkboxObj.disabled ? 'input-field-disabled' : ''}}">
+                <p class="zcat-input-label">{{linkboxObj.label}}</p>
+              </div>
+              <div class="zcat-link-field-box {{linkboxObj.size === 'small' ? 'zcat-link-field-small' : ''}} {{linkboxObj.disabled ? 'input-field-disabled' : ''}}">
+                <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:12px">{{linkboxObj.value}}</span>
+                <button class="zcat-link-copy-btn" onclick="navigator.clipboard&&navigator.clipboard.writeText('{{linkboxObj.value}}')" title="Copy" style="margin-left:8px;background:none;border:none;cursor:pointer;display:flex;align-items:center;padding:0">
+                  <zcat-icon name="copy" width="14" height="14" stroke="var(--zcat-inputField-icon-label)" stroke-width="1.3"></zcat-icon>
+                </button>
+              </div>
+            </div>
+
+            <!-- Label Left -->
+            <div style="width:100%;display:flex;align-items:center" lyte-if="{{linkboxObj.labelPosition === 'left'}}">
+              <p class="zcat-input-label {{linkboxObj.disabled ? 'input-field-disabled' : ''}}" style="min-width:40px;margin-right:8px;white-space:nowrap">{{linkboxObj.label}}</p>
+              <div class="zcat-link-field-box {{linkboxObj.size === 'small' ? 'zcat-link-field-small' : ''}} {{linkboxObj.disabled ? 'input-field-disabled' : ''}}" style="flex:1">
+                <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:12px">{{linkboxObj.value}}</span>
+                <button class="zcat-link-copy-btn" onclick="navigator.clipboard&&navigator.clipboard.writeText('{{linkboxObj.value}}')" title="Copy" style="margin-left:8px;background:none;border:none;cursor:pointer;display:flex;align-items:center;padding:0">
+                  <zcat-icon name="copy" width="14" height="14" stroke="var(--zcat-inputField-icon-label)" stroke-width="1.3"></zcat-icon>
+                </button>
+              </div>
+            </div>
+
+            <!-- Label Inside -->
+            <div style="width:100%" lyte-if="{{linkboxObj.labelPosition === 'inside'}}">
+              <div class="zcat-link-field-box {{linkboxObj.size === 'small' ? 'zcat-link-field-small' : ''}} {{linkboxObj.disabled ? 'input-field-disabled' : ''}}">
+                <span class="zcat-input-label" style="margin-right:4px;white-space:nowrap;font-size:12px">{{linkboxObj.label}}:</span>
+                <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:12px">{{linkboxObj.value}}</span>
+                <button class="zcat-link-copy-btn" onclick="navigator.clipboard&&navigator.clipboard.writeText('{{linkboxObj.value}}')" title="Copy" style="margin-left:8px;background:none;border:none;cursor:pointer;display:flex;align-items:center;padding:0">
+                  <zcat-icon name="copy" width="14" height="14" stroke="var(--zcat-inputField-icon-label)" stroke-width="1.3"></zcat-icon>
+                </button>
+              </div>
+            </div>
+
+            <!-- No Label -->
+            <div style="width:100%" lyte-if="{{linkboxObj.labelPosition === 'none'}}">
+              <div class="zcat-link-field-box {{linkboxObj.size === 'small' ? 'zcat-link-field-small' : ''}} {{linkboxObj.disabled ? 'input-field-disabled' : ''}}">
+                <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:12px">{{linkboxObj.value}}</span>
+                <button class="zcat-link-copy-btn" onclick="navigator.clipboard&&navigator.clipboard.writeText('{{linkboxObj.value}}')" title="Copy" style="margin-left:8px;background:none;border:none;cursor:pointer;display:flex;align-items:center;padding:0">
+                  <zcat-icon name="copy" width="14" height="14" stroke="var(--zcat-inputField-icon-label)" stroke-width="1.3"></zcat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Code Tabs -->
+        <div class="zcat-code-tabs">
+          <span class="zcat-code-tab {{activeTab === 'slyte' ? 'active' : ''}}" onclick="{{action('showSlyteTab')}}">sLyte</span>
+          <span class="zcat-code-tab {{activeTab === 'js' ? 'active' : ''}}" onclick="{{action('showJsTab')}}">JS</span>
+          <span class="zcat-code-tab {{activeTab === 'html' ? 'active' : ''}}" onclick="{{action('showHtmlTab')}}">HTML</span>
+          <span class="zcat-code-tab {{activeTab === 'css' ? 'active' : ''}}" onclick="{{action('showCssTab')}}">CSS</span>
+        </div>
+        <div class="zcat-code-panel">
+          <div class="zcat-code-lines">
+            <pre lyte-if="{{activeTab === 'slyte'}}">{{slyteCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'js'}}">{{jsCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'html'}}">{{htmlCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'css'}}">{{cssCodeSnippet.code}}</pre>
+          </div>
+          <span class="zcat-code-copy" onclick="{{action('copyCode')}}" title="Copy code">
+            <zcat-icon name="copy" width="16" height="16" stroke="currentColor" stroke-width="1.3"></zcat-icon>
+          </span>
+        </div>
+      </div>
+
+      <!-- Right: Customise -->
+      <div class="zcat-page-right">
+        <div class="zcat-custom-header">
+          <h3 class="zcat-custom-title">Customise</h3>
+          <zcat-button self="{{self}}" zcat-prop="{{resetButtonObj}}"></zcat-button>
+        </div>
+        <div class="zcat-custom-body">
+          <!-- Label Position -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Label Position</span>
+            <select onchange="{{action('changeLabelPosition', event)}}" class="zcat-custom-select">
+              <option value="top">Top</option>
+              <option value="left">Left</option>
+              <option value="inside">Label Inside</option>
+              <option value="none">No Label</option>
+            </select>
+          </div>
+          <!-- Size -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Size</span>
+            <select onchange="{{action('changeSize', event)}}" class="zcat-custom-select">
+              <option value="default">Default</option>
+              <option value="small">Small</option>
+            </select>
+          </div>
+          <!-- Disabled -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Disabled</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleDisabledObj}}"></zcat-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Variants Tab -->
+    <div class="zcat-page-left" lyte-if="{{pageTab === 'variants'}}" style="flex:1">
+      <h3 class="zcat-section-label" style="margin-top:4px">Variants</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Label Top</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <div class="zcat-dF zcat-align-center zcat-gap-2 zcat-mb-2">
+              <p class="zcat-input-label">URL</p>
+            </div>
+            <div class="zcat-link-field-box">
+              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:12px">https://console.catalyst.zoho.com/baas/project/dev</span>
+              <span style="margin-left:8px;cursor:pointer;display:flex;align-items:center">
+                <zcat-icon name="copy" width="14" height="14" stroke="var(--zcat-inputField-icon-label)" stroke-width="1.3"></zcat-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Label Left</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <div style="display:flex;align-items:center">
+              <p class="zcat-input-label" style="min-width:40px;margin-right:8px;white-space:nowrap">URL</p>
+              <div class="zcat-link-field-box" style="flex:1">
+                <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:12px">https://console.catalyst.zoho.com/baas/project/dev</span>
+                <span style="margin-left:8px;cursor:pointer;display:flex;align-items:center">
+                  <zcat-icon name="copy" width="14" height="14" stroke="var(--zcat-inputField-icon-label)" stroke-width="1.3"></zcat-icon>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Label Inside</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <div class="zcat-link-field-box">
+              <span class="zcat-input-label" style="margin-right:4px;white-space:nowrap;font-size:12px">URL:</span>
+              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:12px">https://console.catalyst.zoho.com/baas/project/dev</span>
+              <span style="margin-left:8px;cursor:pointer;display:flex;align-items:center">
+                <zcat-icon name="copy" width="14" height="14" stroke="var(--zcat-inputField-icon-label)" stroke-width="1.3"></zcat-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">No Label</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <div class="zcat-link-field-box">
+              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:12px">https://console.catalyst.zoho.com/baas/project/dev</span>
+              <span style="margin-left:8px;cursor:pointer;display:flex;align-items:center">
+                <zcat-icon name="copy" width="14" height="14" stroke="var(--zcat-inputField-icon-label)" stroke-width="1.3"></zcat-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Small Size</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <div class="zcat-dF zcat-align-center zcat-gap-2 zcat-mb-2">
+              <p class="zcat-input-label">URL</p>
+            </div>
+            <div class="zcat-link-field-box zcat-link-field-small">
+              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:11px">https://console.catalyst.zoho.com/baas/project/dev</span>
+              <span style="margin-left:8px;cursor:pointer;display:flex;align-items:center">
+                <zcat-icon name="copy" width="12" height="12" stroke="var(--zcat-inputField-icon-label)" stroke-width="1.3"></zcat-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Disabled</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <div class="zcat-dF zcat-align-center zcat-gap-2 zcat-mb-2 input-field-disabled">
+              <p class="zcat-input-label">URL</p>
+            </div>
+            <div class="zcat-link-field-box input-field-disabled">
+              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;font-size:12px">https://console.catalyst.zoho.com/baas/project/dev</span>
+              <span style="margin-left:8px;cursor:pointer;display:flex;align-items:center">
+                <zcat-icon name="copy" width="14" height="14" stroke="var(--zcat-inputField-icon-label)" stroke-width="1.3"></zcat-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

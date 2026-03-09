@@ -10,23 +10,6 @@ class FileuploadComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let variantSelect = node.querySelector('[data-action="changeVariant"]');
-    if (variantSelect) {
-      variantSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('fileuploadObj'), 'add', 'variant', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let obj = this.getData('fileuploadObj') || {};
 
@@ -60,6 +43,11 @@ class FileuploadComp extends Component {
           callback: { name: 'onFilesChange' }
         }
       }),
+      varPrimaryObj: prop('object', { default: { variant: 'primary', label: 'Upload Files', hint: 'PNG, JPG up to 5MB', accept: '.png,.jpg', multiple: true } }),
+      varSecondaryObj: prop('object', { default: { variant: 'secondary', label: 'Attach Document', hint: 'PDF, DOCX up to 10MB', accept: '.pdf,.docx', multiple: false } }),
+      varMultipleObj: prop('object', { default: { variant: 'primary', label: 'Upload Images', hint: 'Select multiple PNG, JPG files', accept: '.png,.jpg', multiple: true } }),
+      varSingleObj: prop('object', { default: { variant: 'primary', label: 'Upload Avatar', hint: 'One image only, up to 2MB', accept: '.png,.jpg', multiple: false } }),
+      varDisabledObj: prop('object', { default: { variant: 'primary', label: 'Upload (Disabled)', hint: 'Uploading is disabled', multiple: true, disabled: true } }),
       toggleLabelObj: prop('object', {
         default: { checked: true, size: 'small', callback: { name: 'toggleLabel' } }
       }),
@@ -108,6 +96,10 @@ class FileuploadComp extends Component {
 
   static actions() {
     return {
+      changeVariant(e) {
+        this.$app.objectUtils(this.getData('fileuploadObj'), 'add', 'variant', e.target.value);
+        this.constructCodeSnippet();
+      },
       showCustomizeTab() { this.setData('pageTab', 'customize'); },
       showVariantsTab() { this.setData('pageTab', 'variants'); },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },

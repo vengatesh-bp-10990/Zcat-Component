@@ -10,23 +10,6 @@ class PopoverComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let positionSelect = node.querySelector('[data-action="changePopoverPosition"]');
-    if (positionSelect) {
-      positionSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('popoverObj'), 'add', 'position', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let popoverObj = this.getData('popoverObj') || {};
 
@@ -206,6 +189,10 @@ class PopoverComp extends Component {
 
   static actions() {
     return {
+      changePopoverPosition(e) {
+        this.$app.objectUtils(this.getData('popoverObj'), 'add', 'position', e.target.value);
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showHtmlTab() { this.setData('activeTab', 'html'); },

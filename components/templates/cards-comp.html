@@ -44,7 +44,7 @@
         <div class="zcat-custom-body">
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Selection Type</span>
-            <select data-action="changeType" class="zcat-custom-select">
+            <select onchange="{{action('changeType', event)}}" class="zcat-custom-select">
               <option value="default">Default (Display)</option>
               <option value="single_sel" selected>Single Select</option>
               <option value="multi_sel">Multi Select</option>
@@ -52,7 +52,7 @@
           </div>
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Background</span>
-            <select data-action="changeBg" class="zcat-custom-select">
+            <select onchange="{{action('changeBg', event)}}" class="zcat-custom-select">
               <option value="primary">Primary</option>
               <option value="secondary">Secondary</option>
               <option value="tertiary">Tertiary</option>

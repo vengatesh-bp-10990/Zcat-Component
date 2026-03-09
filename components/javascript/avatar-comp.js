@@ -10,39 +10,6 @@ class AvatarComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let typeSelect = node.querySelector('[data-action="changeAvatarType"]');
-    let sizeSelect = node.querySelector('[data-action="changeAvatarSize"]');
-    let statusSelect = node.querySelector('[data-action="changeAvatarStatus"]');
-
-    if (typeSelect) {
-      typeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('avatarObj'), 'add', 'type', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (sizeSelect) {
-      sizeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('avatarObj'), 'add', 'size', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (statusSelect) {
-      statusSelect.addEventListener('change', function (e) {
-        let val = e.target.value;
-        comp.$app.objectUtils(comp.getData('avatarObj'), 'add', 'status', val === 'none' ? '' : val);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let avatarObj = this.getData('avatarObj') || {};
 
@@ -165,6 +132,19 @@ class AvatarComp extends Component {
 
   static actions() {
     return {
+      changeAvatarType(e) {
+        this.$app.objectUtils(this.getData('avatarObj'), 'add', 'type', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeAvatarSize(e) {
+        this.$app.objectUtils(this.getData('avatarObj'), 'add', 'size', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeAvatarStatus(e) {
+        let val = e.target.value;
+        this.$app.objectUtils(this.getData('avatarObj'), 'add', 'status', val === 'none' ? '' : val);
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showHtmlTab() { this.setData('activeTab', 'html'); },

@@ -1,0 +1,136 @@
+<template tag-name="inlineedit-comp">
+  <div class="zcat-page-wrapper">
+    <div class="zcat-page-header">
+      <h1 class="zcat-page-title">Inline Edit</h1>
+      <p class="zcat-page-desc">An inline text field that transitions between display and edit modes directly in context — no modal or separate form needed.</p>
+      <div class="zcat-page-tabs">
+        <span class="zcat-page-tab {{pageTab === 'customize' ? 'active' : ''}}" onclick="{{action('showCustomizeTab')}}">Customize</span>
+        <span class="zcat-page-tab {{pageTab === 'variants' ? 'active' : ''}}" onclick="{{action('showVariantsTab')}}">All Variants</span>
+        <span class="zcat-page-tab">Change Logs</span>
+      </div>
+    </div>
+
+    <!-- Customize Tab -->
+    <div class="zcat-page-body" lyte-if="{{pageTab === 'customize'}}">
+      <div class="zcat-page-left">
+        <h3 class="zcat-section-label">preview</h3>
+        <div class="zcat-preview-box">
+          <div class="zcat-preview-area" style="padding:24px;display:flex;align-items:center;justify-content:center">
+            <!-- Display mode -->
+            <div lyte-if="{{!isEditing}}" style="display:inline-flex;align-items:center;gap:6px;cursor:default" class="zcat-inline-display-group">
+              <span style="font-size:14px;color:var(--zcat-body-text-primary)">{{inlineeditObj.value}}</span>
+              <button onclick="{{method('startEdit')}}" title="Edit" style="background:none;border:none;cursor:pointer;padding:2px;display:flex;align-items:center;opacity:0;transition:opacity 0.15s" class="zcat-inline-edit-icon-btn">
+                <zcat-icon name="edit-pencil" width="14" height="14" stroke="var(--zcat-body-text-secondary)" stroke-width="1.3"></zcat-icon>
+              </button>
+            </div>
+
+            <!-- Edit mode -->
+            <div lyte-else style="display:inline-flex;align-items:center;gap:6px">
+              <zcat-input self="{{self}}" zcat-prop="{{editInputObj}}"></zcat-input>
+              <button onclick="{{method('confirmEdit')}}" title="Confirm" style="background:none;border:1px solid var(--zcat-inputField-border-default);border-radius:4px;cursor:pointer;padding:4px;display:flex;align-items:center">
+                <zcat-icon name="tick" width="14" height="14" stroke="var(--zcat-status-success)" stroke-width="1.3"></zcat-icon>
+              </button>
+              <button onclick="{{method('cancelEdit')}}" title="Cancel" style="background:none;border:1px solid var(--zcat-inputField-border-default);border-radius:4px;cursor:pointer;padding:4px;display:flex;align-items:center">
+                <zcat-icon name="close" width="14" height="14" stroke="var(--zcat-body-text-secondary)" stroke-width="1.3"></zcat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <style>
+          .zcat-inline-display-group:hover .zcat-inline-edit-icon-btn {
+            opacity: 1 !important;
+          }
+        </style>
+
+        <!-- Code Tabs -->
+        <div class="zcat-code-tabs">
+          <span class="zcat-code-tab {{activeTab === 'slyte' ? 'active' : ''}}" onclick="{{action('showSlyteTab')}}">sLyte</span>
+          <span class="zcat-code-tab {{activeTab === 'js' ? 'active' : ''}}" onclick="{{action('showJsTab')}}">JS</span>
+          <span class="zcat-code-tab {{activeTab === 'html' ? 'active' : ''}}" onclick="{{action('showHtmlTab')}}">HTML</span>
+          <span class="zcat-code-tab {{activeTab === 'css' ? 'active' : ''}}" onclick="{{action('showCssTab')}}">CSS</span>
+        </div>
+        <div class="zcat-code-panel">
+          <div class="zcat-code-lines">
+            <pre lyte-if="{{activeTab === 'slyte'}}">{{slyteCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'js'}}">{{jsCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'html'}}">{{htmlCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'css'}}">{{cssCodeSnippet.code}}</pre>
+          </div>
+          <span class="zcat-code-copy" onclick="{{action('copyCode')}}" title="Copy code">
+            <zcat-icon name="copy" width="16" height="16" stroke="currentColor" stroke-width="1.3"></zcat-icon>
+          </span>
+        </div>
+      </div>
+
+      <!-- Right: Customise -->
+      <div class="zcat-page-right">
+        <div class="zcat-custom-header">
+          <h3 class="zcat-custom-title">Customise</h3>
+          <zcat-button self="{{self}}" zcat-prop="{{resetButtonObj}}"></zcat-button>
+        </div>
+        <div class="zcat-custom-body">
+          <div class="zcat-custom-row" style="flex-direction:column;align-items:flex-start;gap:6px">
+            <span class="zcat-custom-label">State</span>
+            <p style="font-size:12px;color:var(--zcat-body-text-secondary);margin:0">Hover the preview text to see the edit icon (Hover state). Click the icon to enter Active (edit) state.</p>
+          </div>
+          <div class="zcat-custom-row" style="flex-direction:column;align-items:flex-start;gap:6px;margin-top:4px">
+            <span class="zcat-custom-label" style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px">States</span>
+            <div style="display:flex;flex-direction:column;gap:4px;width:100%">
+              <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;background:var(--zcat-inputField-bg-default);border:1px solid var(--zcat-inputField-border-default)">
+                <span style="font-size:11px;font-weight:600;color:var(--zcat-body-text-secondary);min-width:70px">Default</span>
+                <span style="font-size:12px;color:var(--zcat-body-text-primary)">Text visible, no controls</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;background:var(--zcat-inputField-bg-default);border:1px solid var(--zcat-inputField-border-default)">
+                <span style="font-size:11px;font-weight:600;color:var(--zcat-body-text-secondary);min-width:70px">Hover</span>
+                <span style="font-size:12px;color:var(--zcat-body-text-primary)">Edit pencil icon appears</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;background:var(--zcat-inputField-bg-default);border:1px solid var(--zcat-inputField-border-default)">
+                <span style="font-size:11px;font-weight:600;color:var(--zcat-body-text-secondary);min-width:70px">Active</span>
+                <span style="font-size:12px;color:var(--zcat-body-text-primary)">Input + tick/cancel shown</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Variants Tab -->
+    <div class="zcat-page-left" lyte-if="{{pageTab === 'variants'}}" style="flex:1">
+      <h3 class="zcat-section-label" style="margin-top:4px">States</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Default</span></div>
+          <div class="zcat-variant-card-preview" style="padding:24px">
+            <span style="font-size:14px;color:var(--zcat-body-text-primary)">Rename Headings &amp; Text</span>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Hover (Edit icon visible)</span></div>
+          <div class="zcat-variant-card-preview" style="padding:24px">
+            <div style="display:inline-flex;align-items:center;gap:6px">
+              <span style="font-size:14px;color:var(--zcat-body-text-primary)">Rename Headings &amp; Text</span>
+              <span style="display:flex;align-items:center;padding:2px">
+                <zcat-icon name="edit-pencil" width="14" height="14" stroke="var(--zcat-body-text-secondary)" stroke-width="1.3"></zcat-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Active (Edit mode)</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <div style="display:inline-flex;align-items:center;gap:6px">
+              <zcat-input self="{{self}}" zcat-prop="{{editInputObj}}"></zcat-input>
+              <span style="border:1px solid var(--zcat-inputField-border-default);border-radius:4px;padding:4px;display:flex;align-items:center">
+                <zcat-icon name="tick" width="14" height="14" stroke="var(--zcat-status-success)" stroke-width="1.3"></zcat-icon>
+              </span>
+              <span style="border:1px solid var(--zcat-inputField-border-default);border-radius:4px;padding:4px;display:flex;align-items:center">
+                <zcat-icon name="close" width="14" height="14" stroke="var(--zcat-body-text-secondary)" stroke-width="1.3"></zcat-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

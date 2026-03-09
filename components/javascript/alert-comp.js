@@ -10,23 +10,6 @@ class AlertComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let typeSelect = node.querySelector('[data-action="changeAlertType"]');
-    if (typeSelect) {
-      typeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('alertObj'), 'add', 'type', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let alertObj = this.getData('alertObj') || {};
     let type = alertObj.type || 'info';
@@ -188,6 +171,10 @@ class AlertComp extends Component {
 
   static actions() {
     return {
+      changeAlertType(e) {
+        this.$app.objectUtils(this.getData('alertObj'), 'add', 'type', e.target.value);
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showNewSlyteTab() { this.setData('activeTab', 'newslyte'); },

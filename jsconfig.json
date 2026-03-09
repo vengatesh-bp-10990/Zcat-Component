@@ -10,5 +10,5 @@
       "/@slyte/*" : ["./node_modules/@slyte/*"]
     }
   },
-  "exclude": ["dist"]
+  "exclude": ["dist", "node_modules"]
 }

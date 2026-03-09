@@ -46,7 +46,7 @@
         <div class="zcat-custom-body">
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Position</span>
-            <select data-action="changePopoverPosition" class="zcat-custom-select">
+            <select onchange="{{action('changePopoverPosition', event)}}" class="zcat-custom-select">
               <option value="bottom">Bottom</option>
               <option value="top">Top</option>
               <option value="left">Left</option>

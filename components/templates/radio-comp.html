@@ -53,7 +53,7 @@
           <!-- Variant -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Variant</span>
-            <select data-action="changeRadioVariant" class="zcat-custom-select">
+            <select onchange="{{action('changeRadioVariant', event)}}" class="zcat-custom-select">
               <option value="primary">Primary</option>
               <option value="secondary">Secondary</option>
             </select>
@@ -61,7 +61,7 @@
           <!-- Size -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Size</span>
-            <select data-action="changeRadioSize" class="zcat-custom-select">
+            <select onchange="{{action('changeRadioSize', event)}}" class="zcat-custom-select">
               <option value="default">Default</option>
               <option value="small">Small</option>
               <option value="extra-small">Extra-small</option>
@@ -70,7 +70,7 @@
           <!-- Direction -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Direction</span>
-            <select data-action="changeRadioDirection" class="zcat-custom-select">
+            <select onchange="{{action('changeRadioDirection', event)}}" class="zcat-custom-select">
               <option value="vertical">Vertical</option>
               <option value="horizontal">Horizontal</option>
             </select>

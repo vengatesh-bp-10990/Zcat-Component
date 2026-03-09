@@ -61,11 +61,59 @@ class KeyvalueComp extends Component {
           addLabel: 'Add Header'
         }
       }),
+      keyvalueObj3: prop('object', {
+        default: {
+          label: 'Environment Variables',
+          fieldDefs: [
+            { key: 'envKey', label: 'Variable', placeholder: 'VARIABLE_NAME' },
+            { key: 'envValue', label: 'Value', placeholder: 'value' }
+          ],
+          rows: [
+            { envKey: 'NODE_ENV', envValue: 'production', _id: 'env_1' },
+            { envKey: 'API_URL', envValue: 'https://api.example.com', _id: 'env_2' },
+            { envKey: 'PORT', envValue: '3000', _id: 'env_3' }
+          ],
+          addLabel: 'Add Variable'
+        }
+      }),
+      keyvalueObj4: prop('object', {
+        default: {
+          label: 'Query Parameters',
+          fieldDefs: [
+            { key: 'qKey', label: 'Parameter', placeholder: 'param' },
+            { key: 'qValue', label: 'Value', placeholder: 'value' }
+          ],
+          rows: [
+            { qKey: 'page', qValue: '1', _id: 'q_1' },
+            { qKey: 'limit', qValue: '20', _id: 'q_2' },
+            { qKey: 'sort', qValue: 'created_at', _id: 'q_3' }
+          ],
+          addLabel: 'Add Query Param'
+        }
+      }),
+      keyvalueDisabledObj: prop('object', {
+        default: {
+          label: 'Read-only Config',
+          disabled: true,
+          fieldDefs: [
+            { key: 'cfgKey', label: 'Key', placeholder: 'key' },
+            { key: 'cfgValue', label: 'Value', placeholder: 'value' }
+          ],
+          rows: [
+            { cfgKey: 'theme', cfgValue: 'dark', _id: 'cfg_1' },
+            { cfgKey: 'language', cfgValue: 'en-US', _id: 'cfg_2' }
+          ],
+          addLabel: 'Add Config'
+        }
+      }),
       toggleLabelObj: prop('object', {
         default: { checked: true, size: 'small', callback: { name: 'toggleLabel' } }
       }),
       toggleDisabledObj: prop('object', {
         default: { checked: false, size: 'small', callback: { name: 'toggleDisabled' } }
+      }),
+      toggleErrorObj: prop('object', {
+        default: { checked: false, size: 'small', callback: { name: 'toggleError' } }
       }),
       resetButtonObj: prop('object', {
         default: { label: 'Reset', variant: 'outline', color: 'primary', size: 'small', callback: { name: 'resetCustomise' } }
@@ -90,9 +138,22 @@ class KeyvalueComp extends Component {
         this.$app.objectUtils(this.getData('keyvalueObj'), 'add', 'disabled', val);
         this.constructCodeSnippet();
       },
+      toggleError(val) {
+        let obj = this.getData('keyvalueObj');
+        if (val) {
+          this.$app.objectUtils(obj, 'add', 'keyErrorMessage', 'Key is required');
+          this.$app.objectUtils(obj, 'add', 'valueErrorMessage', 'Value is required');
+        } else {
+          this.$app.objectUtils(obj, 'delete', 'keyErrorMessage');
+          this.$app.objectUtils(obj, 'delete', 'valueErrorMessage');
+        }
+        this.constructCodeSnippet();
+      },
       resetCustomise() {
         this.$app.objectUtils(this.getData('keyvalueObj'), 'add', 'label', 'Parameters');
         this.$app.objectUtils(this.getData('keyvalueObj'), 'add', 'disabled', false);
+        this.$app.objectUtils(this.getData('keyvalueObj'), 'delete', 'keyErrorMessage');
+        this.$app.objectUtils(this.getData('keyvalueObj'), 'delete', 'valueErrorMessage');
         this.constructCodeSnippet();
       }
     };

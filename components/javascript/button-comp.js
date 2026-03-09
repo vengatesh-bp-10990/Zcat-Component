@@ -10,61 +10,6 @@ class ButtonComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    // Bind select dropdowns
-    let variantSelect = node.querySelector('[data-action="changeBtnVariant"]');
-    let sizeSelect = node.querySelector('[data-action="changeBtnSize"]');
-    let colorSelect = node.querySelector('[data-action="changeBtnColor"]');
-    let stateSelect = node.querySelector('[data-action="changeBtnState"]');
-
-    if (variantSelect) {
-      variantSelect.addEventListener('change', function (e) {
-        let val = e.target.value;
-        comp.$app.objectUtils(comp.getData('btnStyles'), 'add', 'variant', val);
-        if (val === 'grey') {
-          comp.$app.objectUtils(comp.getData('btnStyles'), 'add', 'color', 'grey');
-        }
-        comp.constructCodeSnippet();
-      });
-    }
-    if (sizeSelect) {
-      sizeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('btnStyles'), 'add', 'size', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (colorSelect) {
-      colorSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('btnStyles'), 'add', 'color', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (stateSelect) {
-      stateSelect.addEventListener('change', function (e) {
-        let val = e.target.value;
-        if (val === 'disabled') {
-          comp.$app.objectUtils(comp.getData('btnStyles'), 'add', 'disabled', true);
-          comp.$app.objectUtils(comp.getData('btnStyles'), 'add', 'loading', false);
-        } else if (val === 'loading') {
-          comp.$app.objectUtils(comp.getData('btnStyles'), 'add', 'loading', true);
-          comp.$app.objectUtils(comp.getData('btnStyles'), 'add', 'disabled', false);
-        } else {
-          comp.$app.objectUtils(comp.getData('btnStyles'), 'add', 'loading', false);
-          comp.$app.objectUtils(comp.getData('btnStyles'), 'add', 'disabled', false);
-        }
-        comp.constructCodeSnippet();
-      });
-    }
-
-  }
-
   data() {
     return {
       activeTab: prop('string', { default: 'slyte' }),
@@ -227,6 +172,8 @@ class ButtonComp extends Component {
           "disabled": false,
           "loading": false,
           "type": "",
+          "icon": null,
+          "menu": null,
           "callback": { "name": "" }
         });
         // Reset toggle prop objects
@@ -260,8 +207,20 @@ class ButtonComp extends Component {
         let btnObj = this.getData('btnStyles');
         if (checked) {
           this.$app.objectUtils(btnObj, 'add', 'type', 'split');
+          this.$app.objectUtils(btnObj, 'add', 'id', 'split-btn-demo');
+          this.$app.objectUtils(btnObj, 'add', 'icon', { position: 'left', name: 'plus', strokeWidth: 1.3 });
+          this.$app.objectUtils(btnObj, 'add', 'menu', {
+            list: [
+              { label: 'Edit', icon: { position: 'left', name: 'edit', stroke: 'var(--zcat-menuList-icon-active)', strokeWidth: 1.3 } },
+              { label: 'Duplicate', icon: { position: 'left', name: 'copy', stroke: 'var(--zcat-menuList-icon-active)', strokeWidth: 1.3 } },
+              { label: 'Delete', icon: { position: 'left', name: 'delete', stroke: 'var(--zcat-menuList-icon-active)', strokeWidth: 1.3 } }
+            ]
+          });
         } else {
           this.$app.objectUtils(btnObj, 'add', 'type', '');
+          this.$app.objectUtils(btnObj, 'add', 'icon', null);
+          this.$app.objectUtils(btnObj, 'add', 'menu', null);
+          this.$app.objectUtils(btnObj, 'delete', 'id');
         }
         this.constructCodeSnippet();
       },
@@ -281,6 +240,38 @@ class ButtonComp extends Component {
 
   static actions() {
     return {
+      changeBtnVariant(e) {
+        let val = e.target.value;
+        this.$app.objectUtils(this.getData('btnStyles'), 'add', 'variant', val);
+        if (val === 'grey') {
+          this.$app.objectUtils(this.getData('btnStyles'), 'add', 'color', 'grey');
+        } else if (this.getData('btnStyles').color === 'grey') {
+          this.$app.objectUtils(this.getData('btnStyles'), 'add', 'color', 'primary');
+        }
+        this.constructCodeSnippet();
+      },
+      changeBtnSize(e) {
+        this.$app.objectUtils(this.getData('btnStyles'), 'add', 'size', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeBtnColor(e) {
+        this.$app.objectUtils(this.getData('btnStyles'), 'add', 'color', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeBtnState(e) {
+        let val = e.target.value;
+        if (val === 'disabled') {
+          this.$app.objectUtils(this.getData('btnStyles'), 'add', 'disabled', true);
+          this.$app.objectUtils(this.getData('btnStyles'), 'add', 'loading', false);
+        } else if (val === 'loading') {
+          this.$app.objectUtils(this.getData('btnStyles'), 'add', 'loading', true);
+          this.$app.objectUtils(this.getData('btnStyles'), 'add', 'disabled', false);
+        } else {
+          this.$app.objectUtils(this.getData('btnStyles'), 'add', 'loading', false);
+          this.$app.objectUtils(this.getData('btnStyles'), 'add', 'disabled', false);
+        }
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showNewSlyteTab() { this.setData('activeTab', 'newslyte'); },

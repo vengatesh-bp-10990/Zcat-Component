@@ -1,0 +1,160 @@
+<template tag-name="label-comp">
+  <div class="zcat-page-wrapper">
+    <!-- Header -->
+    <div class="zcat-page-header">
+      <h1 class="zcat-page-title">Label</h1>
+      <p class="zcat-page-desc">Labels are short descriptive text placed above or beside form fields to identify their purpose. They support required, optional, and disabled states.</p>
+      <div class="zcat-page-tabs">
+        <span class="zcat-page-tab {{pageTab === 'customize' ? 'active' : ''}}" onclick="{{action('showCustomizeTab')}}">Customize</span>
+        <span class="zcat-page-tab {{pageTab === 'variants' ? 'active' : ''}}" onclick="{{action('showVariantsTab')}}">All Variants</span>
+        <span class="zcat-page-tab">Change Logs</span>
+      </div>
+    </div>
+
+    <!-- Body: Customize Tab -->
+    <div class="zcat-page-body" lyte-if="{{pageTab === 'customize'}}">
+      <!-- Left: Preview + Code -->
+      <div class="zcat-page-left">
+        <h3 class="zcat-section-label">preview</h3>
+        <div class="zcat-preview-box">
+          <div class="zcat-preview-area">
+            <zcat-label zcat-prop="{{labelObj}}"></zcat-label>
+          </div>
+        </div>
+        <!-- Code Tabs -->
+        <div class="zcat-code-tabs">
+          <span class="zcat-code-tab {{activeTab === 'slyte' ? 'active' : ''}}" onclick="{{action('showSlyteTab')}}">sLyte</span>
+          <span class="zcat-code-tab {{activeTab === 'js' ? 'active' : ''}}" onclick="{{action('showJsTab')}}">JS</span>
+          <span class="zcat-code-tab {{activeTab === 'newslyte' ? 'active' : ''}}" onclick="{{action('showNewSlyteTab')}}">sLyte New</span>
+          <span class="zcat-code-tab {{activeTab === 'html' ? 'active' : ''}}" onclick="{{action('showHtmlTab')}}">HTML</span>
+          <span class="zcat-code-tab {{activeTab === 'css' ? 'active' : ''}}" onclick="{{action('showCssTab')}}">CSS</span>
+        </div>
+        <div class="zcat-code-panel">
+          <div class="zcat-code-lines">
+            <pre lyte-if="{{activeTab === 'slyte'}}">{{slyteCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'js'}}">{{jsCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'newslyte'}}">{{newSlyteCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'html'}}">{{htmlCodeSnippet.code}}</pre>
+            <pre lyte-if="{{activeTab === 'css'}}">{{cssCodeSnippet.code}}</pre>
+          </div>
+          <span class="zcat-code-copy" onclick="{{action('copyCode')}}" title="Copy code">
+            <zcat-icon name="copy" width="16" height="16" stroke="currentColor" stroke-width="1.3"></zcat-icon>
+          </span>
+        </div>
+      </div>
+
+      <!-- Right: Customise -->
+      <div class="zcat-page-right">
+        <div class="zcat-custom-header">
+          <h3 class="zcat-custom-title">Customise</h3>
+          <zcat-button self="{{self}}" zcat-prop="{{resetButtonObj}}"></zcat-button>
+        </div>
+        <div class="zcat-custom-body">
+          <!-- Label text -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Label text</span>
+            <input
+              class="zcat-custom-input"
+              type="text"
+              value="{{labelObj.text}}"
+              onchange="{{action('changeLabelText', event)}}"
+            />
+          </div>
+          <!-- Size -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Size</span>
+            <select onchange="{{action('changeLabelSize', event)}}" class="zcat-custom-select">
+              <option value="default">Default</option>
+              <option value="small">Small</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
+          <!-- Required toggle -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Required</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleRequiredObj}}"></zcat-toggle>
+          </div>
+          <!-- Optional toggle -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Optional</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleOptionalObj}}"></zcat-toggle>
+          </div>
+          <!-- Disabled toggle -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Disabled</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleDisabledObj}}"></zcat-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body: All Variants Tab -->
+    <div class="zcat-page-left" lyte-if="{{pageTab === 'variants'}}" style="flex:1">
+      <h3 class="zcat-section-label" style="margin-top:4px">States</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Default</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-label zcat-prop="{{varDefaultObj}}"></zcat-label>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Required</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-label zcat-prop="{{varRequiredObj}}"></zcat-label>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Optional</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-label zcat-prop="{{varOptionalObj}}"></zcat-label>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Disabled</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-label zcat-prop="{{varDisabledObj}}"></zcat-label>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="zcat-section-label" style="margin-top:24px">Sizes</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Default</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-label zcat-prop="{{varSizeDefaultObj}}"></zcat-label>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Small</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-label zcat-prop="{{varSizeSmallObj}}"></zcat-label>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Large</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-label zcat-prop="{{varSizeLargeObj}}"></zcat-label>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="zcat-section-label" style="margin-top:24px">With Info Icon</h3>
+      <div class="zcat-variants-grid">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Default + Info</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-label zcat-prop="{{varInfoObj}}"></zcat-label>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Required + Info</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-label zcat-prop="{{varRequiredInfoObj}}"></zcat-label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

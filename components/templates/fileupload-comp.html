@@ -44,7 +44,7 @@
         <div class="zcat-custom-body">
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Variant</span>
-            <select data-action="changeVariant" class="zcat-custom-select">
+            <select onchange="{{action('changeVariant', event)}}" class="zcat-custom-select">
               <option value="primary">Primary (Dropzone)</option>
               <option value="secondary">Secondary (Button)</option>
             </select>
@@ -66,33 +66,36 @@
     </div>
 
     <div class="zcat-page-left" lyte-if="{{pageTab === 'variants'}}" style="flex:1">
-      <h3 class="zcat-section-label" style="margin-top:4px">Upload Variants</h3>
+      <h3 class="zcat-section-label" style="margin-top:4px">Variants</h3>
       <div class="zcat-variants-grid">
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Primary (Dropzone)</span></div>
           <div class="zcat-variant-card-preview" style="padding:16px">
-            <div class="zcat-fileupload-dropzone" style="min-height:100px;border:2px dashed var(--zcat-inputField-border-default);border-radius:10px;display:flex;align-items:center;justify-content:center">
-              <p style="font-size:13px;color:var(--zcat-body-text-secondary)">Click to upload or drag and drop</p>
-            </div>
+            <zcat-fileupload self="{{self}}" zcat-prop="{{varPrimaryObj}}"></zcat-fileupload>
           </div>
         </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Secondary (Button)</span></div>
           <div class="zcat-variant-card-preview" style="padding:16px">
-            <div class="zcat-fileupload-btn-wrap">
-              <button class="zcat-fileupload-btn" style="display:inline-flex;align-items:center;gap:6px;padding:0 14px;height:36px;font-size:14px;color:var(--zcat-primary-1);border:1px solid var(--zcat-primary-1);border-radius:6px;background:transparent;cursor:pointer">
-                <span>Choose File</span>
-              </button>
-              <span style="font-size:12px;color:var(--zcat-inputField-text-placeholder)">PNG, JPG up to 5MB</span>
-            </div>
+            <zcat-fileupload self="{{self}}" zcat-prop="{{varSecondaryObj}}"></zcat-fileupload>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Multiple Files</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <zcat-fileupload self="{{self}}" zcat-prop="{{varMultipleObj}}"></zcat-fileupload>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Single File</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px">
+            <zcat-fileupload self="{{self}}" zcat-prop="{{varSingleObj}}"></zcat-fileupload>
           </div>
         </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Disabled</span></div>
           <div class="zcat-variant-card-preview" style="padding:16px">
-            <div class="zcat-fileupload-dropzone" style="min-height:100px;border:2px dashed var(--zcat-inputField-border-disabled);border-radius:10px;display:flex;align-items:center;justify-content:center;opacity:0.5">
-              <p style="font-size:13px;color:var(--zcat-inputField-text-disabled)">Upload disabled</p>
-            </div>
+            <zcat-fileupload self="{{self}}" zcat-prop="{{varDisabledObj}}"></zcat-fileupload>
           </div>
         </div>
       </div>

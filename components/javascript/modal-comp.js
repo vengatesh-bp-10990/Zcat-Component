@@ -10,23 +10,6 @@ class ModalComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let sizeSelect = node.querySelector('[data-action="changeModalSize"]');
-    if (sizeSelect) {
-      sizeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('modalObj'), 'add', 'size', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let modalObj = this.getData('modalObj') || {};
 
@@ -98,30 +81,51 @@ class ModalComp extends Component {
       // Variants
       variantDefaultObj: prop('object', {
         default: {
-          header: { title: 'Default Modal' },
-          footer: { right: [{ label: 'Close', variant: 'ghost', color: 'primary' }] }
-        }
-      }),
-      variantWithDescObj: prop('object', {
-        default: {
-          header: { title: 'Modal with Description', desc: 'This modal includes supporting text below the title.' },
-          footer: { right: [{ label: 'Cancel', variant: 'outline', color: 'primary' }, { label: 'Save', variant: 'fill', color: 'primary' }] }
-        }
-      }),
-      variantLargeObj: prop('object', {
-        default: {
-          size: 'large',
-          header: { title: 'Large Modal' },
-          footer: { right: [{ label: 'Done', variant: 'fill', color: 'primary' }] }
+          header: { title: 'Confirm Action', desc: 'Are you sure you want to proceed?' },
+          footer: { right: [{ label: 'Cancel', variant: 'outline', color: 'primary' }, { label: 'Confirm', variant: 'fill', color: 'primary' }] }
         }
       }),
       variantSmallObj: prop('object', {
         default: {
           size: 'small',
-          header: { title: 'Small Modal' },
+          header: { title: 'File Deleted' },
           footer: { right: [{ label: 'OK', variant: 'fill', color: 'primary' }] }
         }
       }),
+      variantLargeObj: prop('object', {
+        default: {
+          size: 'large',
+          header: { title: 'Edit Profile' },
+          footer: { right: [{ label: 'Cancel', variant: 'outline', color: 'primary' }, { label: 'Save', variant: 'fill', color: 'primary' }] }
+        }
+      }),
+      variantWithDescObj: prop('object', {
+        default: {
+          header: { title: 'Delete Record', desc: 'This action cannot be undone.' },
+          footer: { right: [{ label: 'Cancel', variant: 'outline', color: 'primary' }, { label: 'Delete', variant: 'fill', color: 'error' }] }
+        }
+      }),
+      variantBackArrowObj: prop('object', {
+        default: {
+          header: { title: 'Step 2 of 3', backArrow: true },
+          footer: { right: [{ label: 'Back', variant: 'outline', color: 'primary' }, { label: 'Next', variant: 'fill', color: 'primary' }] }
+        }
+      }),
+      variantFooterActionsObj: prop('object', {
+        default: {
+          header: { title: 'Settings' },
+          footer: {
+            left: [{ label: 'Reset', variant: 'ghost', color: 'default' }],
+            right: [{ label: 'Cancel', variant: 'outline', color: 'primary' }, { label: 'Apply', variant: 'fill', color: 'primary' }]
+          }
+        }
+      }),
+      openVarDefaultBtnObj: prop('object', { default: { label: 'Open Default', variant: 'fill', color: 'primary', size: 'small', callback: { name: 'openVarDefault' } } }),
+      openVarSmallBtnObj: prop('object', { default: { label: 'Open Small', variant: 'fill', color: 'primary', size: 'small', callback: { name: 'openVarSmall' } } }),
+      openVarLargeBtnObj: prop('object', { default: { label: 'Open Large', variant: 'fill', color: 'primary', size: 'small', callback: { name: 'openVarLarge' } } }),
+      openVarWithDescBtnObj: prop('object', { default: { label: 'Open Modal', variant: 'fill', color: 'primary', size: 'small', callback: { name: 'openVarWithDesc' } } }),
+      openVarBackBtnObj: prop('object', { default: { label: 'Open Modal', variant: 'fill', color: 'primary', size: 'small', callback: { name: 'openVarBack' } } }),
+      openVarFooterBtnObj: prop('object', { default: { label: 'Open Modal', variant: 'fill', color: 'primary', size: 'small', callback: { name: 'openVarFooter' } } }),
       slyteCodeSnippet: prop('object', { default: { code: '' } }),
       jsCodeSnippet: prop('object', { default: { code: '' } }),
       htmlCodeSnippet: prop('object', { default: { code: '' } }),
@@ -136,6 +140,30 @@ class ModalComp extends Component {
         if (modalNode && modalNode.component) {
           modalNode.component.exec('openModal');
         }
+      },
+      openVarDefault() {
+        let m = this.$node.querySelector('[data-modal-id="v-default"]');
+        if (m && m.component) m.component.exec('openModal');
+      },
+      openVarSmall() {
+        let m = this.$node.querySelector('[data-modal-id="v-small"]');
+        if (m && m.component) m.component.exec('openModal');
+      },
+      openVarLarge() {
+        let m = this.$node.querySelector('[data-modal-id="v-large"]');
+        if (m && m.component) m.component.exec('openModal');
+      },
+      openVarWithDesc() {
+        let m = this.$node.querySelector('[data-modal-id="v-desc"]');
+        if (m && m.component) m.component.exec('openModal');
+      },
+      openVarBack() {
+        let m = this.$node.querySelector('[data-modal-id="v-back"]');
+        if (m && m.component) m.component.exec('openModal');
+      },
+      openVarFooter() {
+        let m = this.$node.querySelector('[data-modal-id="v-footer"]');
+        if (m && m.component) m.component.exec('openModal');
       },
       onModalCancel() {
         // close handled automatically
@@ -176,6 +204,10 @@ class ModalComp extends Component {
 
   static actions() {
     return {
+      changeModalSize(e) {
+        this.$app.objectUtils(this.getData('modalObj'), 'add', 'size', e.target.value);
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showHtmlTab() { this.setData('activeTab', 'html'); },

@@ -10,31 +10,6 @@ class AttentionComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let typeSelect = node.querySelector('[data-action="changeAttentionType"]');
-    if (typeSelect) {
-      typeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('attentionObj'), 'add', 'type', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-
-    let headingInput = node.querySelector('[data-action="changeAttentionHeading"]');
-    if (headingInput) {
-      headingInput.addEventListener('input', function (e) {
-        comp.$app.objectUtils(comp.getData('attentionObj'), 'add', 'name', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let attentionObj = this.getData('attentionObj') || {};
     let type = attentionObj.type || 'default';
@@ -176,6 +151,14 @@ class AttentionComp extends Component {
 
   static actions() {
     return {
+      changeAttentionType(e) {
+        this.$app.objectUtils(this.getData('attentionObj'), 'add', 'type', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeAttentionHeading(e) {
+        this.$app.objectUtils(this.getData('attentionObj'), 'add', 'name', e.target.value);
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showNewSlyteTab() { this.setData('activeTab', 'newslyte'); },

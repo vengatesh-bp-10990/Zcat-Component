@@ -10,31 +10,6 @@ class TabComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let variantSelect = node.querySelector('[data-action="changeTabVariant"]');
-    let sizeSelect = node.querySelector('[data-action="changeTabSize"]');
-
-    if (variantSelect) {
-      variantSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('tabObj'), 'add', 'variant', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (sizeSelect) {
-      sizeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('tabObj'), 'add', 'size', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let tabObj = this.getData('tabObj') || {};
 
@@ -186,6 +161,14 @@ class TabComp extends Component {
 
   static actions() {
     return {
+      changeTabVariant(e) {
+        this.$app.objectUtils(this.getData('tabObj'), 'add', 'variant', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeTabSize(e) {
+        this.$app.objectUtils(this.getData('tabObj'), 'add', 'size', e.target.value);
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showHtmlTab() { this.setData('activeTab', 'html'); },

@@ -54,16 +54,17 @@
           <!-- Variant -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Variant</span>
-            <select data-action="changeDropdownVariant" class="zcat-custom-select">
+            <select onchange="{{action('changeDropdownVariant', event)}}" class="zcat-custom-select">
               <option value="default">Default</option>
               <option value="ghost">Ghost</option>
+              <option value="secondary">Link Dropdown</option>
               <option value="multiple">Multiple</option>
             </select>
           </div>
           <!-- Types of Multiple dropdown (shown when variant=multiple) -->
-          <div class="zcat-custom-row" data-section="multipleOptions" style="display:none">
+          <div class="zcat-custom-row" lyte-if="{{showMultiOptions}}">
             <span class="zcat-custom-label">Types of Multiple dropdown</span>
-            <select data-action="changeMultipleType" class="zcat-custom-select">
+            <select onchange="{{action('changeMultipleType', event)}}" class="zcat-custom-select">
               <option value="default">Default</option>
               <option value="chip">Chip</option>
             </select>
@@ -71,7 +72,7 @@
           <!-- Size -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Size</span>
-            <select data-action="changeDropdownSize" class="zcat-custom-select">
+            <select onchange="{{action('changeDropdownSize', event)}}" class="zcat-custom-select">
               <option value="default">Default</option>
               <option value="small">Small</option>
               <option value="extra-small">Extra-small</option>
@@ -100,7 +101,7 @@
           <!-- Input State -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Input State</span>
-            <select data-action="changeDropdownState" class="zcat-custom-select">
+            <select onchange="{{action('changeDropdownState', event)}}" class="zcat-custom-select">
               <option value="default">Default</option>
               <option value="disabled">Disabled</option>
               <option value="error">Error</option>
@@ -109,7 +110,7 @@
           <!-- Dropdown Width -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Dropdown Width</span>
-            <select data-action="changeDropdownWidth" class="zcat-custom-select">
+            <select onchange="{{action('changeDropdownWidth', event)}}" class="zcat-custom-select">
               <option value="zcat-w200">200px</option>
               <option value="zcat-w300">300px</option>
               <option value="zcat-w100p">Full-width</option>
@@ -120,9 +121,9 @@
           <!-- MenuList Customization Section -->
           <div class="zcat-custom-section-title" style="margin-top:16px;margin-bottom:8px;font-weight:600;font-size:13px;color:var(--zcat-body-text-primary)">MenuList Customization</div>
           <!-- Types of Multiple MenuList (shown when variant=multiple) -->
-          <div class="zcat-custom-row" data-section="multipleOptions" style="display:none">
+          <div class="zcat-custom-row" lyte-if="{{showMultiOptions}}">
             <span class="zcat-custom-label">Types of Multiple MenuList</span>
-            <select data-action="changeMenuListType" class="zcat-custom-select">
+            <select onchange="{{action('changeMenuListType', event)}}" class="zcat-custom-select">
               <option value="checkbox">Checkbox</option>
               <option value="default">Default</option>
             </select>

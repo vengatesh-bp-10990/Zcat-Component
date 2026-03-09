@@ -46,7 +46,7 @@
         <div class="zcat-custom-body">
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Size</span>
-            <select data-action="changeSize" class="zcat-custom-select">
+            <select onchange="{{action('changeSize', event)}}" class="zcat-custom-select">
               <option value="default">Default</option>
               <option value="small">Small</option>
               <option value="extra-small">Extra-small</option>
@@ -79,31 +79,19 @@
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Default</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-autocomplete-wrapper">
-              <div class="zcat-autocomplete-input-wrap">
-                <input type="text" class="zcat-autocomplete-input" placeholder="Search..." style="width:220px" />
-              </div>
-            </div>
+            <zcat-autocomplete self="{{self}}" zcat-prop="{{varDefaultObj}}"></zcat-autocomplete>
           </div>
         </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Small</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-autocomplete-wrapper zcat-autocomplete-sm">
-              <div class="zcat-autocomplete-input-wrap">
-                <input type="text" class="zcat-autocomplete-input" placeholder="Search..." style="width:220px" />
-              </div>
-            </div>
+            <zcat-autocomplete self="{{self}}" zcat-prop="{{varSmallObj}}"></zcat-autocomplete>
           </div>
         </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Extra-small</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-autocomplete-wrapper zcat-autocomplete-exsm">
-              <div class="zcat-autocomplete-input-wrap">
-                <input type="text" class="zcat-autocomplete-input" placeholder="Search..." style="width:220px" />
-              </div>
-            </div>
+            <zcat-autocomplete self="{{self}}" zcat-prop="{{varExsmObj}}"></zcat-autocomplete>
           </div>
         </div>
       </div>
@@ -113,33 +101,25 @@
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">With Label</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-autocomplete-wrapper">
-              <div class="zcat-autocomplete-label-row"><label class="zcat-autocomplete-label">Label</label></div>
-              <div class="zcat-autocomplete-input-wrap">
-                <input type="text" class="zcat-autocomplete-input" placeholder="Search..." style="width:220px" />
-              </div>
-            </div>
+            <zcat-autocomplete self="{{self}}" zcat-prop="{{varLabelledObj}}"></zcat-autocomplete>
           </div>
         </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Disabled</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-autocomplete-wrapper zcat-autocomplete-disabled">
-              <div class="zcat-autocomplete-input-wrap">
-                <input type="text" class="zcat-autocomplete-input" placeholder="Search..." disabled style="width:220px" />
-              </div>
-            </div>
+            <zcat-autocomplete self="{{self}}" zcat-prop="{{varDisabledObj}}"></zcat-autocomplete>
           </div>
         </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Error</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-autocomplete-wrapper zcat-autocomplete-error">
-              <div class="zcat-autocomplete-input-wrap">
-                <input type="text" class="zcat-autocomplete-input" placeholder="Search..." style="width:220px" />
-              </div>
-              <div class="zcat-autocomplete-error-msg">This field is required</div>
-            </div>
+            <zcat-autocomplete self="{{self}}" zcat-prop="{{varErrorObj}}"></zcat-autocomplete>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Create New</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-autocomplete self="{{self}}" zcat-prop="{{varCreateNewObj}}"></zcat-autocomplete>
           </div>
         </div>
       </div>

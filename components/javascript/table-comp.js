@@ -10,27 +10,6 @@ class TableComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let variantSelect = node.querySelector('[data-action="changeTableVariant"]');
-    if (variantSelect) {
-      variantSelect.addEventListener('change', function (e) {
-        let val = e.target.value;
-        let tableObj = comp.getData('tableObj');
-        comp.$app.objectUtils(tableObj, 'add', 'striped', val === 'striped');
-        comp.$app.objectUtils(tableObj, 'add', 'bordered', val === 'bordered');
-        comp.$app.objectUtils(tableObj, 'add', 'compact', val === 'compact');
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let tableObj = this.getData('tableObj') || {};
 
@@ -245,6 +224,14 @@ class TableComp extends Component {
 
   static actions() {
     return {
+      changeTableVariant(e) {
+        let val = e.target.value;
+        let tableObj = this.getData('tableObj');
+        this.$app.objectUtils(tableObj, 'add', 'striped', val === 'striped');
+        this.$app.objectUtils(tableObj, 'add', 'bordered', val === 'bordered');
+        this.$app.objectUtils(tableObj, 'add', 'compact', val === 'compact');
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showHtmlTab() { this.setData('activeTab', 'html'); },

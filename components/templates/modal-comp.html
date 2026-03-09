@@ -47,7 +47,7 @@
         <div class="zcat-custom-body">
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Size</span>
-            <select data-action="changeModalSize" class="zcat-custom-select">
+            <select onchange="{{action('changeModalSize', event)}}" class="zcat-custom-select">
               <option value="default">Default (520px)</option>
               <option value="small">Small (400px)</option>
               <option value="large">Large (720px)</option>
@@ -71,21 +71,24 @@
       <h3 class="zcat-section-label" style="margin-top:4px">Sizes</h3>
       <div class="zcat-variants-grid">
         <div class="zcat-variant-card">
-          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Default</span></div>
-          <div class="zcat-variant-card-preview" style="text-align:center">
-            <p style="color:var(--zcat-body-text-grey);font-size:13px">Width: 520px — Standard confirmation dialogs</p>
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Default (520px)</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px;text-align:center">
+            <zcat-modal self="{{self}}" zcat-prop="{{variantDefaultObj}}" data-modal-id="v-default"></zcat-modal>
+            <zcat-button self="{{self}}" zcat-prop="{{openVarDefaultBtnObj}}"></zcat-button>
           </div>
         </div>
         <div class="zcat-variant-card">
-          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Small</span></div>
-          <div class="zcat-variant-card-preview" style="text-align:center">
-            <p style="color:var(--zcat-body-text-grey);font-size:13px">Width: 400px — Simple alerts, quick prompts</p>
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Small (400px)</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px;text-align:center">
+            <zcat-modal self="{{self}}" zcat-prop="{{variantSmallObj}}" data-modal-id="v-small"></zcat-modal>
+            <zcat-button self="{{self}}" zcat-prop="{{openVarSmallBtnObj}}"></zcat-button>
           </div>
         </div>
         <div class="zcat-variant-card">
-          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Large</span></div>
-          <div class="zcat-variant-card-preview" style="text-align:center">
-            <p style="color:var(--zcat-body-text-grey);font-size:13px">Width: 720px — Forms, detailed content</p>
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Large (720px)</span></div>
+          <div class="zcat-variant-card-preview" style="padding:16px;text-align:center">
+            <zcat-modal self="{{self}}" zcat-prop="{{variantLargeObj}}" data-modal-id="v-large"></zcat-modal>
+            <zcat-button self="{{self}}" zcat-prop="{{openVarLargeBtnObj}}"></zcat-button>
           </div>
         </div>
       </div>
@@ -94,20 +97,23 @@
       <div class="zcat-variants-grid">
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">With Description</span></div>
-          <div class="zcat-variant-card-preview" style="text-align:center">
-            <p style="color:var(--zcat-body-text-grey);font-size:13px">Title + supporting description text</p>
+          <div class="zcat-variant-card-preview" style="padding:16px;text-align:center">
+            <zcat-modal self="{{self}}" zcat-prop="{{variantWithDescObj}}" data-modal-id="v-desc"></zcat-modal>
+            <zcat-button self="{{self}}" zcat-prop="{{openVarWithDescBtnObj}}"></zcat-button>
           </div>
         </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Back Arrow</span></div>
-          <div class="zcat-variant-card-preview" style="text-align:center">
-            <p style="color:var(--zcat-body-text-grey);font-size:13px">Back navigation arrow in header</p>
+          <div class="zcat-variant-card-preview" style="padding:16px;text-align:center">
+            <zcat-modal self="{{self}}" zcat-prop="{{variantBackArrowObj}}" data-modal-id="v-back"></zcat-modal>
+            <zcat-button self="{{self}}" zcat-prop="{{openVarBackBtnObj}}"></zcat-button>
           </div>
         </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Footer Actions</span></div>
-          <div class="zcat-variant-card-preview" style="text-align:center">
-            <p style="color:var(--zcat-body-text-grey);font-size:13px">Left &amp; right action buttons in footer</p>
+          <div class="zcat-variant-card-preview" style="padding:16px;text-align:center">
+            <zcat-modal self="{{self}}" zcat-prop="{{variantFooterActionsObj}}" data-modal-id="v-footer"></zcat-modal>
+            <zcat-button self="{{self}}" zcat-prop="{{openVarFooterBtnObj}}"></zcat-button>
           </div>
         </div>
       </div>

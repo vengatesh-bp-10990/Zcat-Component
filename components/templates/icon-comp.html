@@ -13,7 +13,7 @@
         <!-- Search -->
         <div class="zcat-icon-search-wrap">
           <zcat-icon name="search" width="14" height="14" stroke="var(--zcat-text-tertiary)"></zcat-icon>
-          <input type="text" class="zcat-icon-search-input" placeholder="Search icons..." data-action="searchIcons"/>
+          <input type="text" class="zcat-icon-search-input" placeholder="Search icons..." oninput="{{action('searchIcons', event)}}"/>
         </div>
 
         <!-- Icon Count -->
@@ -70,7 +70,7 @@
           <!-- Icon Size -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Icon Size</span>
-            <select data-action="changeIconSize" class="zcat-custom-select">
+            <select onchange="{{action('changeIconSize', event)}}" class="zcat-custom-select">
               <option value="12">12px</option>
               <option value="14">14px</option>
               <option value="16" selected>16px</option>
@@ -84,7 +84,7 @@
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Stroke Width</span>
             <div class="zcat-icon-slider-row">
-              <input type="range" class="zcat-icon-slider" data-action="changeStrokeWidth" min="0.5" max="3" step="0.1" value="1.3"/>
+              <input type="range" class="zcat-icon-slider" oninput="{{action('changeStrokeWidth', event)}}" min="0.5" max="3" step="0.1" value="1.3"/>
               <span class="zcat-icon-slider-value">{{iconStrokeWidth}}</span>
             </div>
           </div>
@@ -92,8 +92,8 @@
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Icon Color</span>
             <div class="zcat-icon-color-row">
-              <input type="color" class="zcat-icon-color-picker" data-action="changeIconColor" value="#555555"/>
-              <input type="text" class="zcat-icon-color-text" data-action="changeIconColorText" value="#555555" placeholder="#555555"/>
+              <input type="color" class="zcat-icon-color-picker" oninput="{{action('changeIconColor', event)}}" value="{{iconColor}}"/>
+              <input type="text" class="zcat-icon-color-text" onchange="{{action('changeIconColorText', event)}}" value="{{iconColor}}" placeholder="#555555"/>
             </div>
           </div>
         </div>

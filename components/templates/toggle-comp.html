@@ -53,7 +53,7 @@
           <!-- Size -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Size</span>
-            <select data-action="changeToggleSize" class="zcat-custom-select">
+            <select onchange="{{action('changeToggleSize', event)}}" class="zcat-custom-select">
               <option value="default">Default</option>
               <option value="small">Small</option>
               <option value="extra-small">Extra-small</option>

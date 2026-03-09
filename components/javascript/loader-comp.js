@@ -10,23 +10,6 @@ class LoaderComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let typeSelect = node.querySelector('[data-action="changeLoaderType"]');
-    if (typeSelect) {
-      typeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('loaderObj'), 'add', 'type', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let loaderObj = this.getData('loaderObj') || {};
     let type = loaderObj.type || 'progress';
@@ -121,6 +104,10 @@ class LoaderComp extends Component {
 
   static actions() {
     return {
+      changeLoaderType(e) {
+        this.$app.objectUtils(this.getData('loaderObj'), 'add', 'type', e.target.value);
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showNewSlyteTab() { this.setData('activeTab', 'newslyte'); },

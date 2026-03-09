@@ -10,23 +10,6 @@ class ToggleComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let sizeSelect = node.querySelector('[data-action="changeToggleSize"]');
-    if (sizeSelect) {
-      sizeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('toggleObj'), 'add', 'size', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let obj = this.getData('toggleObj') || {};
     let defaults = { size: 'default' };
@@ -190,6 +173,10 @@ class ToggleComp extends Component {
 
   static actions() {
     return {
+      changeToggleSize(e) {
+        this.$app.objectUtils(this.getData('toggleObj'), 'add', 'size', e.target.value);
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showNewSlyteTab() { this.setData('activeTab', 'newslyte'); },

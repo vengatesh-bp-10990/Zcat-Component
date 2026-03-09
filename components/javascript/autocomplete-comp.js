@@ -10,23 +10,6 @@ class AutocompleteComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let sizeSelect = node.querySelector('[data-action="changeSize"]');
-    if (sizeSelect) {
-      sizeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('autocompleteObj'), 'add', 'size', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let obj = this.getData('autocompleteObj') || {};
 
@@ -75,6 +58,13 @@ class AutocompleteComp extends Component {
           callback: { name: 'onAutocompleteSelect' }
         }
       }),
+      varDefaultObj: prop('object', { default: { placeholder: 'Search fruits...', options: [{ name: 'Apple', value: 'apple' }, { name: 'Banana', value: 'banana' }, { name: 'Cherry', value: 'cherry' }, { name: 'Mango', value: 'mango' }] } }),
+      varSmallObj: prop('object', { default: { placeholder: 'Search...', size: 'small', options: [{ name: 'Apple', value: 'apple' }, { name: 'Banana', value: 'banana' }, { name: 'Cherry', value: 'cherry' }, { name: 'Mango', value: 'mango' }] } }),
+      varExsmObj: prop('object', { default: { placeholder: 'Search...', size: 'extra-small', options: [{ name: 'Apple', value: 'apple' }, { name: 'Banana', value: 'banana' }, { name: 'Cherry', value: 'cherry' }, { name: 'Mango', value: 'mango' }] } }),
+      varLabelledObj: prop('object', { default: { placeholder: 'Search fruits...', label: 'Fruit', options: [{ name: 'Apple', value: 'apple' }, { name: 'Banana', value: 'banana' }, { name: 'Cherry', value: 'cherry' }, { name: 'Mango', value: 'mango' }] } }),
+      varDisabledObj: prop('object', { default: { placeholder: 'Search...', label: 'Disabled', disabled: true, options: [{ name: 'Apple', value: 'apple' }, { name: 'Banana', value: 'banana' }] } }),
+      varErrorObj: prop('object', { default: { placeholder: 'Search...', label: 'Fruit', errorMessage: 'Please select a fruit', options: [{ name: 'Apple', value: 'apple' }, { name: 'Banana', value: 'banana' }, { name: 'Cherry', value: 'cherry' }] } }),
+      varCreateNewObj: prop('object', { default: { placeholder: 'Search or create...', label: 'Tag', createNew: true, createNewLabel: 'Create', options: [{ name: 'Apple', value: 'apple' }, { name: 'Banana', value: 'banana' }, { name: 'Cherry', value: 'cherry' }] } }),
       toggleLabelObj: prop('object', {
         default: { checked: true, size: 'small', callback: { name: 'toggleLabel' } }
       }),
@@ -139,6 +129,10 @@ class AutocompleteComp extends Component {
 
   static actions() {
     return {
+      changeSize(e) {
+        this.$app.objectUtils(this.getData('autocompleteObj'), 'add', 'size', e.target.value);
+        this.constructCodeSnippet();
+      },
       showCustomizeTab() { this.setData('pageTab', 'customize'); },
       showVariantsTab() { this.setData('pageTab', 'variants'); },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },

@@ -46,7 +46,7 @@
         <div class="zcat-custom-body">
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Variant</span>
-            <select data-action="changeTabVariant" class="zcat-custom-select">
+            <select onchange="{{action('changeTabVariant', event)}}" class="zcat-custom-select">
               <option value="primary">Primary</option>
               <option value="secondary">Secondary</option>
               <option value="code">Code</option>
@@ -54,7 +54,7 @@
           </div>
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Size</span>
-            <select data-action="changeTabSize" class="zcat-custom-select">
+            <select onchange="{{action('changeTabSize', event)}}" class="zcat-custom-select">
               <option value="default">Default</option>
               <option value="small">Small</option>
               <option value="extra-small">Extra-small</option>

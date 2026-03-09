@@ -54,7 +54,7 @@
           <!-- Variant -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Variant</span>
-            <select data-action="changeBtnVariant" class="zcat-custom-select">
+            <select onchange="{{action('changeBtnVariant', event)}}" class="zcat-custom-select">
               <option value="fill">Fill</option>
               <option value="outline">Outline</option>
               <option value="ghost">Ghost</option>
@@ -64,7 +64,7 @@
           <!-- Size -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Size</span>
-            <select data-action="changeBtnSize" class="zcat-custom-select">
+            <select onchange="{{action('changeBtnSize', event)}}" class="zcat-custom-select">
               <option value="default">Default</option>
               <option value="small">Small</option>
               <option value="extra-small">Extra-small</option>
@@ -74,7 +74,7 @@
           <!-- Color -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Color</span>
-            <select data-action="changeBtnColor" class="zcat-custom-select">
+            <select onchange="{{action('changeBtnColor', event)}}" class="zcat-custom-select">
               <option value="primary">Primary</option>
               <option value="success">Success</option>
               <option value="danger">Danger</option>
@@ -83,7 +83,7 @@
           <!-- State -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">State</span>
-            <select data-action="changeBtnState" class="zcat-custom-select">
+            <select onchange="{{action('changeBtnState', event)}}" class="zcat-custom-select">
               <option value="default">Default</option>
               <option value="loading">Loading</option>
               <option value="disabled">Disabled</option>

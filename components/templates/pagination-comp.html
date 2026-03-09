@@ -46,7 +46,7 @@
         <div class="zcat-custom-body">
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Variant</span>
-            <select data-action="changePaginationVariant" class="zcat-custom-select">
+            <select onchange="{{action('changePaginationVariant', event)}}" class="zcat-custom-select">
               <option value="primary">Primary</option>
               <option value="secondary">Secondary</option>
             </select>

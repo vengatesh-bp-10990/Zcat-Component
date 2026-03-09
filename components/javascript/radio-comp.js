@@ -10,38 +10,6 @@ class RadioComp extends Component {
     this.constructCodeSnippet();
   }
 
-  didConnect() {
-    this._bindCustomiseEvents();
-  }
-
-  _bindCustomiseEvents() {
-    let comp = this;
-    let node = this.$node;
-
-    let variantSelect = node.querySelector('[data-action="changeRadioVariant"]');
-    let sizeSelect = node.querySelector('[data-action="changeRadioSize"]');
-    let directionSelect = node.querySelector('[data-action="changeRadioDirection"]');
-
-    if (variantSelect) {
-      variantSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('radioObj'), 'add', 'variant', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (sizeSelect) {
-      sizeSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('radioObj'), 'add', 'size', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-    if (directionSelect) {
-      directionSelect.addEventListener('change', function (e) {
-        comp.$app.objectUtils(comp.getData('radioObj'), 'add', 'direction', e.target.value);
-        comp.constructCodeSnippet();
-      });
-    }
-  }
-
   constructCodeSnippet() {
     let radioObj = this.getData('radioObj') || {};
     let defaults = { variant: 'primary', size: 'default', direction: 'vertical', name: 'demo-radio' };
@@ -290,6 +258,18 @@ class RadioComp extends Component {
 
   static actions() {
     return {
+      changeRadioVariant(e) {
+        this.$app.objectUtils(this.getData('radioObj'), 'add', 'variant', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeRadioSize(e) {
+        this.$app.objectUtils(this.getData('radioObj'), 'add', 'size', e.target.value);
+        this.constructCodeSnippet();
+      },
+      changeRadioDirection(e) {
+        this.$app.objectUtils(this.getData('radioObj'), 'add', 'direction', e.target.value);
+        this.constructCodeSnippet();
+      },
       showSlyteTab() { this.setData('activeTab', 'slyte'); },
       showJsTab() { this.setData('activeTab', 'js'); },
       showNewSlyteTab() { this.setData('activeTab', 'newslyte'); },

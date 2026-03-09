@@ -51,94 +51,197 @@
           <zcat-button self="{{self}}" zcat-prop="{{resetButtonObj}}"></zcat-button>
         </div>
         <div class="zcat-custom-body">
-          <!-- Type -->
+
+          <!-- Variant (type) -->
           <div class="zcat-custom-row">
-            <span class="zcat-custom-label">Type</span>
-            <select data-action="changeInputType" class="zcat-custom-select">
+            <span class="zcat-custom-label">Variant</span>
+            <select onchange="{{action('changeInputVariant', event)}}" class="zcat-custom-select">
               <option value="text">Text</option>
               <option value="textarea">Textarea</option>
+              <option value="password">Password</option>
             </select>
           </div>
+
           <!-- Size -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Size</span>
-            <select data-action="changeInputSize" class="zcat-custom-select">
+            <select onchange="{{action('changeInputSize', event)}}" class="zcat-custom-select">
               <option value="default">Default</option>
               <option value="small">Small</option>
               <option value="extra-small">Extra-small</option>
             </select>
           </div>
-          <!-- Label toggle -->
+
+          <!-- Label -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Label</span>
             <zcat-toggle self="{{self}}" zcat-prop="{{toggleLabelObj}}"></zcat-toggle>
           </div>
-          <!-- Disabled toggle -->
+
+          <!-- Label with Info Icon -->
           <div class="zcat-custom-row">
-            <span class="zcat-custom-label">Disabled</span>
-            <zcat-toggle self="{{self}}" zcat-prop="{{toggleDisabledObj}}"></zcat-toggle>
+            <span class="zcat-custom-label">Label with Info Icon</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleInfoIconObj}}"></zcat-toggle>
           </div>
-          <!-- Error toggle -->
+
+          <!-- Tooltip Placement — shown only when Info Icon is ON -->
+          <div class="zcat-custom-row" lyte-if="{{showInfoIconRow}}">
+            <span class="zcat-custom-label">Tooltip Placement</span>
+            <select onchange="{{action('changeTooltipPlacement', event)}}" class="zcat-custom-select">
+              <option value="auto">Auto</option>
+              <option value="top">Top</option>
+              <option value="bottom">Bottom</option>
+              <option value="left">Left</option>
+              <option value="right">Right</option>
+            </select>
+          </div>
+
+          <!-- Icon Left -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Icon Left</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleIconLeftObj}}"></zcat-toggle>
+          </div>
+
+          <!-- Change Icon Left — shown only when Icon Left is ON -->
+          <div class="zcat-custom-row" lyte-if="{{showIconLeftRow}}">
+            <span class="zcat-custom-label">Change Icon</span>
+            <select onchange="{{action('changeIconLeft', event)}}" class="zcat-custom-select">
+              <option lyte-for="{{iconOptions}} as icon" value="{{icon}}">{{icon}}</option>
+            </select>
+          </div>
+
+          <!-- Icon Right -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Icon Right</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleIconRightObj}}"></zcat-toggle>
+          </div>
+
+          <!-- Change Icon Right — shown only when Icon Right is ON -->
+          <div class="zcat-custom-row" lyte-if="{{showIconRightRow}}">
+            <span class="zcat-custom-label">Change Icon</span>
+            <select onchange="{{action('changeIconRight', event)}}" class="zcat-custom-select">
+              <option lyte-for="{{iconOptions}} as icon" value="{{icon}}">{{icon}}</option>
+            </select>
+          </div>
+
+          <!-- Optional -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Optional</span>
+            <zcat-toggle self="{{self}}" zcat-prop="{{toggleOptionalObj}}"></zcat-toggle>
+          </div>
+
+          <!-- Input State -->
+          <div class="zcat-custom-row">
+            <span class="zcat-custom-label">Input State</span>
+            <select onchange="{{action('changeInputState', event)}}" class="zcat-custom-select">
+              <option value="default">Default</option>
+              <option value="disabled">Disabled</option>
+              <option value="readonly">Read-only</option>
+            </select>
+          </div>
+
+          <!-- Show Error -->
           <div class="zcat-custom-row">
             <span class="zcat-custom-label">Show Error</span>
             <zcat-toggle self="{{self}}" zcat-prop="{{toggleErrorObj}}"></zcat-toggle>
           </div>
+
         </div>
       </div>
     </div>
 
     <!-- Body: All Variants Tab -->
     <div class="zcat-page-left" lyte-if="{{pageTab === 'variants'}}" style="flex:1">
-      <h3 class="zcat-section-label" style="margin-top:4px">Text Input Sizes</h3>
+      <h3 class="zcat-section-label" style="margin-top:4px">Sizes</h3>
       <div class="zcat-variants-grid">
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Default</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-input-wrapper"><input type="text" class="zcat-input-el" placeholder="Default size" style="width:220px" /></div>
+            <zcat-input self="{{self}}" zcat-prop="{{varDefaultObj}}"></zcat-input>
           </div>
         </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Small</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-input-wrapper"><input type="text" class="zcat-input-el zcat-input-sm" placeholder="Small size" style="width:220px" /></div>
+            <zcat-input self="{{self}}" zcat-prop="{{varSmallObj}}"></zcat-input>
           </div>
         </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Extra Small</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-input-wrapper"><input type="text" class="zcat-input-el zcat-input-exsm" placeholder="Extra small" style="width:220px" /></div>
+            <zcat-input self="{{self}}" zcat-prop="{{varExsmObj}}"></zcat-input>
           </div>
         </div>
       </div>
 
-      <h3 class="zcat-section-label" style="margin-top:24px">With Label</h3>
+      <h3 class="zcat-section-label" style="margin-top:24px">Types</h3>
       <div class="zcat-variants-grid">
         <div class="zcat-variant-card">
-          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Labeled Input</span></div>
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">With Label</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-input-wrapper"><label class="zcat-input-label">Label</label><input type="text" class="zcat-input-el" placeholder="With label" style="width:220px" /></div>
+            <zcat-input self="{{self}}" zcat-prop="{{varLabelledObj}}"></zcat-input>
           </div>
         </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Textarea</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-input-wrapper"><label class="zcat-input-label">Description</label><textarea class="zcat-input-el" placeholder="Enter description" style="width:220px"></textarea></div>
+            <zcat-input self="{{self}}" zcat-prop="{{varTextareaObj}}"></zcat-input>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Password</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-input self="{{self}}" zcat-prop="{{varPasswordObj}}"></zcat-input>
           </div>
         </div>
       </div>
 
       <h3 class="zcat-section-label" style="margin-top:24px">States</h3>
+      <style>
+        .zcat-input-hover-demo .lyteInputBox .lyteField { border-color: var(--zcat-inputField-border-hover) !important; }
+        .zcat-input-active-demo .lyteInputBox .lyteField { border-color: var(--zcat-inputField-border-active) !important; }
+      </style>
       <div class="zcat-variants-grid">
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Default</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-input self="{{self}}" zcat-prop="{{varDefaultObj}}"></zcat-input>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Hover</span></div>
+          <div class="zcat-variant-card-preview zcat-input-hover-demo">
+            <zcat-input self="{{self}}" zcat-prop="{{varDefaultObj}}"></zcat-input>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Active / Focus</span></div>
+          <div class="zcat-variant-card-preview zcat-input-active-demo">
+            <zcat-input self="{{self}}" zcat-prop="{{varDefaultObj}}"></zcat-input>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Completed (With Value)</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-input self="{{self}}" zcat-prop="{{varCompletedObj}}"></zcat-input>
+          </div>
+        </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Disabled</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-input-wrapper"><input type="text" class="zcat-input-el" placeholder="Disabled" style="width:220px" disabled /></div>
+            <zcat-input self="{{self}}" zcat-prop="{{varDisabledObj}}"></zcat-input>
           </div>
         </div>
         <div class="zcat-variant-card">
           <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Error</span></div>
           <div class="zcat-variant-card-preview">
-            <div class="zcat-input-wrapper"><input type="text" class="zcat-input-el zcat-input-error" placeholder="Error state" style="width:220px" /><span class="zcat-input-error-msg">This field is required</span></div>
+            <zcat-input self="{{self}}" zcat-prop="{{varErrorObj}}"></zcat-input>
+          </div>
+        </div>
+        <div class="zcat-variant-card">
+          <div class="zcat-variant-card-head"><span class="zcat-variant-card-title">Read-only</span></div>
+          <div class="zcat-variant-card-preview">
+            <zcat-input self="{{self}}" zcat-prop="{{varReadonlyObj}}"></zcat-input>
           </div>
         </div>
       </div>
